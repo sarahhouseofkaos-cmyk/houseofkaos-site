@@ -373,6 +373,25 @@ h2{
 }
 .socials a:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
 
+/* ---------- faq ---------- */
+.faq-list{max-width:820px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--line-soft);padding:1.5rem 0}
+.faq-item summary{
+  cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+  color:var(--cream);
+  font-family:var(--serif-display);font-weight:500;
+  font-size:1.15rem;letter-spacing:.02em;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:"+";color:var(--gold);font-size:1.5rem;line-height:1;
+  flex-shrink:0;transition:transform .3s;
+}
+.faq-item[open] summary::after{content:"–"}
+.faq-item summary:hover{color:var(--gold-bright)}
+.faq-item .faq-answer{color:var(--cream-dim);margin-top:1rem;max-width:70ch}
+
 /* ---------- footer ---------- */
 footer{
   border-top:1px solid var(--line-soft);
@@ -546,6 +565,78 @@ footer p{color:var(--cream-dim);font-size:.95rem}
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is there an age restriction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — House of Kaos events are strictly 21+. We may ask you to show valid photo ID on arrival, so please bring it with you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to wear a costume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Costume is required at themed events, as stated on the event listing. Each event has its own theme, so check the details on the event you're booking for what to wear."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I book tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most tickets are sold through Eventbrite. Some bookings are also made directly with House of Kaos, in which case the booking is covered by House of Kaos's own terms rather than Eventbrite's."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get a refund or transfer my ticket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tickets bought through Eventbrite are covered by Eventbrite's own refund and transfer process. Tickets booked directly with House of Kaos are non-refundable but can be transferred to someone else with advance notice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are events held?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Events are staged at The County Hotel, Newcastle upon Tyne, unless stated otherwise on the event listing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I come on my own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — many guests come solo, and House of Kaos has grown a welcoming community around its events."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if an event is sold out?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once a listing sells out, extra tickets can't be added. Follow House of Kaos on social media to hear about new dates and future events as soon as they're announced."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I have a dietary requirement — what should I do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Let House of Kaos know in advance by email with your booking details, and the team will do what it can to accommodate you."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -560,6 +651,7 @@ footer p{color:var(--cream-dim);font-size:.95rem}
       <li><a href="#events">Events</a></li>
       <li><a href="#legacy">Past Evenings</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -682,6 +774,49 @@ footer p{color:var(--cream-dim);font-size:.95rem}
         <h4>Alex</h4>
         <span>Co-Director</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section id="faq" class="ambient">
+  <div class="container">
+    <div class="kicker">Before You Arrive</div>
+    <h2>Frequently Asked Questions</h2>
+    <p class="section-lede">Everything you need to know before stepping into the House.</p>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Is there an age restriction?</summary>
+        <p class="faq-answer">Yes — House of Kaos events are strictly 21+. We may ask you to show valid photo ID on arrival, so please bring it with you.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to wear a costume?</summary>
+        <p class="faq-answer">Costume is required at themed events, as stated on the event listing. Each event has its own theme, so check the details on the Events section above for what to wear.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I book tickets?</summary>
+        <p class="faq-answer">Most tickets are sold through Eventbrite — just follow the "Tickets on Eventbrite" link on the event you're interested in. Some bookings are also made directly with House of Kaos; if you book directly, your booking is covered by our own terms rather than Eventbrite's.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I get a refund or transfer my ticket?</summary>
+        <p class="faq-answer">This depends on how you booked. Tickets bought through Eventbrite are covered by Eventbrite's own refund and transfer process. Tickets booked directly with House of Kaos are non-refundable but can be transferred to someone else — just email us in advance with the new attendee's details. Full details are in our <a href="terms.html">Terms &amp; Conditions</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where are events held?</summary>
+        <p class="faq-answer">Our events are staged at The County Hotel, Newcastle upon Tyne, unless stated otherwise on the event listing.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I come on my own?</summary>
+        <p class="faq-answer">Absolutely — many guests come solo. House of Kaos has grown a community of like-minded people, and you'll find a welcoming room whether you arrive with friends or by yourself.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if an event is sold out?</summary>
+        <p class="faq-answer">Once a listing sells out, we're unable to add extra tickets. Follow us on social media (links below) to hear about new dates and future events as soon as they're announced.</p>
+      </details>
+      <details class="faq-item">
+        <summary>I have a dietary requirement — what should I do?</summary>
+        <p class="faq-answer">Let us know in advance at <a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a> with your booking details and we'll do what we can to accommodate you.</p>
+      </details>
     </div>
   </div>
 </section>
