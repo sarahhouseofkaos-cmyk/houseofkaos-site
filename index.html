@@ -217,7 +217,6 @@ h2{
   font-style:italic;font-size:1.25rem;
   max-width:640px;margin:0 auto 4rem;
 }
-
 /* ---------- events ---------- */
 .event{
   display:grid;grid-template-columns:minmax(180px,240px) 1fr;
@@ -325,7 +324,6 @@ h2{
   display:block;margin-top:.4rem;
   font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
 }
-
 /* ---------- contact ---------- */
 .contact-wrap{
   border:1px solid var(--line);
@@ -362,6 +360,63 @@ footer{
 }
 .foot-sub{font-size:.7rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem;text-indent:.5em}
 footer p{color:var(--cream-dim);font-size:.95rem}
+
+/* ---------- enquiry form ---------- */
+.enquiry-form{
+  margin-top:3.5rem;padding-top:3rem;
+  border-top:1px solid var(--line-soft);
+  text-align:left;max-width:640px;margin-left:auto;margin-right:auto;
+}
+.enquiry-form .form-intro{
+  text-align:center;color:var(--cream-dim);font-style:italic;
+  font-size:1.1rem;margin-bottom:2.2rem;
+}
+.form-row{margin-bottom:1.6rem}
+.form-row label{
+  display:block;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.7rem;
+}
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;padding:.85rem 1rem;
+  background:rgba(10,8,7,.6);
+  border:1px solid var(--line);
+  color:var(--cream);
+  font-family:var(--serif-body);font-size:1.05rem;
+  transition:border-color .3s,box-shadow .3s;
+}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);
+}
+.form-row textarea{min-height:140px;resize:vertical}
+.form-row select{cursor:pointer}
+.form-row select option{background:var(--coal);color:var(--cream)}
+.form-two{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+.enquiry-submit{
+  display:block;width:100%;
+  font-family:var(--serif-body);
+  font-size:.85rem;letter-spacing:.35em;text-transform:uppercase;text-indent:.35em;
+  padding:1rem 2.6rem;
+  border:1px solid var(--gold);
+  background:var(--gold);color:var(--black);
+  cursor:pointer;
+  transition:background .4s,color .4s,box-shadow .4s;
+}
+.enquiry-submit:hover{
+  background:transparent;color:var(--gold-bright);
+  box-shadow:0 0 40px rgba(201,169,106,.35);
+}
+.form-thanks{
+  display:none;text-align:center;padding:2rem 0;
+}
+.form-thanks h3{
+  font-family:var(--serif-display);font-weight:500;
+  color:var(--gold-bright);font-size:1.6rem;letter-spacing:.08em;
+  margin-bottom:1rem;text-transform:uppercase;
+}
+.form-thanks p{color:var(--cream-dim);font-style:italic}
+@media (max-width:640px){
+  .form-two{grid-template-columns:1fr}
+}
 
 /* ---------- responsive ---------- */
 @media (max-width:860px){
@@ -477,7 +532,6 @@ footer p{color:var(--cream-dim);font-size:.95rem}
 
   </div>
 </section>
-
 <!-- ======================= LEGACY ======================= -->
 <section id="legacy">
   <div class="container">
@@ -510,7 +564,7 @@ footer p{color:var(--cream-dim);font-size:.95rem}
     <div class="kicker">The House</div>
     <h2>About House of Kaos</h2>
     <p class="section-lede">Architects of atmosphere. Curators of the dark and the beautiful.</p>
-    <p class="about-quote"><span class="q-mark">"</span>Every event is a world built from scratch — atmosphere, narrative and company conspiring toward one unforgettable night.<span class="q-mark">"</span></p>
+    <p class="about-quote"><span class="q-mark">“</span>Every event is a world built from scratch — atmosphere, narrative and company conspiring toward one unforgettable night.<span class="q-mark">”</span></p>
     <div class="about-text">
       <p>House of Kaos creates immersive gothic events in Newcastle upon Tyne — themed dinners and grand balls where costume is required, theatre is everywhere, and every detail has been placed with intent.</p>
       <p>Around the events has grown a community of the like-minded: gothic souls, performers, artists and anyone drawn to an evening less ordinary. Whether you come masked or simply curious, there is a seat at the table for you.</p>
@@ -527,7 +581,6 @@ footer p{color:var(--cream-dim);font-size:.95rem}
     </div>
   </div>
 </section>
-
 <!-- ======================= CONTACT ======================= -->
 <section id="contact">
   <div class="container">
@@ -558,9 +611,65 @@ footer p{color:var(--cream-dim);font-size:.95rem}
           <a href="https://www.linkedin.com" target="_blank" rel="noopener" title="LinkedIn">IN</a>
         </div>
       </div>
+
+      <form class="enquiry-form" id="enquiry-form" action="https://formsubmit.co/hello@houseofkaos.co.uk" method="POST">
+        <p class="form-intro">Artist, performer or venue? Tell us a little about your enquiry and we'll be in touch.</p>
+
+        <input type="hidden" name="_subject" value="New enquiry — House of Kaos website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://houseofkaos.co.uk/?sent=true#contact">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form-row">
+          <label for="enquiry-type">Enquiry Type</label>
+          <select id="enquiry-type" name="Enquiry Type" required>
+            <option value="">Please select...</option>
+            <option value="General Enquiry">General Enquiry</option>
+            <option value="Artist / Performer">Artist / Performer</option>
+            <option value="Venue / Partnership">Venue / Partnership</option>
+            <option value="Booking / Private Dinner">Booking / Private Dinner</option>
+            <option value="Press / Media">Press / Media</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-two">
+          <div class="form-row">
+            <label for="enquiry-name">Name</label>
+            <input type="text" id="enquiry-name" name="Name" required>
+          </div>
+          <div class="form-row">
+            <label for="enquiry-email">Email</label>
+            <input type="email" id="enquiry-email" name="Email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="enquiry-message">Message</label>
+          <textarea id="enquiry-message" name="Message" required placeholder="Tell us about yourself, your act, your venue, or what you'd like to know..."></textarea>
+        </div>
+
+        <button type="submit" class="enquiry-submit">Send Enquiry</button>
+      </form>
+
+      <div class="form-thanks" id="form-thanks">
+        <h3>Message Received</h3>
+        <p>Thank you for reaching out to House of Kaos. We'll be in touch soon.</p>
+      </div>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('sent') === 'true'){
+    var form = document.getElementById('enquiry-form');
+    var thanks = document.getElementById('form-thanks');
+    if(form){ form.style.display = 'none'; }
+    if(thanks){ thanks.style.display = 'block'; }
+  }
+})();
+</script>
 
 <footer>
   <div class="foot-mark">House of Kaos</div>
@@ -570,4 +679,3 @@ footer p{color:var(--cream-dim);font-size:.95rem}
 
 </body>
 </html>
-
