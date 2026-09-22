@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | House of Kaos</title>
+<meta name="robots" content="noindex">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0a0807;
+  --coal:#12100e;
+  --panel:#171412;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.15rem;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+}
+::selection{background:rgba(201,169,106,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+
+.ambient{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:6rem 1.5rem;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(201,169,106,.05), transparent 34%),
+    radial-gradient(circle at 85% 70%, rgba(201,169,106,.04), transparent 30%),
+    var(--black);
+}
+.kicker{
+  display:flex;align-items:center;justify-content:center;gap:1.25rem;
+  color:var(--gold);
+  font-size:.85rem;letter-spacing:.45em;text-transform:uppercase;
+  margin-bottom:1.6rem;text-indent:.45em;
+}
+.kicker::before,.kicker::after{
+  content:"";height:1px;width:56px;background:var(--line);
+}
+.code{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--gold-bright);
+  font-size:clamp(3.6rem,12vw,6.5rem);
+  letter-spacing:.08em;
+  line-height:1;
+  text-shadow:0 0 60px rgba(201,169,106,.25);
+  margin-bottom:1rem;
+}
+h1{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--cream);
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:1.4rem;
+}
+p.tag{
+  font-style:italic;
+  color:var(--cream-dim);
+  font-size:1.25rem;
+  max-width:520px;margin:0 auto 2.8rem;
+}
+.btn{
+  display:inline-block;
+  font-family:var(--serif-body);
+  font-size:.85rem;letter-spacing:.35em;text-transform:uppercase;text-indent:.35em;
+  padding:1rem 2.6rem;
+  border:1px solid var(--gold);
+  color:var(--gold-bright);
+  background:rgba(10,8,7,.55);
+  transition:background .4s,color .4s,box-shadow .4s;
+}
+.btn:hover{
+  background:var(--gold);color:var(--black);
+  box-shadow:0 0 40px rgba(201,169,106,.35);
+}
+
+footer{
+  border-top:1px solid var(--line-soft);
+  padding:2.4rem 1.5rem;text-align:center;
+}
+footer p{color:var(--cream-dim);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="kicker">The House</div>
+  <div class="code">404</div>
+  <h1>This Room Is Not in the House</h1>
+  <p class="tag">The page you're looking for has slipped into the shadows, or perhaps it never existed at all. Let us guide you back to the light.</p>
+  <a class="btn" href="/">Return to House of Kaos</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 House of Kaos Ltd &middot; Newcastle upon Tyne &middot; houseofkaos.co.uk</p>
+</footer>
+
+</body>
+</html>
