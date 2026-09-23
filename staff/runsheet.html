@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff — Event Run Sheet | House of Kaos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0807;
+  --panel:#171412;
+  --panel-raised:#1d1814;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --ok:#8fae7a;
+  --ok-bg:rgba(143,174,122,.15);
+  --conflict:#d3796f;
+  --conflict-bg:rgba(211,121,111,.14);
+  --tentative:#b98f4a;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--cream);font-family:var(--serif-body);font-size:1.08rem;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+[hidden]{display:none!important}
+
+header.top{border-bottom:1px solid var(--line-soft);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
+.brand span{color:var(--gold)}
+.brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim);flex-wrap:wrap}
+.nav-link{font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);padding:.35rem .8rem;border-radius:2px;color:var(--cream)}
+.nav-link:hover{border-color:var(--gold);color:var(--gold-bright)}
+.signout-btn{background:none;border:1px solid var(--line);color:var(--cream);font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer}
+.signout-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+#loginScreen{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem;background:radial-gradient(circle at 20% 20%, rgba(201,169,106,.05), transparent 34%),radial-gradient(circle at 85% 75%, rgba(201,169,106,.04), transparent 30%),var(--black)}
+.login-box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:2.2rem 2rem}
+.login-box h1{font-family:var(--serif-display);font-weight:600;font-size:1.5rem;color:var(--cream);margin-bottom:.3rem;letter-spacing:.02em}
+.login-box .sub{color:var(--cream-dim);font-style:italic;font-size:.95rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem}
+input[type=email],input[type=password],input[type=text],input[type=time],select,textarea{
+  width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+}
+textarea{resize:vertical;min-height:2.4rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.btn{font-family:var(--serif-body);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;padding:.7rem 1.3rem;border:1px solid var(--gold);color:var(--black);background:var(--gold);border-radius:2px;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--gold-bright)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:none;color:var(--cream);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+.btn.small{padding:.35rem .8rem;font-size:.78rem}
+.login-error{color:var(--conflict);font-size:.85rem;margin-top:.9rem;min-height:1.2em}
+
+.wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:1.4rem}
+.panel + .panel{margin-top:1.6rem}
+h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem;margin:0 0 1rem;color:var(--gold-bright);letter-spacing:.02em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+@media (max-width:640px){.row3{grid-template-columns:1fr}}
+.btn-row{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap}
+.hint{font-size:.78rem;color:var(--cream-dim);margin-top:.4rem}
+.empty-note{color:var(--cream-dim);font-style:italic;font-size:.95rem;padding:1rem 0}
+.status-line{font-size:.85rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
+.saved-flash{color:var(--ok)}
+.error-flash{color:var(--conflict)}
+
+/* progress */
+.progress-summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+.progress-summary .count{font-family:var(--serif-display);font-size:1.3rem;color:var(--gold-bright)}
+.progress-track{flex:1;min-width:140px;height:8px;background:var(--panel-raised);border-radius:4px;overflow:hidden}
+.progress-track-fill{height:100%;background:var(--ok);width:0%;transition:width .2s}
+
+/* checklist */
+.category-block{margin-bottom:1.6rem}
+.category-block:last-child{margin-bottom:0}
+.category-title{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line-soft);padding-bottom:.4rem;margin-bottom:.6rem}
+.task-row{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--line-soft)}
+.task-row:last-child{border-bottom:none}
+.task-row.done .task-title{color:var(--cream-dim);text-decoration:line-through;text-decoration-color:var(--line)}
+.task-check{margin-top:.25rem;width:1.15rem;height:1.15rem;flex-shrink:0;accent-color:var(--ok);cursor:pointer}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:1.02rem;color:var(--cream)}
+.task-meta{font-size:.78rem;color:var(--cream-dim);margin-top:.15rem;display:flex;gap:.8rem;flex-wrap:wrap}
+.task-meta .time-tag{font-family:var(--mono);color:var(--gold)}
+.task-notes{font-size:.85rem;color:var(--cream-dim);font-style:italic;margin-top:.25rem}
+.task-actions{display:flex;gap:.4rem;flex-shrink:0}
+.icon-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.68rem;padding:.3rem .6rem;border-radius:2px;cursor:pointer;letter-spacing:.05em;text-transform:uppercase}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.icon-btn.danger:hover{border-color:var(--conflict);color:var(--conflict)}
+
+.edit-row{background:var(--panel-raised);border:1px solid var(--line);border-radius:2px;padding:.9rem;margin-top:.6rem}
+.side-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cancel-edit-btn{background:none;border:none;color:var(--cream-dim);font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.cancel-edit-btn:hover{color:var(--gold-bright)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Event Run Sheet</span></div>
+  <div class="who" id="whoBar" hidden>
+    <a href="index.html" class="nav-link">Prop Bookings</a>
+    <a href="guests.html" class="nav-link">Guest Tickets</a>
+    <a href="scan.html" class="nav-link">Check Guests In</a>
+    <a href="tickets.html" class="nav-link">Generate Tickets</a>
+    <span id="whoEmail"></span>
+    <button class="signout-btn" id="signOutBtn">Sign Out</button>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Staff Sign In</h1>
+    <div class="sub">Enter the details Sarah set up for you.</div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="loginBtn" style="width:100%">Sign In</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
+  <div class="panel">
+    <h2 class="side-title">Event</h2>
+    <div class="field" style="margin-bottom:0">
+      <label for="rsEvent">Choose an event</label>
+      <select id="rsEvent"><option value="">Select an event…</option></select>
+    </div>
+    <div class="hint" id="eventInfoHint"></div>
+  </div>
+
+  <div class="panel" id="checklistPanel" hidden>
+    <div class="progress-summary">
+      <h2 class="side-title" style="margin:0">Run Sheet</h2>
+      <div style="display:flex;align-items:center;gap:.8rem;flex:1;justify-content:flex-end">
+        <div class="progress-track"><div class="progress-track-fill" id="progressFill"></div></div>
+        <span class="count" id="progressCount">0 / 0</span>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn ghost small" id="loadTemplateBtn">Add Starter Checklist</button>
+      <button type="button" class="btn ghost small" id="showAddFormBtn">+ Add Task</button>
+      <button type="button" class="btn ghost small" id="hideDoneBtn">Hide Completed</button>
+    </div>
+
+    <div class="edit-row" id="taskFormRow" hidden>
+      <div class="side-title-row">
+        <span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="taskFormTitle">Add Task</span>
+        <button type="button" class="cancel-edit-btn" id="cancelTaskEditBtn">Cancel</button>
+      </div>
+      <form id="taskForm">
+        <input type="hidden" id="taskId">
+        <div class="field">
+          <label for="taskTitle">Task</label>
+          <input type="text" id="taskTitle" required placeholder="e.g. Bar stocked &amp; set up">
+        </div>
+        <div class="row3">
+          <div class="field">
+            <label for="taskCategory">Category</label>
+            <select id="taskCategory">
+              <option>Load-in &amp; Setup</option>
+              <option>Décor &amp; Props</option>
+              <option>Bar &amp; Catering</option>
+              <option>Staff &amp; Briefing</option>
+              <option>Performers</option>
+              <option>Front of House</option>
+              <option>Close-down</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="taskTime">Target time</label>
+            <input type="text" id="taskTime" placeholder="e.g. 5:00pm or Doors -30min">
+          </div>
+          <div class="field">
+            <label for="taskAssigned">Assigned to</label>
+            <input type="text" id="taskAssigned" placeholder="Staff name">
+          </div>
+        </div>
+        <div class="field">
+          <label for="taskNotes">Notes</label>
+          <textarea id="taskNotes" placeholder="Anything staff need to know"></textarea>
+        </div>
+        <button type="submit" class="btn" id="taskSaveBtn">Save Task</button>
+      </form>
+    </div>
+
+    <div id="checklistBody" style="margin-top:1.2rem"></div>
+    <div class="empty-note" id="emptyNote" hidden>No tasks yet for this event — add one above or load the starter checklist.</div>
+  </div>
+</div>
+
+<!-- Firebase (compat SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+    authDomain: "house-of-kaos-bookings.firebaseapp.com",
+    projectId: "house-of-kaos-bookings",
+    storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+    messagingSenderId: "967474223133",
+    appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var events=[];
+  var tasks=[];
+  var editingTaskId=null;
+  var hideDone=false;
+  var CATEGORY_ORDER=['Load-in & Setup','Décor & Props','Bar & Catering','Staff & Briefing','Performers','Front of House','Close-down','Other'];
+
+  var STARTER_TEMPLATE=[
+    ['Load-in & Setup','Venue access confirmed with venue contact'],
+    ['Load-in & Setup','Load-in van access & parking arranged'],
+    ['Load-in & Setup','Tables & seating plan laid out, matching table numbers to guest records'],
+    ['Load-in & Setup','Guest check-in station set up (phone/tablet + charger for QR scanning)'],
+    ['Load-in & Setup','Signage placed (entrance, cloakroom, toilets)'],
+    ['Décor & Props','Décor & props loaded in from House of Kaos Props'],
+    ['Décor & Props','Décor set dressed on tables & venue'],
+    ['Bar & Catering','Bar stocked & set up'],
+    ['Bar & Catering','Catering/kitchen team arrival confirmed'],
+    ['Bar & Catering','Menu choices given to catering team'],
+    ['Bar & Catering','Allergy list given to catering team'],
+    ['Staff & Briefing','Staff rota confirmed & shared'],
+    ['Staff & Briefing','Staff briefing held (roles, timings, emergency procedures)'],
+    ['Staff & Briefing','First aid kit on site & first-aider identified'],
+    ['Staff & Briefing','All staff arrived & signed in'],
+    ['Performers','Performer(s) arrival & load-in confirmed'],
+    ['Performers','Performer set time & tech/sound check done'],
+    ['Front of House','Doors open on time'],
+    ['Front of House','Guest check-in / QR scanning station ready'],
+    ['Front of House','Cloakroom open'],
+    ['Close-down','Last orders called'],
+    ['Close-down','Guests out & venue cleared'],
+    ['Close-down','Décor & props packed down'],
+    ['Close-down','Venue handed back / walkthrough with venue contact'],
+    ['Close-down','Lost property collected']
+  ];
+
+  function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function setStatus(msg,kind){
+    // reuse a lightweight status via title attribute fallback; simplest: console + transient element
+    var el=document.getElementById('statusLine');
+    if(!el){
+      el=document.createElement('div');
+      el.className='status-line';
+      el.id='statusLine';
+      document.getElementById('checklistPanel').appendChild(el);
+    }
+    el.textContent=msg;
+    el.className='status-line'+(kind==='ok'?' saved-flash':kind==='err'?' error-flash':'');
+  }
+
+  function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+
+  function loadEvents(){
+    return db.collection('events').orderBy('date','asc').limit(300).get().then(function(snap){
+      events=snap.docs.map(function(doc){ var d=doc.data(); return Object.assign({id:doc.id},d); });
+      var sel=document.getElementById('rsEvent');
+      sel.innerHTML='<option value="">Select an event…</option>'+events.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+    });
+  }
+
+  document.getElementById('rsEvent').addEventListener('change',function(){
+    var e=eventById(this.value);
+    var hint=document.getElementById('eventInfoHint');
+    var panel=document.getElementById('checklistPanel');
+    if(!e){ hint.textContent=''; panel.hidden=true; return; }
+    hint.textContent=(e.date?e.date+' — ':'')+(e.venue||'');
+    panel.hidden=false;
+    loadTasksForEvent(e.id);
+  });
+
+  function loadTasksForEvent(eventId){
+    setStatus('Loading run sheet…');
+    return db.collection('runsheet').where('eventId','==',eventId).get().then(function(snap){
+      tasks=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
+      tasks.sort(function(a,b){
+        var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+        var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+        return ta-tb;
+      });
+      renderChecklist();
+      setStatus('');
+    }).catch(function(err){
+      setStatus('Could not load run sheet — '+(err&&err.message?err.message:'try again')+'.','err');
+    });
+  }
+
+  function renderChecklist(){
+    var body=document.getElementById('checklistBody');
+    var emptyNote=document.getElementById('emptyNote');
+    var visible=hideDone?tasks.filter(function(t){return !t.done;}):tasks;
+
+    var doneCount=tasks.filter(function(t){return t.done;}).length;
+    document.getElementById('progressCount').textContent=doneCount+' / '+tasks.length;
+    document.getElementById('progressFill').style.width=tasks.length?Math.round((doneCount/tasks.length)*100)+'%':'0%';
+
+    if(!tasks.length){
+      body.innerHTML='';
+      emptyNote.hidden=false;
+      return;
+    }
+    emptyNote.hidden=true;
+
+    var byCat={};
+    visible.forEach(function(t){
+      var cat=t.category||'Other';
+      if(!byCat[cat]) byCat[cat]=[];
+      byCat[cat].push(t);
+    });
+
+    var cats=Object.keys(byCat).sort(function(a,b){
+      var ia=CATEGORY_ORDER.indexOf(a); if(ia===-1) ia=999;
+      var ib=CATEGORY_ORDER.indexOf(b); if(ib===-1) ib=999;
+      return ia-ib;
+    });
+
+    body.innerHTML=cats.map(function(cat){
+      var rows=byCat[cat].map(function(t){
+        var meta=[];
+        if(t.time) meta.push('<span class="time-tag">'+escapeHtml(t.time)+'</span>');
+        if(t.assignedTo) meta.push(escapeHtml(t.assignedTo));
+        if(t.done && t.doneBy) meta.push('done by '+escapeHtml(t.doneBy));
+        return '<div class="task-row'+(t.done?' done':'')+'" data-id="'+t.id+'">'
+          + '<input type="checkbox" class="task-check" '+(t.done?'checked':'')+' data-id="'+t.id+'">'
+          + '<div class="task-body">'
+          +   '<div class="task-title">'+escapeHtml(t.title)+'</div>'
+          +   (meta.length?'<div class="task-meta">'+meta.join(' &middot; ')+'</div>':'')
+          +   (t.notes?'<div class="task-notes">'+escapeHtml(t.notes)+'</div>':'')
+          + '</div>'
+          + '<div class="task-actions">'
+          +   '<button type="button" class="icon-btn edit-task-btn" data-id="'+t.id+'">Edit</button>'
+          +   '<button type="button" class="icon-btn danger remove-task-btn" data-id="'+t.id+'">Remove</button>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+      return '<div class="category-block"><div class="category-title">'+escapeHtml(cat)+'</div>'+rows+'</div>';
+    }).join('');
+
+    body.querySelectorAll('.task-check').forEach(function(cb){
+      cb.addEventListener('change',function(){ toggleDone(this.getAttribute('data-id'), this.checked); });
+    });
+    body.querySelectorAll('.edit-task-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){ startEditTask(this.getAttribute('data-id')); });
+    });
+    body.querySelectorAll('.remove-task-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){ removeTask(this.getAttribute('data-id')); });
+    });
+  }
+
+  function toggleDone(taskId, val){
+    var user=auth.currentUser;
+    db.collection('runsheet').doc(taskId).update({
+      done: val,
+      doneAt: val ? firebase.firestore.FieldValue.serverTimestamp() : null,
+      doneBy: val ? (user?user.email:'') : ''
+    }).then(function(){
+      var t=tasks.filter(function(x){return x.id===taskId;})[0];
+      if(t){ t.done=val; t.doneBy=val?(user?user.email:''):''; }
+      renderChecklist();
+    }).catch(function(err){
+      setStatus('Could not update task — '+(err&&err.message?err.message:'try again')+'.','err');
+      renderChecklist();
+    });
+  }
+
+  function removeTask(taskId){
+    if(!window.confirm('Remove this task from the run sheet?')) return;
+    db.collection('runsheet').doc(taskId).delete().then(function(){
+      tasks=tasks.filter(function(t){return t.id!==taskId;});
+      renderChecklist();
+    }).catch(function(err){
+      setStatus('Could not remove task — '+(err&&err.message?err.message:'try again')+'.','err');
+    });
+  }
+
+  function startEditTask(taskId){
+    var t=tasks.filter(function(x){return x.id===taskId;})[0];
+    if(!t) return;
+    editingTaskId=taskId;
+    document.getElementById('taskFormTitle').textContent='Edit Task';
+    document.getElementById('taskId').value=taskId;
+    document.getElementById('taskTitle').value=t.title||'';
+    document.getElementById('taskCategory').value=t.category||'Other';
+    document.getElementById('taskTime').value=t.time||'';
+    document.getElementById('taskAssigned').value=t.assignedTo||'';
+    document.getElementById('taskNotes').value=t.notes||'';
+    document.getElementById('taskFormRow').hidden=false;
+    document.getElementById('taskTitle').focus();
+  }
+
+  function resetTaskForm(){
+    editingTaskId=null;
+    document.getElementById('taskFormTitle').textContent='Add Task';
+    document.getElementById('taskForm').reset();
+    document.getElementById('taskId').value='';
+    document.getElementById('taskFormRow').hidden=true;
+  }
+
+  document.getElementById('showAddFormBtn').addEventListener('click',function(){
+    if(editingTaskId){ resetTaskForm(); }
+    document.getElementById('taskFormRow').hidden=false;
+    document.getElementById('taskTitle').focus();
+  });
+  document.getElementById('cancelTaskEditBtn').addEventListener('click',resetTaskForm);
+
+  document.getElementById('hideDoneBtn').addEventListener('click',function(){
+    hideDone=!hideDone;
+    this.textContent=hideDone?'Show Completed':'Hide Completed';
+    renderChecklist();
+  });
+
+  document.getElementById('taskForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var eventId=document.getElementById('rsEvent').value;
+    if(!eventId){ setStatus('Choose an event first.','err'); return; }
+    var btn=document.getElementById('taskSaveBtn');
+    btn.disabled=true;
+    var data={
+      eventId:eventId,
+      title:document.getElementById('taskTitle').value.trim(),
+      category:document.getElementById('taskCategory').value,
+      time:document.getElementById('taskTime').value.trim(),
+      assignedTo:document.getElementById('taskAssigned').value.trim(),
+      notes:document.getElementById('taskNotes').value.trim(),
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    if(!data.title){ setStatus('Task needs a title.','err'); btn.disabled=false; return; }
+
+    var promise;
+    if(editingTaskId){
+      promise=db.collection('runsheet').doc(editingTaskId).update(data);
+    }else{
+      data.done=false;
+      data.doneAt=null;
+      data.doneBy='';
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      promise=db.collection('runsheet').add(data);
+    }
+    promise.then(function(){
+      resetTaskForm();
+      return loadTasksForEvent(eventId);
+    }).then(function(){
+      setStatus('Saved.','ok');
+    }).catch(function(err){
+      setStatus('Could not save task — '+(err&&err.message?err.message:'try again')+'.','err');
+    }).finally(function(){
+      btn.disabled=false;
+    });
+  });
+
+  document.getElementById('loadTemplateBtn').addEventListener('click',function(){
+    var eventId=document.getElementById('rsEvent').value;
+    if(!eventId){ setStatus('Choose an event first.','err'); return; }
+    var existingTitles=tasks.map(function(t){return (t.title||'').trim().toLowerCase();});
+    var toAdd=STARTER_TEMPLATE.filter(function(pair){
+      return existingTitles.indexOf(pair[1].trim().toLowerCase())===-1;
+    });
+    if(!toAdd.length){ setStatus('Starter checklist is already on this run sheet.','ok'); return; }
+    var btn=this;
+    btn.disabled=true;
+    setStatus('Adding starter checklist…');
+    var batch=db.batch();
+    toAdd.forEach(function(pair){
+      var ref=db.collection('runsheet').doc();
+      batch.set(ref,{
+        eventId:eventId,
+        category:pair[0],
+        title:pair[1],
+        time:'',
+        assignedTo:'',
+        notes:'',
+        done:false,
+        doneAt:null,
+        doneBy:'',
+        createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+    batch.commit().then(function(){
+      return loadTasksForEvent(eventId);
+    }).then(function(){
+      setStatus(toAdd.length+' task'+(toAdd.length===1?'':'s')+' added.','ok');
+    }).catch(function(err){
+      setStatus('Could not add starter checklist — '+(err&&err.message?err.message:'try again')+'.','err');
+    }).finally(function(){
+      btn.disabled=false;
+    });
+  });
+
+  // ---------- auth ----------
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('loginEmail').value.trim();
+    var pw=document.getElementById('loginPassword').value;
+    var btn=document.getElementById('loginBtn');
+    var err=document.getElementById('loginError');
+    err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+    auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+      err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+        ? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+        : 'Sign-in failed: '+e2.message;
+    }).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+  });
+  document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+
+  auth.onAuthStateChanged(function(user){
+    var loginScreen=document.getElementById('loginScreen');
+    var appWrap=document.getElementById('appWrap');
+    var whoBar=document.getElementById('whoBar');
+    if(user){
+      loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+      document.getElementById('whoEmail').textContent=user.email;
+      document.getElementById('loginForm').reset();
+      loadEvents();
+    }else{
+      loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+    }
+  });
+})();
+</script>
+</body>
+</html>
