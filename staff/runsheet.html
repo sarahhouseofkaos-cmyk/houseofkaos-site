@@ -106,6 +106,16 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
 .icon-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
 .icon-btn.danger:hover{border-color:var(--conflict);color:var(--conflict)}
 
+.contact-row{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--line-soft)}
+.contact-row:last-child{border-bottom:none}
+.contact-body{flex:1;min-width:0}
+.contact-role{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.contact-name{font-size:1.02rem;color:var(--cream);margin-top:.1rem}
+.contact-meta{font-size:.85rem;color:var(--cream-dim);margin-top:.1rem}
+.contact-meta a{color:var(--gold-bright)}
+.contact-actions{display:flex;gap:.4rem;flex-shrink:0}
+.chrono-tag{font-family:var(--mono);font-size:.68rem;color:var(--cream-dim);letter-spacing:.05em;text-transform:uppercase}
+
 .edit-row{background:var(--panel-raised);border:1px solid var(--line);border-radius:2px;padding:.9rem;margin-top:.6rem}
 .side-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .cancel-edit-btn{background:none;border:none;color:var(--cream-dim);font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
@@ -155,6 +165,47 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
     <div class="hint" id="eventInfoHint"></div>
   </div>
 
+  <div class="panel" id="contactsPanel" hidden>
+    <div class="side-title-row">
+      <h2 class="side-title" style="margin:0">Key Contacts</h2>
+      <button type="button" class="icon-btn" id="showAddContactBtn">+ Add Contact</button>
+    </div>
+
+    <div class="edit-row" id="contactFormRow" hidden>
+      <div class="side-title-row">
+        <span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="contactFormTitle">Add Contact</span>
+        <button type="button" class="cancel-edit-btn" id="cancelContactEditBtn">Cancel</button>
+      </div>
+      <form id="contactForm">
+        <input type="hidden" id="contactId">
+        <div class="row2">
+          <div class="field">
+            <label for="contactRole">Who</label>
+            <input type="text" id="contactRole" required placeholder="e.g. Venue Manager, Volcarna (performer)">
+          </div>
+          <div class="field">
+            <label for="contactName">Name</label>
+            <input type="text" id="contactName" placeholder="Contact's name">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="contactPhone">Phone</label>
+            <input type="text" id="contactPhone" placeholder="e.g. 07123 456789">
+          </div>
+          <div class="field">
+            <label for="contactNotes">Notes</label>
+            <input type="text" id="contactNotes" placeholder="e.g. arrives 4pm, side entrance">
+          </div>
+        </div>
+        <button type="submit" class="btn small" id="contactSaveBtn">Save Contact</button>
+      </form>
+    </div>
+
+    <div id="contactsBody" style="margin-top:.6rem"></div>
+    <div class="empty-note" id="contactsEmptyNote" hidden>No contacts added for this event yet.</div>
+  </div>
+
   <div class="panel" id="checklistPanel" hidden>
     <div class="progress-summary">
       <h2 class="side-title" style="margin:0">Run Sheet</h2>
@@ -167,6 +218,7 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
       <button type="button" class="btn ghost small" id="loadTemplateBtn">Add Starter Checklist</button>
       <button type="button" class="btn ghost small" id="showAddFormBtn">+ Add Task</button>
       <button type="button" class="btn ghost small" id="hideDoneBtn">Hide Completed</button>
+      <button type="button" class="btn ghost small" id="chronoToggleBtn">Sort by Time</button>
     </div>
 
     <div class="edit-row" id="taskFormRow" hidden>
@@ -239,9 +291,32 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
 
   var events=[];
   var tasks=[];
+  var contacts=[];
   var editingTaskId=null;
+  var editingContactId=null;
   var hideDone=false;
+  var chronoView=false;
   var CATEGORY_ORDER=['Load-in & Setup','Décor & Props','Bar & Catering','Staff & Briefing','Performers','Front of House','Close-down','Other'];
+
+  // Parses common time formats ("5:00pm", "5pm", "17:00", "5:30 PM") into minutes
+  // since midnight for sorting. Anything else (e.g. "Doors -30min") returns null
+  // and is treated as having no set time.
+  function parseTimeToMinutes(str){
+    if(!str) return null;
+    var s=String(str).trim().toLowerCase();
+    var m=s.match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/);
+    if(!m) return null;
+    var hour=parseInt(m[1],10);
+    var minute=m[2]?parseInt(m[2],10):0;
+    var ampm=m[3];
+    if(isNaN(hour)||hour>23||minute>59) return null;
+    if(ampm){
+      if(hour<1||hour>12) return null;
+      if(ampm==='pm' && hour!==12) hour+=12;
+      if(ampm==='am' && hour===12) hour=0;
+    }
+    return hour*60+minute;
+  }
 
   var STARTER_TEMPLATE=[
     ['Load-in & Setup','Venue access confirmed with venue contact'],
@@ -299,10 +374,13 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
     var e=eventById(this.value);
     var hint=document.getElementById('eventInfoHint');
     var panel=document.getElementById('checklistPanel');
-    if(!e){ hint.textContent=''; panel.hidden=true; return; }
+    var contactsPanel=document.getElementById('contactsPanel');
+    if(!e){ hint.textContent=''; panel.hidden=true; contactsPanel.hidden=true; return; }
     hint.textContent=(e.date?e.date+' — ':'')+(e.venue||'');
     panel.hidden=false;
+    contactsPanel.hidden=false;
     loadTasksForEvent(e.id);
+    loadContactsForEvent(e.id);
   });
 
   function loadTasksForEvent(eventId){
@@ -337,40 +415,39 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
     }
     emptyNote.hidden=true;
 
-    var byCat={};
-    visible.forEach(function(t){
-      var cat=t.category||'Other';
-      if(!byCat[cat]) byCat[cat]=[];
-      byCat[cat].push(t);
-    });
+    if(chronoView){
+      var withTime=[];
+      var withoutTime=[];
+      visible.forEach(function(t){
+        var mins=parseTimeToMinutes(t.time);
+        if(mins===null){ withoutTime.push(t); }
+        else{ withTime.push({t:t,mins:mins}); }
+      });
+      withTime.sort(function(a,b){ return a.mins-b.mins; });
+      var orderedRows=withTime.map(function(x){ return taskRowHtml(x.t,true); }).join('');
+      var noTimeRows=withoutTime.map(function(t){ return taskRowHtml(t,true); }).join('');
+      body.innerHTML=
+        (orderedRows?'<div class="category-block"><div class="category-title">In Order</div>'+orderedRows+'</div>':'')
+        + (noTimeRows?'<div class="category-block"><div class="category-title">No Time Set</div>'+noTimeRows+'</div>':'');
+    }else{
+      var byCat={};
+      visible.forEach(function(t){
+        var cat=t.category||'Other';
+        if(!byCat[cat]) byCat[cat]=[];
+        byCat[cat].push(t);
+      });
 
-    var cats=Object.keys(byCat).sort(function(a,b){
-      var ia=CATEGORY_ORDER.indexOf(a); if(ia===-1) ia=999;
-      var ib=CATEGORY_ORDER.indexOf(b); if(ib===-1) ib=999;
-      return ia-ib;
-    });
+      var cats=Object.keys(byCat).sort(function(a,b){
+        var ia=CATEGORY_ORDER.indexOf(a); if(ia===-1) ia=999;
+        var ib=CATEGORY_ORDER.indexOf(b); if(ib===-1) ib=999;
+        return ia-ib;
+      });
 
-    body.innerHTML=cats.map(function(cat){
-      var rows=byCat[cat].map(function(t){
-        var meta=[];
-        if(t.time) meta.push('<span class="time-tag">'+escapeHtml(t.time)+'</span>');
-        if(t.assignedTo) meta.push(escapeHtml(t.assignedTo));
-        if(t.done && t.doneBy) meta.push('done by '+escapeHtml(t.doneBy));
-        return '<div class="task-row'+(t.done?' done':'')+'" data-id="'+t.id+'">'
-          + '<input type="checkbox" class="task-check" '+(t.done?'checked':'')+' data-id="'+t.id+'">'
-          + '<div class="task-body">'
-          +   '<div class="task-title">'+escapeHtml(t.title)+'</div>'
-          +   (meta.length?'<div class="task-meta">'+meta.join(' &middot; ')+'</div>':'')
-          +   (t.notes?'<div class="task-notes">'+escapeHtml(t.notes)+'</div>':'')
-          + '</div>'
-          + '<div class="task-actions">'
-          +   '<button type="button" class="icon-btn edit-task-btn" data-id="'+t.id+'">Edit</button>'
-          +   '<button type="button" class="icon-btn danger remove-task-btn" data-id="'+t.id+'">Remove</button>'
-          + '</div>'
-          + '</div>';
+      body.innerHTML=cats.map(function(cat){
+        var rows=byCat[cat].map(function(t){ return taskRowHtml(t,false); }).join('');
+        return '<div class="category-block"><div class="category-title">'+escapeHtml(cat)+'</div>'+rows+'</div>';
       }).join('');
-      return '<div class="category-block"><div class="category-title">'+escapeHtml(cat)+'</div>'+rows+'</div>';
-    }).join('');
+    }
 
     body.querySelectorAll('.task-check').forEach(function(cb){
       cb.addEventListener('change',function(){ toggleDone(this.getAttribute('data-id'), this.checked); });
@@ -381,6 +458,26 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
     body.querySelectorAll('.remove-task-btn').forEach(function(btn){
       btn.addEventListener('click',function(){ removeTask(this.getAttribute('data-id')); });
     });
+  }
+
+  function taskRowHtml(t, showCatTag){
+    var meta=[];
+    if(t.time) meta.push('<span class="time-tag">'+escapeHtml(t.time)+'</span>');
+    if(showCatTag) meta.push('<span class="chrono-tag">'+escapeHtml(t.category||'Other')+'</span>');
+    if(t.assignedTo) meta.push(escapeHtml(t.assignedTo));
+    if(t.done && t.doneBy) meta.push('done by '+escapeHtml(t.doneBy));
+    return '<div class="task-row'+(t.done?' done':'')+'" data-id="'+t.id+'">'
+      + '<input type="checkbox" class="task-check" '+(t.done?'checked':'')+' data-id="'+t.id+'">'
+      + '<div class="task-body">'
+      +   '<div class="task-title">'+escapeHtml(t.title)+'</div>'
+      +   (meta.length?'<div class="task-meta">'+meta.join(' &middot; ')+'</div>':'')
+      +   (t.notes?'<div class="task-notes">'+escapeHtml(t.notes)+'</div>':'')
+      + '</div>'
+      + '<div class="task-actions">'
+      +   '<button type="button" class="icon-btn edit-task-btn" data-id="'+t.id+'">Edit</button>'
+      +   '<button type="button" class="icon-btn danger remove-task-btn" data-id="'+t.id+'">Remove</button>'
+      + '</div>'
+      + '</div>';
   }
 
   function toggleDone(taskId, val){
@@ -442,6 +539,12 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
   document.getElementById('hideDoneBtn').addEventListener('click',function(){
     hideDone=!hideDone;
     this.textContent=hideDone?'Show Completed':'Hide Completed';
+    renderChecklist();
+  });
+
+  document.getElementById('chronoToggleBtn').addEventListener('click',function(){
+    chronoView=!chronoView;
+    this.textContent=chronoView?'Group by Category':'Sort by Time';
     renderChecklist();
   });
 
@@ -518,6 +621,129 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
       setStatus(toAdd.length+' task'+(toAdd.length===1?'':'s')+' added.','ok');
     }).catch(function(err){
       setStatus('Could not add starter checklist — '+(err&&err.message?err.message:'try again')+'.','err');
+    }).finally(function(){
+      btn.disabled=false;
+    });
+  });
+
+  // ---------- key contacts ----------
+  function loadContactsForEvent(eventId){
+    return db.collection('contacts').where('eventId','==',eventId).get().then(function(snap){
+      contacts=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
+      contacts.sort(function(a,b){
+        var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+        var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+        return ta-tb;
+      });
+      renderContacts();
+    }).catch(function(err){
+      setStatus('Could not load contacts — '+(err&&err.message?err.message:'try again')+'.','err');
+    });
+  }
+
+  function renderContacts(){
+    var body=document.getElementById('contactsBody');
+    var emptyNote=document.getElementById('contactsEmptyNote');
+    if(!contacts.length){
+      body.innerHTML='';
+      emptyNote.hidden=false;
+      return;
+    }
+    emptyNote.hidden=true;
+    body.innerHTML=contacts.map(function(c){
+      var metaParts=[];
+      if(c.phone) metaParts.push('<a href="tel:'+escapeHtml(c.phone.replace(/\s+/g,''))+'">'+escapeHtml(c.phone)+'</a>');
+      if(c.notes) metaParts.push(escapeHtml(c.notes));
+      return '<div class="contact-row" data-id="'+c.id+'">'
+        + '<div class="contact-body">'
+        +   '<div class="contact-role">'+escapeHtml(c.role)+'</div>'
+        +   (c.name?'<div class="contact-name">'+escapeHtml(c.name)+'</div>':'')
+        +   (metaParts.length?'<div class="contact-meta">'+metaParts.join(' &middot; ')+'</div>':'')
+        + '</div>'
+        + '<div class="contact-actions">'
+        +   '<button type="button" class="icon-btn edit-contact-btn" data-id="'+c.id+'">Edit</button>'
+        +   '<button type="button" class="icon-btn danger remove-contact-btn" data-id="'+c.id+'">Remove</button>'
+        + '</div>'
+        + '</div>';
+    }).join('');
+
+    body.querySelectorAll('.edit-contact-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){ startEditContact(this.getAttribute('data-id')); });
+    });
+    body.querySelectorAll('.remove-contact-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){ removeContact(this.getAttribute('data-id')); });
+    });
+  }
+
+  function startEditContact(contactId){
+    var c=contacts.filter(function(x){return x.id===contactId;})[0];
+    if(!c) return;
+    editingContactId=contactId;
+    document.getElementById('contactFormTitle').textContent='Edit Contact';
+    document.getElementById('contactId').value=contactId;
+    document.getElementById('contactRole').value=c.role||'';
+    document.getElementById('contactName').value=c.name||'';
+    document.getElementById('contactPhone').value=c.phone||'';
+    document.getElementById('contactNotes').value=c.notes||'';
+    document.getElementById('contactFormRow').hidden=false;
+    document.getElementById('contactRole').focus();
+  }
+
+  function resetContactForm(){
+    editingContactId=null;
+    document.getElementById('contactFormTitle').textContent='Add Contact';
+    document.getElementById('contactForm').reset();
+    document.getElementById('contactId').value='';
+    document.getElementById('contactFormRow').hidden=true;
+  }
+
+  function removeContact(contactId){
+    if(!window.confirm('Remove this contact?')) return;
+    db.collection('contacts').doc(contactId).delete().then(function(){
+      contacts=contacts.filter(function(c){return c.id!==contactId;});
+      renderContacts();
+    }).catch(function(err){
+      setStatus('Could not remove contact — '+(err&&err.message?err.message:'try again')+'.','err');
+    });
+  }
+
+  document.getElementById('showAddContactBtn').addEventListener('click',function(){
+    if(editingContactId){ resetContactForm(); }
+    document.getElementById('contactFormRow').hidden=false;
+    document.getElementById('contactRole').focus();
+  });
+  document.getElementById('cancelContactEditBtn').addEventListener('click',resetContactForm);
+
+  document.getElementById('contactForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var eventId=document.getElementById('rsEvent').value;
+    if(!eventId){ setStatus('Choose an event first.','err'); return; }
+    var btn=document.getElementById('contactSaveBtn');
+    btn.disabled=true;
+    var data={
+      eventId:eventId,
+      role:document.getElementById('contactRole').value.trim(),
+      name:document.getElementById('contactName').value.trim(),
+      phone:document.getElementById('contactPhone').value.trim(),
+      notes:document.getElementById('contactNotes').value.trim(),
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    if(!data.role){ setStatus('Contact needs a "who" — a role or name.','err'); btn.disabled=false; return; }
+
+    var promise;
+    if(editingContactId){
+      promise=db.collection('contacts').doc(editingContactId).update(data);
+    }else{
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      promise=db.collection('contacts').add(data);
+    }
+    promise.then(function(){
+      resetContactForm();
+      return loadContactsForEvent(eventId);
+    }).then(function(){
+      setStatus('Saved.','ok');
+    }).catch(function(err){
+      setStatus('Could not save contact — '+(err&&err.message?err.message:'try again')+'.','err');
     }).finally(function(){
       btn.disabled=false;
     });
