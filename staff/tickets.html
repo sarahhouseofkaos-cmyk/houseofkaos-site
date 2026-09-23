@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff — Generate Tickets | House of Kaos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0807;
+  --panel:#171412;
+  --panel-raised:#1d1814;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --ok:#8fae7a;
+  --ok-bg:rgba(143,174,122,.15);
+  --conflict:#d3796f;
+  --conflict-bg:rgba(211,121,111,.14);
+  --tentative:#b98f4a;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--cream);font-family:var(--serif-body);font-size:1.08rem;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+[hidden]{display:none!important}
+
+header.top{border-bottom:1px solid var(--line-soft);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
+.brand span{color:var(--gold)}
+.brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim);flex-wrap:wrap}
+.nav-link{font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);padding:.35rem .8rem;border-radius:2px;color:var(--cream)}
+.nav-link:hover{border-color:var(--gold);color:var(--gold-bright)}
+.signout-btn{background:none;border:1px solid var(--line);color:var(--cream);font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer}
+.signout-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+#loginScreen{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem;background:radial-gradient(circle at 20% 20%, rgba(201,169,106,.05), transparent 34%),radial-gradient(circle at 85% 75%, rgba(201,169,106,.04), transparent 30%),var(--black)}
+.login-box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:2.2rem 2rem}
+.login-box h1{font-family:var(--serif-display);font-weight:600;font-size:1.5rem;color:var(--cream);margin-bottom:.3rem;letter-spacing:.02em}
+.login-box .sub{color:var(--cream-dim);font-style:italic;font-size:.95rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem}
+input[type=email],input[type=password],input[type=text],input[type=number],input[type=color],input[type=file],select{
+  width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+}
+input[type=color]{padding:.2rem;height:2.5rem}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+.btn{font-family:var(--serif-body);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;padding:.7rem 1.3rem;border:1px solid var(--gold);color:var(--black);background:var(--gold);border-radius:2px;cursor:pointer;transition:background .2s,color .2s;width:100%}
+.btn:hover{background:var(--gold-bright)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:none;color:var(--cream);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+.login-error{color:var(--conflict);font-size:.85rem;margin-top:.9rem;min-height:1.2em}
+
+.wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:1.4rem}
+.panel + .panel{margin-top:1.6rem}
+h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem;margin:0 0 1rem;color:var(--gold-bright);letter-spacing:.02em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+.btn-row{display:flex;gap:.6rem;margin-top:.4rem}
+.hint{font-size:.78rem;color:var(--cream-dim);margin-top:.4rem}
+.empty-note{color:var(--cream-dim);font-style:italic;font-size:.95rem}
+.status-line{font-size:.85rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
+.saved-flash{color:var(--ok)}
+.error-flash{color:var(--conflict)}
+
+#previewWrap{position:relative;width:100%;background:var(--panel-raised);border:1px solid var(--line-soft);border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:200px}
+#previewCanvas{max-width:100%;display:block}
+.progress-bar{height:6px;background:var(--panel-raised);border-radius:3px;overflow:hidden;margin-top:.8rem}
+.progress-fill{height:100%;background:var(--gold);width:0%;transition:width .2s}
+fieldset{border:1px solid var(--line-soft);border-radius:2px;padding:.8rem;margin-top:1rem}
+legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:0 .4rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Generate Tickets</span></div>
+  <div class="who" id="whoBar" hidden>
+    <a href="index.html" class="nav-link">Prop Bookings</a>
+    <a href="guests.html" class="nav-link">Guest Tickets</a>
+    <a href="scan.html" class="nav-link">Check Guests In</a>
+    <span id="whoEmail"></span>
+    <button class="signout-btn" id="signOutBtn">Sign Out</button>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Staff Sign In</h1>
+    <div class="sub">Enter the details Sarah set up for you.</div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="loginBtn">Sign In</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
+  <div class="panel">
+    <h2 class="side-title">1. Choose Event &amp; Artwork</h2>
+    <div class="row2">
+      <div class="field">
+        <label for="ticEvent">Event</label>
+        <select id="ticEvent"><option value="">Select an event…</option></select>
+      </div>
+      <div class="field">
+        <label for="ticArtwork">Ticket Artwork (image)</label>
+        <input type="file" id="ticArtwork" accept="image/*">
+      </div>
+    </div>
+    <div class="hint" id="guestCountHint"></div>
+  </div>
+
+  <div class="grid" style="margin-top:1.6rem">
+    <div class="panel">
+      <h2 class="side-title">2. Position the QR Code &amp; Number</h2>
+      <div id="previewWrap"><p class="empty-note">Upload artwork above to preview here.</p></div>
+
+      <fieldset>
+        <legend>QR Code</legend>
+        <div class="row3">
+          <div class="field"><label for="qrX">Left %</label><input type="number" id="qrX" min="0" max="100" step="0.5" value="42"></div>
+          <div class="field"><label for="qrY">Top %</label><input type="number" id="qrY" min="0" max="100" step="0.5" value="66"></div>
+          <div class="field"><label for="qrSize">Size %</label><input type="number" id="qrSize" min="1" max="100" step="0.5" value="17"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Ticket Number</legend>
+        <div class="row3">
+          <div class="field"><label for="numX">Centre X %</label><input type="number" id="numX" min="0" max="100" step="0.5" value="50"></div>
+          <div class="field"><label for="numY">Centre Y %</label><input type="number" id="numY" min="0" max="100" step="0.5" value="44.3"></div>
+          <div class="field"><label for="numSize">Font %</label><input type="number" id="numSize" min="0.5" max="20" step="0.1" value="2.2"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="numColor">Colour</label><input type="color" id="numColor" value="#c9a96a"></div>
+          <div class="field"><label for="numFont">Font</label>
+            <select id="numFont">
+              <option value="'Playfair Display',Georgia,serif">Playfair Display</option>
+              <option value="Georgia,serif">Georgia</option>
+              <option value="'IBM Plex Mono',monospace">Mono</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <div class="hint">Adjust the numbers until the QR box and ticket number line up with your artwork in the preview. Positions are saved automatically for next time.</div>
+    </div>
+
+    <div class="panel">
+      <h2 class="side-title">3. Generate</h2>
+      <div class="field">
+        <label for="ticFilter">Which guests?</label>
+        <select id="ticFilter">
+          <option value="all">All guests for this event</option>
+          <option value="Paid in Full">Paid in Full only</option>
+          <option value="Deposit Paid">Deposit Paid or more</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn ghost" id="previewOneBtn">Preview One Ticket</button>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn" id="generateAllBtn" disabled>Generate All Tickets (.zip)</button>
+      </div>
+      <div class="progress-bar" id="progressBar" hidden><div class="progress-fill" id="progressFill"></div></div>
+      <div class="status-line" id="statusLine">Choose an event and upload artwork to begin.</div>
+      <div class="hint">Downloads one .zip with every guest's ticket as a PNG, named with their ticket number and name — ready to attach individually when you email each guest, or drag into a mail-merge tool.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase (compat SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+    authDomain: "house-of-kaos-bookings.firebaseapp.com",
+    projectId: "house-of-kaos-bookings",
+    storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+    messagingSenderId: "967474223133",
+    appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var events=[];
+  var artworkImg=null;
+  var SETTINGS_KEY='hok_ticket_layout_v1';
+
+  function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function setStatus(msg,kind){
+    var el=document.getElementById('statusLine');
+    el.textContent=msg;
+    el.className='status-line'+(kind==='ok'?' saved-flash':kind==='err'?' error-flash':'');
+  }
+
+  function loadLayout(){
+    try{
+      var raw=localStorage.getItem(SETTINGS_KEY);
+      if(!raw) return;
+      var s=JSON.parse(raw);
+      document.getElementById('qrX').value=s.qrX;
+      document.getElementById('qrY').value=s.qrY;
+      document.getElementById('qrSize').value=s.qrSize;
+      document.getElementById('numX').value=s.numX;
+      document.getElementById('numY').value=s.numY;
+      document.getElementById('numSize').value=s.numSize;
+      document.getElementById('numColor').value=s.numColor;
+      document.getElementById('numFont').value=s.numFont;
+    }catch(e){}
+  }
+  function saveLayout(){
+    var s={
+      qrX:document.getElementById('qrX').value, qrY:document.getElementById('qrY').value, qrSize:document.getElementById('qrSize').value,
+      numX:document.getElementById('numX').value, numY:document.getElementById('numY').value, numSize:document.getElementById('numSize').value,
+      numColor:document.getElementById('numColor').value, numFont:document.getElementById('numFont').value
+    };
+    try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }catch(e){}
+  }
+
+  function getLayout(){
+    return {
+      qrX:parseFloat(document.getElementById('qrX').value)/100,
+      qrY:parseFloat(document.getElementById('qrY').value)/100,
+      qrSize:parseFloat(document.getElementById('qrSize').value)/100,
+      numX:parseFloat(document.getElementById('numX').value)/100,
+      numY:parseFloat(document.getElementById('numY').value)/100,
+      numSize:parseFloat(document.getElementById('numSize').value)/100,
+      numColor:document.getElementById('numColor').value,
+      numFont:document.getElementById('numFont').value
+    };
+  }
+
+  function makeQrDataUrl(url, sizePx){
+    var holder=document.createElement('div');
+    new QRCode(holder,{text:url,width:sizePx,height:sizePx,colorDark:'#0a0807',colorLight:'#ffffff'});
+    return new Promise(function(resolve){
+      setTimeout(function(){
+        var img=holder.querySelector('img');
+        var canvas=holder.querySelector('canvas');
+        if(img && img.src && img.src.indexOf('data:')===0){ resolve(img.src); }
+        else if(canvas){ resolve(canvas.toDataURL('image/png')); }
+        else{ resolve(null); }
+      },60);
+    });
+  }
+
+  function ticketNumberText(index,total){
+    var num=String(index).padStart(3,'0');
+    return total ? (num+' / '+String(total).padStart(3,'0')) : num;
+  }
+
+  function drawTicket(ctx, w, h, layout, qrDataUrl, numberText){
+    return new Promise(function(resolve){
+      ctx.drawImage(artworkImg,0,0,w,h);
+      ctx.font = (layout.numSize*h)+'px '+layout.numFont;
+      ctx.fillStyle = layout.numColor;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(numberText, layout.numX*w, layout.numY*h);
+      if(qrDataUrl){
+        var qrImg=new Image();
+        qrImg.onload=function(){
+          var sz=layout.qrSize*w;
+          ctx.drawImage(qrImg, layout.qrX*w, layout.qrY*h, sz, sz);
+          resolve();
+        };
+        qrImg.src=qrDataUrl;
+      }else{
+        resolve();
+      }
+    });
+  }
+
+  function renderPreview(){
+    if(!artworkImg) return;
+    var wrap=document.getElementById('previewWrap');
+    wrap.innerHTML='';
+    var canvas=document.createElement('canvas');
+    canvas.id='previewCanvas';
+    canvas.width=artworkImg.naturalWidth;
+    canvas.height=artworkImg.naturalHeight;
+    wrap.appendChild(canvas);
+    var ctx=canvas.getContext('2d');
+    var layout=getLayout();
+    makeQrDataUrl(window.location.origin+window.location.pathname.replace(/tickets\.html$/,'')+'scan.html?g=PREVIEW', Math.round(layout.qrSize*canvas.width))
+      .then(function(qrUrl){
+        return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, ticketNumberText(47, currentEventCapacityOrCount()));
+      });
+  }
+
+  function currentEventCapacityOrCount(){
+    var e=eventById(document.getElementById('ticEvent').value);
+    return e && e.capacity ? e.capacity : 150;
+  }
+
+  function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+
+  ['qrX','qrY','qrSize','numX','numY','numSize','numColor','numFont'].forEach(function(id){
+    document.getElementById(id).addEventListener('input',function(){ renderPreview(); saveLayout(); });
+  });
+
+  document.getElementById('ticArtwork').addEventListener('change',function(){
+    var file=this.files[0];
+    if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=new Image();
+      img.onload=function(){ artworkImg=img; renderPreview(); checkReady(); };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('ticEvent').addEventListener('change',function(){
+    renderPreview();
+    checkReady();
+    var e=eventById(this.value);
+    if(!e){ document.getElementById('guestCountHint').textContent=''; return; }
+    db.collection('guests').where('eventId','==',e.id).get().then(function(snap){
+      document.getElementById('guestCountHint').textContent = snap.size+' guest'+(snap.size===1?'':'s')+' recorded for '+e.name+(e.capacity?(' (capacity '+e.capacity+')'):'')+'.';
+    });
+  });
+
+  function checkReady(){
+    var ready = !!artworkImg && !!document.getElementById('ticEvent').value;
+    document.getElementById('generateAllBtn').disabled=!ready;
+  }
+
+  document.getElementById('previewOneBtn').addEventListener('click',function(){
+    if(!artworkImg){ setStatus('Upload the ticket artwork first.','err'); return; }
+    renderPreview();
+  });
+
+  function loadGuestsForEvent(eventId, filterVal){
+    return db.collection('guests').where('eventId','==',eventId).get().then(function(snap){
+      var list=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
+      list.sort(function(a,b){
+        var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+        var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+        return ta-tb;
+      });
+      if(filterVal==='Paid in Full'){ list=list.filter(function(g){return g.paymentStatus==='Paid in Full';}); }
+      else if(filterVal==='Deposit Paid'){ list=list.filter(function(g){return g.paymentStatus==='Paid in Full'||g.paymentStatus==='Deposit Paid';}); }
+      return list;
+    });
+  }
+
+  document.getElementById('generateAllBtn').addEventListener('click',function(){
+    var eventId=document.getElementById('ticEvent').value;
+    var e=eventById(eventId);
+    if(!artworkImg||!e) return;
+    var filterVal=document.getElementById('ticFilter').value;
+    var btn=this;
+    btn.disabled=true;
+    setStatus('Loading guest list…');
+    loadGuestsForEvent(eventId, filterVal).then(function(guestList){
+      if(!guestList.length){ setStatus('No guests match this filter for this event.','err'); btn.disabled=false; return; }
+      var total = e.capacity || guestList.length;
+      var zip=new JSZip();
+      var progressBar=document.getElementById('progressBar');
+      var progressFill=document.getElementById('progressFill');
+      progressBar.hidden=false; progressFill.style.width='0%';
+
+      var canvas=document.createElement('canvas');
+      canvas.width=artworkImg.naturalWidth; canvas.height=artworkImg.naturalHeight;
+      var ctx=canvas.getContext('2d');
+      var layout=getLayout();
+      var base=window.location.origin+window.location.pathname.replace(/tickets\.html$/,'')+'scan.html?g=';
+
+      var i=0;
+      function next(){
+        if(i>=guestList.length){
+          setStatus('Building zip file…');
+          zip.generateAsync({type:'blob'}).then(function(blob){
+            var a=document.createElement('a');
+            var url=URL.createObjectURL(blob);
+            a.href=url;
+            a.download=(e.name||'tickets').replace(/[^a-z0-9]+/gi,'-')+'-tickets.zip';
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            setTimeout(function(){URL.revokeObjectURL(url);},4000);
+            setStatus(guestList.length+' ticket'+(guestList.length===1?'':'s')+' generated and downloaded.','ok');
+            progressBar.hidden=true; btn.disabled=false;
+          });
+          return;
+        }
+        var g=guestList[i];
+        var ticketNo=ticketNumberText(i+1,total);
+        makeQrDataUrl(base+encodeURIComponent(g.id), Math.round(layout.qrSize*canvas.width)).then(function(qrUrl){
+          return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, ticketNo);
+        }).then(function(){
+          return new Promise(function(resolve){
+            canvas.toBlob(function(blob){
+              var safeName=(g.name||'guest').replace(/[^a-z0-9]+/gi,'-');
+              zip.file(ticketNo.replace(/[^0-9]/g,'')+'_'+safeName+'.png', blob);
+              resolve();
+            },'image/png');
+          });
+        }).then(function(){
+          i++;
+          progressFill.style.width=Math.round((i/guestList.length)*100)+'%';
+          setStatus('Generating ticket '+i+' of '+guestList.length+'…');
+          setTimeout(next, 10);
+        });
+      }
+      next();
+    }).catch(function(){
+      setStatus('Something went wrong loading guests — try again.','err');
+      btn.disabled=false;
+    });
+  });
+
+  // ---------- auth / events ----------
+  function loadEvents(){
+    return db.collection('events').orderBy('date','asc').limit(300).get().then(function(snap){
+      events=snap.docs.map(function(doc){ var d=doc.data(); return {id:doc.id,name:d.name||'',capacity:d.capacity||null}; });
+      var sel=document.getElementById('ticEvent');
+      sel.innerHTML='<option value="">Select an event…</option>'+events.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+    });
+  }
+
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('loginEmail').value.trim();
+    var pw=document.getElementById('loginPassword').value;
+    var btn=document.getElementById('loginBtn');
+    var err=document.getElementById('loginError');
+    err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+    auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+      err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+        ? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+        : 'Sign-in failed: '+e2.message;
+    }).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+  });
+  document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+
+  auth.onAuthStateChanged(function(user){
+    var loginScreen=document.getElementById('loginScreen');
+    var appWrap=document.getElementById('appWrap');
+    var whoBar=document.getElementById('whoBar');
+    if(user){
+      loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+      document.getElementById('whoEmail').textContent=user.email;
+      document.getElementById('loginForm').reset();
+      loadLayout();
+      loadEvents();
+    }else{
+      loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+    }
+  });
+})();
+</script>
+</body>
+</html>
