@@ -183,6 +183,15 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
           <option value="Deposit Paid">Deposit Paid or more</option>
         </select>
       </div>
+      <div class="field">
+        <label for="numberField">Number printed on ticket</label>
+        <select id="numberField">
+          <option value="ticketNo">Ticket Number (e.g. 047 / 150)</option>
+          <option value="tableNo">Table Number (needs seating done first)</option>
+          <option value="none">None — leave this field off</option>
+        </select>
+        <div class="hint">Table Number pulls whatever's currently set on each guest's record — blank if you haven't assigned tables yet.</div>
+      </div>
       <div class="btn-row">
         <button type="button" class="btn ghost" id="previewOneBtn">Preview One Ticket</button>
       </div>
@@ -286,14 +295,22 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
     return total ? (num+' / '+String(total).padStart(3,'0')) : num;
   }
 
+  function numberTextFor(mode,guest,index,total){
+    if(mode==='none') return '';
+    if(mode==='tableNo') return guest&&guest.tableNo ? ('TABLE '+guest.tableNo) : '';
+    return ticketNumberText(index,total);
+  }
+
   function drawTicket(ctx, w, h, layout, qrDataUrl, numberText){
     return new Promise(function(resolve){
       ctx.drawImage(artworkImg,0,0,w,h);
-      ctx.font = (layout.numSize*h)+'px '+layout.numFont;
-      ctx.fillStyle = layout.numColor;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(numberText, layout.numX*w, layout.numY*h);
+      if(numberText){
+        ctx.font = (layout.numSize*h)+'px '+layout.numFont;
+        ctx.fillStyle = layout.numColor;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(numberText, layout.numX*w, layout.numY*h);
+      }
       if(qrDataUrl){
         var qrImg=new Image();
         qrImg.onload=function(){
@@ -319,9 +336,11 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
     wrap.appendChild(canvas);
     var ctx=canvas.getContext('2d');
     var layout=getLayout();
+    var mode=document.getElementById('numberField').value;
+    var previewText = mode==='tableNo' ? 'TABLE 7' : numberTextFor(mode,null,47,currentEventCapacityOrCount());
     makeQrDataUrl(window.location.origin+window.location.pathname.replace(/tickets\.html$/,'')+'scan.html?g=PREVIEW', Math.round(layout.qrSize*canvas.width))
       .then(function(qrUrl){
-        return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, ticketNumberText(47, currentEventCapacityOrCount()));
+        return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, previewText);
       });
   }
 
@@ -335,6 +354,7 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
   ['qrX','qrY','qrSize','numX','numY','numSize','numColor','numFont'].forEach(function(id){
     document.getElementById(id).addEventListener('input',function(){ renderPreview(); saveLayout(); });
   });
+  document.getElementById('numberField').addEventListener('change',renderPreview);
 
   document.getElementById('ticArtwork').addEventListener('change',function(){
     var file=this.files[0];
@@ -402,6 +422,7 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
       canvas.width=artworkImg.naturalWidth; canvas.height=artworkImg.naturalHeight;
       var ctx=canvas.getContext('2d');
       var layout=getLayout();
+      var numberMode=document.getElementById('numberField').value;
       var base=window.location.origin+window.location.pathname.replace(/tickets\.html$/,'')+'scan.html?g=';
 
       var i=0;
@@ -422,8 +443,9 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
         }
         var g=guestList[i];
         var ticketNo=ticketNumberText(i+1,total);
+        var printedText=numberTextFor(numberMode,g,i+1,total);
         makeQrDataUrl(base+encodeURIComponent(g.id), Math.round(layout.qrSize*canvas.width)).then(function(qrUrl){
-          return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, ticketNo);
+          return drawTicket(ctx, canvas.width, canvas.height, layout, qrUrl, printedText);
         }).then(function(){
           return new Promise(function(resolve){
             canvas.toBlob(function(blob){
