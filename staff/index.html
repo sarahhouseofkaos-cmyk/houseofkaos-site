@@ -57,7 +57,12 @@ header.top{
 .brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
 .brand span{color:var(--gold)}
 .brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
-.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim)}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim);flex-wrap:wrap}
+.nav-link{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--line);padding:.35rem .8rem;border-radius:2px;color:var(--cream);
+}
+.nav-link:hover{border-color:var(--gold);color:var(--gold-bright)}
 .signout-btn{
   background:none;border:1px solid var(--line);color:var(--cream);
   font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer;
@@ -209,6 +214,7 @@ textarea{resize:vertical;min-height:56px}
 <header class="top">
   <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Prop Bookings</span></div>
   <div class="who" id="whoBar" hidden>
+    <a href="guests.html" class="nav-link">Guest Tickets</a>
     <span id="whoEmail"></span>
     <button class="signout-btn" id="signOutBtn">Sign Out</button>
   </div>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff — Guest Tickets | House of Kaos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0807;
+  --coal:#12100e;
+  --panel:#171412;
+  --panel-raised:#1d1814;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --ok:#8fae7a;
+  --ok-bg:rgba(143,174,122,.15);
+  --conflict:#d3796f;
+  --conflict-bg:rgba(211,121,111,.14);
+  --tentative:#b98f4a;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.08rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+::selection{background:rgba(201,169,106,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+[hidden]{display:none!important}
+
+header.top{
+  border-bottom:1px solid var(--line-soft);
+  padding:1.1rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
+.brand span{color:var(--gold)}
+.brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim);flex-wrap:wrap}
+.nav-link{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--line);padding:.35rem .8rem;border-radius:2px;color:var(--cream);
+}
+.nav-link:hover{border-color:var(--gold);color:var(--gold-bright)}
+.signout-btn{
+  background:none;border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer;
+}
+.signout-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+#loginScreen{
+  min-height:calc(100vh - 70px);
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 1.5rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(201,169,106,.05), transparent 34%),
+    radial-gradient(circle at 85% 75%, rgba(201,169,106,.04), transparent 30%),
+    var(--black);
+}
+.login-box{
+  width:100%;max-width:380px;
+  background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  padding:2.2rem 2rem;
+}
+.login-box h1{
+  font-family:var(--serif-display);font-weight:600;font-size:1.5rem;color:var(--cream);
+  margin-bottom:.3rem;letter-spacing:.02em;
+}
+.login-box .sub{color:var(--cream-dim);font-style:italic;font-size:.95rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+label{
+  display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem;
+}
+input[type=email],input[type=password],input[type=text],input[type=date],input[type=number],select,textarea{
+  width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.btn{
+  font-family:var(--serif-body);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.7rem 1.3rem;border:1px solid var(--gold);color:var(--black);background:var(--gold);
+  border-radius:2px;cursor:pointer;transition:background .2s,color .2s;width:100%;
+}
+.btn:hover{background:var(--gold-bright)}
+.btn:disabled{opacity:.5;cursor:default}
+.login-error{
+  color:var(--conflict);font-size:.85rem;margin-top:.9rem;min-height:1.2em;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:1.4rem}
+.panel + .panel{margin-top:1.6rem}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1.6rem;align-items:start;margin-top:1.6rem}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+
+h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem;margin:0 0 1rem;color:var(--gold-bright);letter-spacing:.02em}
+.side-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.side-title-row .side-title{margin:0}
+.cancel-edit-btn{background:none;border:none;color:var(--cream-dim);font-family:var(--serif-body);font-size:.85rem;cursor:pointer;text-decoration:underline}
+.cancel-edit-btn:hover{color:var(--gold-bright)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+textarea{resize:vertical;min-height:44px}
+.btn.ghost{background:none;color:var(--cream);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+.btn-row{display:flex;gap:.6rem;margin-top:.4rem}
+.readout{font-family:var(--mono);font-size:.95rem;color:var(--gold-bright);padding:.55rem 0}
+.hint{font-size:.78rem;color:var(--cream-dim);margin-top:.3rem}
+.empty-note{color:var(--cream-dim);font-style:italic;font-size:.95rem}
+
+/* events table */
+.ev-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.ev-table th{
+  text-align:left;font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--cream-dim);padding:.5rem .5rem;border-bottom:1px solid var(--line);
+}
+.ev-table td{padding:.55rem .5rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.ev-table tr:last-child td{border-bottom:none}
+.ev-name{font-weight:600;color:var(--cream)}
+.ev-btns{display:flex;gap:.4rem}
+.edit-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.edit-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.del-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.del-btn:hover{border-color:var(--conflict);color:var(--conflict)}
+.del-btn.confirming{border-color:var(--conflict);color:var(--conflict);background:var(--conflict-bg)}
+
+/* guest list */
+.list-filter{display:flex;gap:.6rem;margin-bottom:.9rem;align-items:center}
+.list-filter select{flex:1}
+.guest-row{display:flex;justify-content:space-between;gap:.7rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid var(--line-soft);border-left:3px solid transparent;padding-left:.6rem}
+.guest-row:last-child{border-bottom:none}
+.gr-main{min-width:0}
+.gr-name{font-weight:600;color:var(--cream)}
+.party-tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;padding:.1rem .4rem;border-radius:2px;margin-right:.4rem}
+.gr-meta{font-size:.85rem;color:var(--cream-dim);margin-top:.15rem}
+.gr-notes{font-size:.85rem;color:var(--cream-dim);font-style:italic;margin-top:.2rem}
+.row-btns{display:flex;gap:.4rem;flex-shrink:0}
+.badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;white-space:nowrap}
+.badge.paid{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.badge.deposit{color:var(--tentative);background:rgba(185,143,74,.15);border:1px solid var(--tentative)}
+.badge.unpaid{color:var(--conflict);background:var(--conflict-bg);border:1px solid var(--conflict)}
+.balance-flag{color:var(--tentative)}
+
+.status-line{font-size:.78rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
+.saved-flash{color:var(--ok)}
+
+@media (max-width:520px){
+  .row2,.row3{grid-template-columns:1fr}
+  .ev-table{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Guest Tickets</span></div>
+  <div class="who" id="whoBar" hidden>
+    <a href="index.html" class="nav-link">Prop Bookings</a>
+    <span id="whoEmail"></span>
+    <button class="signout-btn" id="signOutBtn">Sign Out</button>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Staff Sign In</h1>
+    <div class="sub">Enter the details Sarah set up for you.</div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="loginBtn">Sign In</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
+
+  <!-- EVENTS -->
+  <div class="panel">
+    <div class="side-title-row">
+      <h2 class="side-title" id="eventFormTitle">Events</h2>
+      <a href="#" class="cancel-edit-btn" id="cancelEventEditBtn" hidden>Cancel edit</a>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="ev-table">
+        <thead>
+          <tr>
+            <th>Event</th><th>Date</th><th>Venue</th><th>Price</th><th>Capacity</th>
+            <th>Sold</th><th>Received</th><th>Outstanding</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="eventsTbody">
+          <tr><td colspan="9" class="empty-note">No events yet — add one below.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <form id="eventForm" style="margin-top:1.2rem">
+      <div class="row3">
+        <div class="field">
+          <label for="evName">Event Name</label>
+          <input type="text" id="evName" placeholder="e.g. Midwinter Masquerade" required>
+        </div>
+        <div class="field">
+          <label for="evDate">Date</label>
+          <input type="date" id="evDate" required>
+        </div>
+        <div class="field">
+          <label for="evVenue">Venue</label>
+          <input type="text" id="evVenue" placeholder="e.g. The Vermont Hotel">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="evPrice">Ticket Price (£)</label>
+          <input type="number" id="evPrice" min="0" step="0.01" required>
+        </div>
+        <div class="field">
+          <label for="evCapacity">Capacity</label>
+          <input type="number" id="evCapacity" min="0" step="1" placeholder="Optional">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="submit" class="btn" id="saveEventBtn">Add Event</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="grid">
+    <!-- GUEST LIST -->
+    <div>
+      <div class="panel">
+        <h2 class="side-title">Guest List</h2>
+        <div class="list-filter">
+          <select id="eventFilter"><option value="">All events</option></select>
+          <select id="statusFilter">
+            <option value="">All payment statuses</option>
+            <option value="Not Paid">Not Paid</option>
+            <option value="Deposit Paid">Deposit Paid</option>
+            <option value="Paid in Full">Paid in Full</option>
+          </select>
+        </div>
+        <div id="guestList"><p class="empty-note">No guests yet — the first one saved will appear here.</p></div>
+      </div>
+      <div class="status-line" id="statusLine">Loading…</div>
+    </div>
+
+    <!-- GUEST FORM -->
+    <div class="panel">
+      <div class="side-title-row">
+        <h2 class="side-title" id="guestFormTitle">New Guest</h2>
+        <a href="#" class="cancel-edit-btn" id="cancelGuestEditBtn" hidden>Cancel edit</a>
+      </div>
+      <form id="guestForm">
+        <div class="field">
+          <label for="gEvent">Event</label>
+          <select id="gEvent" required><option value="">Select an event…</option></select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="gParty">Party / Table Group</label>
+            <input type="text" id="gParty" placeholder="e.g. Ravenswood Party">
+          </div>
+          <div class="field">
+            <label for="gName">Guest Name</label>
+            <input type="text" id="gName" required>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="gEmail">Contact Email</label>
+            <input type="text" id="gEmail" placeholder="e.g. jane@example.com">
+          </div>
+          <div class="field">
+            <label for="gPhone">Contact Mobile</label>
+            <input type="text" id="gPhone" placeholder="e.g. 07700 900222">
+          </div>
+        </div>
+        <div class="field">
+          <label>Ticket Price</label>
+          <div class="readout" id="gPriceReadout">Select an event first</div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="gStatus">Payment Status</label>
+            <select id="gStatus">
+              <option value="Not Paid">Not Paid</option>
+              <option value="Deposit Paid">Deposit Paid</option>
+              <option value="Paid in Full">Paid in Full</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gPaid">Amount Paid (£)</label>
+            <input type="number" id="gPaid" min="0" step="0.01" value="0">
+          </div>
+        </div>
+        <div class="field">
+          <label>Balance Due</label>
+          <div class="readout" id="gBalanceReadout">—</div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="gTable">Table No.</label>
+            <input type="text" id="gTable" placeholder="Assign later">
+          </div>
+          <div class="field">
+            <label for="gMenu">Menu Choice</label>
+            <input type="text" id="gMenu">
+          </div>
+        </div>
+        <div class="field">
+          <label for="gAllergies">Allergies</label>
+          <input type="text" id="gAllergies">
+        </div>
+        <div class="field">
+          <label for="gRequests">Special Requests</label>
+          <textarea id="gRequests"></textarea>
+        </div>
+        <div class="field">
+          <label for="gNotes">Notes</label>
+          <textarea id="gNotes"></textarea>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn" id="saveGuestBtn">Save Guest</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase (compat SDK — plain script tags, no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+    authDomain: "house-of-kaos-bookings.firebaseapp.com",
+    projectId: "house-of-kaos-bookings",
+    storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+    messagingSenderId: "967474223133",
+    appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var PALETTE=[
+    {bd:'#c9a96a',text:'#e0c68c',bg:'rgba(201,169,106,.16)'},
+    {bd:'#c1685f',text:'#e2938a',bg:'rgba(193,104,95,.16)'},
+    {bd:'#8fae7a',text:'#aacf95',bg:'rgba(143,174,122,.16)'},
+    {bd:'#7a94ae',text:'#9fc0e0',bg:'rgba(122,148,174,.16)'},
+    {bd:'#a37aae',text:'#cf9fe0',bg:'rgba(163,122,174,.16)'},
+    {bd:'#ae945a',text:'#e0c37a',bg:'rgba(174,148,90,.16)'}
+  ];
+
+  var events=[], guests=[];
+  var unsubEvents=null, unsubGuests=null;
+  var editingEventId=null, editingGuestId=null, deleteEventConfirmId=null, deleteGuestConfirmId=null;
+
+  function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function fmtDate(iso){if(!iso) return '';var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+  function money(n){return '£'+(Number(n)||0).toFixed(2);}
+  function colorFor(name){var h=0;var s=String(name||'');for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return PALETTE[h%PALETTE.length];}
+  function statusClass(status){return status==='Paid in Full'?'paid':status==='Deposit Paid'?'deposit':'unpaid';}
+
+  function setStatus(msg,ok){
+    var el=document.getElementById('statusLine');
+    el.textContent=msg;
+    el.className='status-line'+(ok?' saved-flash':'');
+  }
+
+  function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+
+  // ---------- events ----------
+  function renderEvents(){
+    var tbody=document.getElementById('eventsTbody');
+    if(!events.length){ tbody.innerHTML='<tr><td colspan="9" class="empty-note">No events yet — add one below.</td></tr>'; }
+    else{
+      var sorted=events.slice().sort(function(a,b){return (a.date||'')<(b.date||'')?-1:(a.date||'')>(b.date||'')?1:0;});
+      tbody.innerHTML='';
+      sorted.forEach(function(e){
+        var eventGuests=guests.filter(function(g){return g.eventId===e.id;});
+        var sold=eventGuests.length;
+        var received=eventGuests.reduce(function(s,g){return s+(Number(g.amountPaid)||0);},0);
+        var outstanding=eventGuests.reduce(function(s,g){return s+((Number(e.ticketPrice)||0)-(Number(g.amountPaid)||0));},0);
+        var tr=document.createElement('tr');
+        tr.innerHTML=
+          '<td class="ev-name">'+escapeHtml(e.name)+'</td>'+
+          '<td>'+fmtDate(e.date)+'</td>'+
+          '<td>'+escapeHtml(e.venue)+'</td>'+
+          '<td>'+money(e.ticketPrice)+'</td>'+
+          '<td>'+(e.capacity?escapeHtml(e.capacity):'—')+'</td>'+
+          '<td>'+sold+'</td>'+
+          '<td>'+money(received)+'</td>'+
+          '<td>'+money(outstanding)+'</td>';
+        var btnTd=document.createElement('td');
+        var btns=document.createElement('div'); btns.className='ev-btns';
+        var edit=document.createElement('button'); edit.type='button'; edit.className='edit-btn'; edit.textContent='Edit';
+        edit.addEventListener('click',function(){ startEventEdit(e.id); });
+        var del=document.createElement('button'); del.type='button';
+        del.className='del-btn'+(deleteEventConfirmId===e.id?' confirming':'');
+        del.textContent=deleteEventConfirmId===e.id?'Confirm?':'Remove';
+        del.addEventListener('click',function(){
+          if(deleteEventConfirmId===e.id){ deleteEvent(e.id); deleteEventConfirmId=null; }
+          else{ deleteEventConfirmId=e.id; renderEvents(); }
+        });
+        btns.appendChild(edit); btns.appendChild(del); btnTd.appendChild(btns); tr.appendChild(btnTd);
+        tbody.appendChild(tr);
+      });
+    }
+    renderEventOptions();
+  }
+
+  function renderEventOptions(){
+    var sorted=events.slice().sort(function(a,b){return (a.name||'').localeCompare(b.name||'');});
+    var filter=document.getElementById('eventFilter');
+    var curF=filter.value;
+    filter.innerHTML='<option value="">All events</option>'+sorted.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+    if(sorted.some(function(e){return e.id===curF;})) filter.value=curF;
+
+    var sel=document.getElementById('gEvent');
+    var curS=sel.value;
+    sel.innerHTML='<option value="">Select an event…</option>'+sorted.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+    if(sorted.some(function(e){return e.id===curS;})) sel.value=curS;
+    updatePriceReadout();
+  }
+
+  function startEventEdit(id){
+    var e=eventById(id); if(!e) return;
+    editingEventId=id; deleteEventConfirmId=null;
+    document.getElementById('evName').value=e.name;
+    document.getElementById('evDate').value=e.date;
+    document.getElementById('evVenue').value=e.venue;
+    document.getElementById('evPrice').value=e.ticketPrice;
+    document.getElementById('evCapacity').value=e.capacity||'';
+    document.getElementById('eventFormTitle').textContent='Edit Event';
+    document.getElementById('cancelEventEditBtn').hidden=false;
+    document.getElementById('saveEventBtn').textContent='Update Event';
+    document.getElementById('eventForm').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function cancelEventEdit(){
+    editingEventId=null;
+    document.getElementById('eventForm').reset();
+    document.getElementById('eventFormTitle').textContent='Events';
+    document.getElementById('cancelEventEditBtn').hidden=true;
+    document.getElementById('saveEventBtn').textContent='Add Event';
+  }
+  function deleteEvent(id){
+    db.collection('events').doc(id).delete().catch(function(){ setStatus('Could not remove event — try again.',false); });
+  }
+
+  document.getElementById('eventForm').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var name=document.getElementById('evName').value.trim();
+    var date=document.getElementById('evDate').value;
+    var venue=document.getElementById('evVenue').value.trim();
+    var price=parseFloat(document.getElementById('evPrice').value);
+    var capacity=document.getElementById('evCapacity').value;
+    if(!name||isNaN(price)) return;
+    var data={ name:name, date:date, venue:venue, ticketPrice:price, capacity:capacity?parseInt(capacity,10):null };
+    var btn=document.getElementById('saveEventBtn');
+    btn.disabled=true; btn.textContent=editingEventId?'Updating…':'Saving…';
+    var write = editingEventId
+      ? db.collection('events').doc(editingEventId).update(data)
+      : db.collection('events').add(Object.assign({createdAt:firebase.firestore.FieldValue.serverTimestamp()},data));
+    write.then(function(){
+      cancelEventEdit();
+      setStatus('Event saved.',true);
+    }).catch(function(){
+      setStatus('Could not save event — please try again.',false);
+    }).finally(function(){
+      btn.disabled=false; btn.textContent=editingEventId?'Update Event':'Add Event';
+    });
+  });
+  document.getElementById('cancelEventEditBtn').addEventListener('click',function(e){ e.preventDefault(); cancelEventEdit(); });
+
+  // ---------- guests ----------
+  function updatePriceReadout(){
+    var e=eventById(document.getElementById('gEvent').value);
+    document.getElementById('gPriceReadout').textContent = e ? money(e.ticketPrice) : 'Select an event first';
+    updateBalanceReadout();
+  }
+  function updateBalanceReadout(){
+    var e=eventById(document.getElementById('gEvent').value);
+    var paid=parseFloat(document.getElementById('gPaid').value)||0;
+    document.getElementById('gBalanceReadout').textContent = e ? money((Number(e.ticketPrice)||0)-paid) : '—';
+  }
+  document.getElementById('gEvent').addEventListener('change',updatePriceReadout);
+  document.getElementById('gPaid').addEventListener('input',updateBalanceReadout);
+
+  function renderGuestList(){
+    var eventVal=document.getElementById('eventFilter').value;
+    var statusVal=document.getElementById('statusFilter').value;
+    var list=document.getElementById('guestList');
+    var filtered=guests.filter(function(g){
+      if(eventVal && g.eventId!==eventVal) return false;
+      if(statusVal && g.paymentStatus!==statusVal) return false;
+      return true;
+    });
+    filtered.sort(function(a,b){
+      var ea=eventById(a.eventId), eb=eventById(b.eventId);
+      var na=ea?ea.name:'', nb=eb?eb.name:'';
+      if(na!==nb) return na.localeCompare(nb);
+      if((a.partyGroup||'')!==(b.partyGroup||'')) return (a.partyGroup||'').localeCompare(b.partyGroup||'');
+      return (a.name||'').localeCompare(b.name||'');
+    });
+    if(!filtered.length){
+      list.innerHTML='<p class="empty-note">'+(guests.length?'No guests match this filter.':'No guests yet — the first one saved will appear here.')+'</p>';
+      return;
+    }
+    list.innerHTML='';
+    filtered.forEach(function(g){
+      var e=eventById(g.eventId);
+      var ticketPrice=e?Number(e.ticketPrice)||0:0;
+      var paid=Number(g.amountPaid)||0;
+      var balance=ticketPrice-paid;
+      var partySize=g.partyGroup ? guests.filter(function(x){return x.eventId===g.eventId && x.partyGroup===g.partyGroup;}).length : 0;
+      var row=document.createElement('div'); row.className='guest-row';
+      if(g.partyGroup){ var c=colorFor(g.partyGroup); row.style.borderLeftColor=c.bd; }
+      var main=document.createElement('div'); main.className='gr-main';
+      var partyBit = g.partyGroup ? '<span class="party-tag" style="border:1px solid '+colorFor(g.partyGroup).bd+';color:'+colorFor(g.partyGroup).text+'">'+escapeHtml(g.partyGroup)+(partySize>1?' ('+partySize+')':'')+'</span>' : '';
+      var contactBits=[g.contactEmail,g.contactPhone].filter(Boolean).join(' · ');
+      var extraBits=[g.tableNo?('Table '+g.tableNo):'', g.menuChoice].filter(Boolean).join(' · ');
+      main.innerHTML=
+        '<div class="gr-name">'+partyBit+escapeHtml(g.name)+' <span class="badge '+statusClass(g.paymentStatus)+'">'+escapeHtml(g.paymentStatus||'Not Paid')+'</span></div>'+
+        '<div class="gr-meta">'+(e?escapeHtml(e.name):'<em>Event removed</em>')+' &middot; '+money(ticketPrice)+' ticket &middot; paid '+money(paid)+
+        (balance>0?' &middot; <span class="balance-flag">'+money(balance)+' owing</span>':'')+'</div>'+
+        (contactBits?'<div class="gr-meta">'+escapeHtml(contactBits)+'</div>':'')+
+        (extraBits?'<div class="gr-meta">'+escapeHtml(extraBits)+'</div>':'')+
+        (g.allergies?'<div class="gr-notes">Allergies: '+escapeHtml(g.allergies)+'</div>':'')+
+        (g.specialRequests?'<div class="gr-notes">Requests: '+escapeHtml(g.specialRequests)+'</div>':'')+
+        (g.notes?'<div class="gr-notes">'+escapeHtml(g.notes)+'</div>':'');
+      var btns=document.createElement('div'); btns.className='row-btns';
+      var edit=document.createElement('button'); edit.type='button'; edit.className='edit-btn'; edit.textContent='Edit';
+      edit.addEventListener('click',function(){ startGuestEdit(g.id); });
+      var del=document.createElement('button'); del.type='button';
+      del.className='del-btn'+(deleteGuestConfirmId===g.id?' confirming':'');
+      del.textContent=deleteGuestConfirmId===g.id?'Confirm?':'Remove';
+      del.addEventListener('click',function(){
+        if(deleteGuestConfirmId===g.id){ deleteGuest(g.id); deleteGuestConfirmId=null; }
+        else{ deleteGuestConfirmId=g.id; renderGuestList(); }
+      });
+      btns.appendChild(edit); btns.appendChild(del);
+      row.appendChild(main); row.appendChild(btns); list.appendChild(row);
+    });
+  }
+
+  function startGuestEdit(id){
+    var g=guests.filter(function(x){return x.id===id;})[0]; if(!g) return;
+    editingGuestId=id; deleteGuestConfirmId=null;
+    document.getElementById('gEvent').value=g.eventId||'';
+    document.getElementById('gParty').value=g.partyGroup||'';
+    document.getElementById('gName').value=g.name||'';
+    document.getElementById('gEmail').value=g.contactEmail||'';
+    document.getElementById('gPhone').value=g.contactPhone||'';
+    document.getElementById('gStatus').value=g.paymentStatus||'Not Paid';
+    document.getElementById('gPaid').value=g.amountPaid||0;
+    document.getElementById('gTable').value=g.tableNo||'';
+    document.getElementById('gMenu').value=g.menuChoice||'';
+    document.getElementById('gAllergies').value=g.allergies||'';
+    document.getElementById('gRequests').value=g.specialRequests||'';
+    document.getElementById('gNotes').value=g.notes||'';
+    updatePriceReadout();
+    document.getElementById('guestFormTitle').textContent='Edit Guest';
+    document.getElementById('cancelGuestEditBtn').hidden=false;
+    document.getElementById('saveGuestBtn').textContent='Update Guest';
+    document.getElementById('guestForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function cancelGuestEdit(){
+    editingGuestId=null;
+    document.getElementById('guestForm').reset();
+    document.getElementById('gPaid').value=0;
+    updatePriceReadout();
+    document.getElementById('guestFormTitle').textContent='New Guest';
+    document.getElementById('cancelGuestEditBtn').hidden=true;
+    document.getElementById('saveGuestBtn').textContent='Save Guest';
+  }
+  function deleteGuest(id){
+    db.collection('guests').doc(id).delete().catch(function(){ setStatus('Could not remove guest — try again.',false); });
+  }
+
+  document.getElementById('guestForm').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var eventId=document.getElementById('gEvent').value;
+    var name=document.getElementById('gName').value.trim();
+    if(!eventId||!name) return;
+    var user=auth.currentUser;
+    var data={
+      eventId:eventId,
+      partyGroup:document.getElementById('gParty').value.trim(),
+      name:name,
+      contactEmail:document.getElementById('gEmail').value.trim(),
+      contactPhone:document.getElementById('gPhone').value.trim(),
+      paymentStatus:document.getElementById('gStatus').value,
+      amountPaid:parseFloat(document.getElementById('gPaid').value)||0,
+      tableNo:document.getElementById('gTable').value.trim(),
+      menuChoice:document.getElementById('gMenu').value.trim(),
+      allergies:document.getElementById('gAllergies').value.trim(),
+      specialRequests:document.getElementById('gRequests').value.trim(),
+      notes:document.getElementById('gNotes').value.trim(),
+      staffEmail:user?user.email:'',
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    if(!editingGuestId){ data.createdAt=firebase.firestore.FieldValue.serverTimestamp(); }
+    var btn=document.getElementById('saveGuestBtn');
+    btn.disabled=true; btn.textContent=editingGuestId?'Updating…':'Saving…';
+    var write = editingGuestId
+      ? db.collection('guests').doc(editingGuestId).update(data)
+      : db.collection('guests').add(data);
+    write.then(function(){
+      cancelGuestEdit();
+      setStatus(editingGuestId?'Guest updated.':'Guest saved.',true);
+    }).catch(function(){
+      setStatus('Could not save guest — please try again.',false);
+    }).finally(function(){
+      btn.disabled=false; btn.textContent=editingGuestId?'Update Guest':'Save Guest';
+    });
+  });
+  document.getElementById('cancelGuestEditBtn').addEventListener('click',function(e){ e.preventDefault(); cancelGuestEdit(); });
+  document.getElementById('eventFilter').addEventListener('change',renderGuestList);
+  document.getElementById('statusFilter').addEventListener('change',renderGuestList);
+
+  function renderAll(){ renderEvents(); renderGuestList(); }
+
+  // ---------- auth / listeners ----------
+  function startListeners(){
+    if(unsubEvents) return;
+    unsubEvents=db.collection('events').orderBy('date','asc').limit(300).onSnapshot(function(snap){
+      events=snap.docs.map(function(doc){
+        var d=doc.data();
+        return {id:doc.id,name:d.name||'',date:d.date||'',venue:d.venue||'',ticketPrice:d.ticketPrice||0,capacity:d.capacity||null};
+      });
+      renderAll();
+    },function(err){ setStatus('Could not load events ('+err.code+').',false); });
+
+    unsubGuests=db.collection('guests').orderBy('createdAt','asc').limit(1000).onSnapshot(function(snap){
+      guests=snap.docs.map(function(doc){
+        var d=doc.data();
+        return {id:doc.id,eventId:d.eventId||'',partyGroup:d.partyGroup||'',name:d.name||'',contactEmail:d.contactEmail||'',
+          contactPhone:d.contactPhone||'',paymentStatus:d.paymentStatus||'Not Paid',amountPaid:d.amountPaid||0,
+          tableNo:d.tableNo||'',menuChoice:d.menuChoice||'',allergies:d.allergies||'',specialRequests:d.specialRequests||'',
+          notes:d.notes||'',staffEmail:d.staffEmail||''};
+      });
+      renderAll();
+      setStatus(guests.length+' guest'+(guests.length===1?'':'s')+' on record.');
+    },function(err){ setStatus('Could not load guests ('+err.code+').',false); });
+  }
+  function stopListeners(){
+    if(unsubEvents){unsubEvents();unsubEvents=null;}
+    if(unsubGuests){unsubGuests();unsubGuests=null;}
+    events=[]; guests=[]; editingEventId=null; editingGuestId=null; deleteEventConfirmId=null; deleteGuestConfirmId=null;
+  }
+
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('loginEmail').value.trim();
+    var pw=document.getElementById('loginPassword').value;
+    var btn=document.getElementById('loginBtn');
+    var err=document.getElementById('loginError');
+    err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+    auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+      err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+        ? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+        : 'Sign-in failed: '+e2.message;
+    }).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+  });
+
+  document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+
+  auth.onAuthStateChanged(function(user){
+    var loginScreen=document.getElementById('loginScreen');
+    var appWrap=document.getElementById('appWrap');
+    var whoBar=document.getElementById('whoBar');
+    if(user){
+      loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+      document.getElementById('whoEmail').textContent=user.email;
+      document.getElementById('loginForm').reset();
+      startListeners();
+    }else{
+      loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+      stopListeners();
+    }
+  });
+})();
+</script>
+</body>
+</html>
