@@ -146,9 +146,9 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
       <fieldset>
         <legend>QR Code</legend>
         <div class="row3">
-          <div class="field"><label for="qrX">Left %</label><input type="number" id="qrX" min="0" max="100" step="0.5" value="42"></div>
-          <div class="field"><label for="qrY">Top %</label><input type="number" id="qrY" min="0" max="100" step="0.5" value="66"></div>
-          <div class="field"><label for="qrSize">Size %</label><input type="number" id="qrSize" min="1" max="100" step="0.5" value="17"></div>
+          <div class="field"><label for="qrX">Left %</label><input type="number" id="qrX" min="0" max="100" step="0.5" value="42.3"></div>
+          <div class="field"><label for="qrY">Top %</label><input type="number" id="qrY" min="0" max="100" step="0.5" value="71.1"></div>
+          <div class="field"><label for="qrSize">Size %</label><input type="number" id="qrSize" min="1" max="100" step="0.5" value="20"></div>
         </div>
       </fieldset>
 
@@ -156,7 +156,7 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
         <legend>Ticket Number</legend>
         <div class="row3">
           <div class="field"><label for="numX">Centre X %</label><input type="number" id="numX" min="0" max="100" step="0.5" value="50"></div>
-          <div class="field"><label for="numY">Centre Y %</label><input type="number" id="numY" min="0" max="100" step="0.5" value="44.3"></div>
+          <div class="field"><label for="numY">Centre Y %</label><input type="number" id="numY" min="0" max="100" step="0.5" value="45.4"></div>
           <div class="field"><label for="numSize">Font %</label><input type="number" id="numSize" min="0.5" max="20" step="0.1" value="2.2"></div>
         </div>
         <div class="row2">
@@ -169,6 +169,12 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
             </select>
           </div>
         </div>
+        <div class="row2">
+          <div class="field"><label for="numMaskW">Erase box width %</label><input type="number" id="numMaskW" min="0" max="100" step="0.5" value="44"></div>
+          <div class="field"><label for="numMaskH">Erase box height %</label><input type="number" id="numMaskH" min="0" max="100" step="0.5" value="3.3"></div>
+        </div>
+        <div class="hint">Your artwork has a sample "TICKET NO. 000 / 150" printed on it. Before writing the real number, the generator paints over that area with the background colour below, sized by the erase box — widen it if you can still see the old text peeking out.</div>
+        <div class="field" style="margin-top:.6rem"><label for="numMaskColor">Erase colour (match artwork background)</label><input type="color" id="numMaskColor" value="#01030a"></div>
       </fieldset>
       <div class="hint">Adjust the numbers until the QR box and ticket number line up with your artwork in the preview. Positions are saved automatically for next time.</div>
     </div>
@@ -252,13 +258,18 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
       document.getElementById('numSize').value=s.numSize;
       document.getElementById('numColor').value=s.numColor;
       document.getElementById('numFont').value=s.numFont;
+      if(s.numMaskW!=null) document.getElementById('numMaskW').value=s.numMaskW;
+      if(s.numMaskH!=null) document.getElementById('numMaskH').value=s.numMaskH;
+      if(s.numMaskColor!=null) document.getElementById('numMaskColor').value=s.numMaskColor;
     }catch(e){}
   }
   function saveLayout(){
     var s={
       qrX:document.getElementById('qrX').value, qrY:document.getElementById('qrY').value, qrSize:document.getElementById('qrSize').value,
       numX:document.getElementById('numX').value, numY:document.getElementById('numY').value, numSize:document.getElementById('numSize').value,
-      numColor:document.getElementById('numColor').value, numFont:document.getElementById('numFont').value
+      numColor:document.getElementById('numColor').value, numFont:document.getElementById('numFont').value,
+      numMaskW:document.getElementById('numMaskW').value, numMaskH:document.getElementById('numMaskH').value,
+      numMaskColor:document.getElementById('numMaskColor').value
     };
     try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }catch(e){}
   }
@@ -272,7 +283,10 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
       numY:parseFloat(document.getElementById('numY').value)/100,
       numSize:parseFloat(document.getElementById('numSize').value)/100,
       numColor:document.getElementById('numColor').value,
-      numFont:document.getElementById('numFont').value
+      numFont:document.getElementById('numFont').value,
+      numMaskW:parseFloat(document.getElementById('numMaskW').value)/100,
+      numMaskH:parseFloat(document.getElementById('numMaskH').value)/100,
+      numMaskColor:document.getElementById('numMaskColor').value
     };
   }
 
@@ -304,6 +318,19 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
   function drawTicket(ctx, w, h, layout, qrDataUrl, numberText){
     return new Promise(function(resolve){
       ctx.drawImage(artworkImg,0,0,w,h);
+      // Your artwork has a sample "TICKET NO. 000 / 150" pre-printed. Paint over that
+      // area first (background colour) so the real number/table doesn't double up on
+      // top of the sample text — this happens whether or not a number is being printed,
+      // so the fake "000 / 150" never survives onto a real ticket.
+      if(layout.numMaskW>0 && layout.numMaskH>0){
+        ctx.fillStyle = layout.numMaskColor||'#01030a';
+        ctx.fillRect(
+          layout.numX*w - (layout.numMaskW*w)/2,
+          layout.numY*h - (layout.numMaskH*h)/2,
+          layout.numMaskW*w,
+          layout.numMaskH*h
+        );
+      }
       if(numberText){
         ctx.font = (layout.numSize*h)+'px '+layout.numFont;
         ctx.fillStyle = layout.numColor;
@@ -351,7 +378,7 @@ legend{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transfo
 
   function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
 
-  ['qrX','qrY','qrSize','numX','numY','numSize','numColor','numFont'].forEach(function(id){
+  ['qrX','qrY','qrSize','numX','numY','numSize','numColor','numFont','numMaskW','numMaskH','numMaskColor'].forEach(function(id){
     document.getElementById(id).addEventListener('input',function(){ renderPreview(); saveLayout(); });
   });
   document.getElementById('numberField').addEventListener('change',renderPreview);
