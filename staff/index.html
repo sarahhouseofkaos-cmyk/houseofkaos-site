@@ -184,6 +184,15 @@ textarea{resize:vertical;min-height:56px}
 .del-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
 .del-btn:hover{border-color:var(--conflict);color:var(--conflict)}
 .del-btn.confirming{border-color:var(--conflict);color:var(--conflict);background:var(--conflict-bg)}
+.edit-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.edit-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.row-btns{display:flex;gap:.4rem;flex-shrink:0}
+.ref-tag{font-family:var(--mono);font-size:.7rem;color:var(--gold);letter-spacing:.03em}
+.side-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.side-title-row .side-title{margin:0}
+.cancel-edit-btn{background:none;border:none;color:var(--cream-dim);font-family:var(--serif-body);font-size:.85rem;cursor:pointer;text-decoration:underline}
+.cancel-edit-btn:hover{color:var(--gold-bright)}
+.deposit-tag{font-family:var(--mono);font-size:.7rem;color:var(--tentative)}
 
 .status-line{font-size:.78rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
 .saved-flash{color:var(--ok)}
@@ -252,7 +261,10 @@ textarea{resize:vertical;min-height:56px}
 
     <div>
       <div class="panel">
-        <h2 class="side-title">New Booking</h2>
+        <div class="side-title-row">
+          <h2 class="side-title" id="formTitle">New Booking</h2>
+          <a href="#" class="cancel-edit-btn" id="cancelEditBtn" hidden>Cancel edit</a>
+        </div>
         <div id="conflictArea"></div>
         <form id="bookingForm">
           <div class="field">
@@ -290,6 +302,15 @@ textarea{resize:vertical;min-height:56px}
               <option value="confirmed">Confirmed</option>
               <option value="tentative">Tentative</option>
             </select>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="deposit">Deposit (£)</label>
+              <input type="text" id="deposit" placeholder="e.g. 50">
+            </div>
+            <div class="field" style="display:flex;align-items:flex-end">
+              <span class="ref-tag" id="refTag"></span>
+            </div>
           </div>
           <div class="field">
             <label for="notes">Notes</label>
@@ -345,7 +366,7 @@ textarea{resize:vertical;min-height:56px}
 
   var rentals=[];
   var unsubscribe=null;
-  var viewYear, viewMonth, selectedDate=null, deleteConfirmId=null;
+  var viewYear, viewMonth, selectedDate=null, deleteConfirmId=null, editingId=null;
   var todayISO=isoDate(new Date());
   var now=new Date(); viewYear=now.getFullYear(); viewMonth=now.getMonth();
 
@@ -411,8 +432,10 @@ textarea{resize:vertical;min-height:56px}
       var row=document.createElement('div'); row.className='dd-row';
       var main=document.createElement('div'); main.className='dd-main';
       var contactBits=[r.contactEmail,r.contactPhone].filter(Boolean).join(' · ');
-      main.innerHTML='<span class="dd-prop">'+escapeHtml(r.propName)+'</span><span class="dd-meta">'+escapeHtml(r.renter)+
-        (contactBits?(' &middot; '+escapeHtml(contactBits)):'')+'</span>';
+      main.innerHTML=(r.bookingRef?'<span class="ref-tag">'+escapeHtml(r.bookingRef)+'</span>':'')+
+        '<span class="dd-prop">'+escapeHtml(r.propName)+'</span><span class="dd-meta">'+escapeHtml(r.renter)+
+        (contactBits?(' &middot; '+escapeHtml(contactBits)):'')+
+        (r.deposit?(' &middot; deposit £'+escapeHtml(r.deposit)):'')+'</span>';
       var badge=document.createElement('span'); badge.className='badge '+r.status; badge.textContent=r.status;
       row.appendChild(main); row.appendChild(badge); body.appendChild(row);
     });
@@ -442,19 +465,27 @@ textarea{resize:vertical;min-height:56px}
       var main=document.createElement('div'); main.className='br-main';
       var contactBits=[r.contactEmail,r.contactPhone].filter(Boolean).join(' · ');
       main.innerHTML=
-        '<div class="br-prop">'+escapeHtml(r.propName)+' <span class="badge '+r.status+'">'+r.status+'</span></div>'+
+        '<div class="br-prop">'+(r.bookingRef?'<span class="ref-tag">'+escapeHtml(r.bookingRef)+'</span> ':'')+
+        escapeHtml(r.propName)+' <span class="badge '+r.status+'">'+r.status+'</span></div>'+
         '<div class="br-meta">'+escapeHtml(r.renter)+' &middot; '+fmtDate(r.startDate)+' → '+fmtDate(r.endDate)+
         (r.staffEmail?(' &middot; logged by '+escapeHtml(r.staffEmail.split('@')[0])):'')+'</div>'+
         (contactBits?'<div class="br-meta">'+escapeHtml(contactBits)+'</div>':'')+
+        (r.deposit?'<div class="br-meta deposit-tag">Deposit: £'+escapeHtml(r.deposit)+'</div>':'')+
         (r.notes?'<div class="br-notes">'+escapeHtml(r.notes)+'</div>':'');
+      var btns=document.createElement('div'); btns.className='row-btns';
+      var edit=document.createElement('button');
+      edit.type='button'; edit.className='edit-btn'; edit.textContent='Edit';
+      edit.addEventListener('click',function(){ startEdit(r.id); });
       var del=document.createElement('button');
+      del.type='button';
       del.className='del-btn'+(deleteConfirmId===r.id?' confirming':'');
       del.textContent=deleteConfirmId===r.id?'Confirm?':'Remove';
       del.addEventListener('click',function(){
         if(deleteConfirmId===r.id){ deleteBooking(r.id); deleteConfirmId=null; }
         else{ deleteConfirmId=r.id; renderBookingList(); }
       });
-      row.appendChild(main); row.appendChild(del); list.appendChild(row);
+      btns.appendChild(edit); btns.appendChild(del);
+      row.appendChild(main); row.appendChild(btns); list.appendChild(row);
     });
   }
 
@@ -485,18 +516,68 @@ textarea{resize:vertical;min-height:56px}
     db.collection('rentals').doc(id).delete().catch(function(){ setStatus('Could not remove — try again.',false); });
   }
 
-  function saveBooking(data){
+  function nextBookingRef(){
+    var counterRef=db.collection('counters').doc('bookings');
+    return db.runTransaction(function(t){
+      return t.get(counterRef).then(function(doc){
+        var next=(doc.exists && doc.data().seq)?doc.data().seq+1:1;
+        t.set(counterRef,{seq:next},{merge:true});
+        return next;
+      });
+    }).then(function(n){ return 'HK-'+String(n).padStart(4,'0'); });
+  }
+
+  function startEdit(id){
+    var r=rentals.filter(function(x){return x.id===id;})[0];
+    if(!r) return;
+    editingId=id;
+    deleteConfirmId=null;
+    document.getElementById('propName').value=r.propName;
+    document.getElementById('renter').value=r.renter;
+    document.getElementById('contactEmail').value=r.contactEmail;
+    document.getElementById('contactPhone').value=r.contactPhone;
+    document.getElementById('startDate').value=r.startDate;
+    document.getElementById('endDate').value=r.endDate;
+    document.getElementById('statusSel').value=r.status;
+    document.getElementById('notes').value=r.notes;
+    document.getElementById('deposit').value=r.deposit||'';
+    document.getElementById('refTag').textContent=r.bookingRef||'';
+    document.getElementById('formTitle').textContent='Edit Booking';
+    document.getElementById('cancelEditBtn').hidden=false;
+    document.getElementById('saveBtn').textContent='Update Booking';
+    document.getElementById('conflictArea').innerHTML='';
+    document.getElementById('bookingForm').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function cancelEdit(){
+    editingId=null;
+    document.getElementById('bookingForm').reset();
+    document.getElementById('refTag').textContent='';
+    document.getElementById('formTitle').textContent='New Booking';
+    document.getElementById('cancelEditBtn').hidden=true;
+    document.getElementById('saveBtn').textContent='Save Booking';
+    document.getElementById('conflictArea').innerHTML='';
+  }
+
+  function saveBooking(data,idToUpdate){
     var saveBtn=document.getElementById('saveBtn');
     return function(){
-      saveBtn.disabled=true; saveBtn.textContent='Saving…';
-      db.collection('rentals').add(data).then(function(){
-        document.getElementById('bookingForm').reset();
-        document.getElementById('conflictArea').innerHTML='';
-        setStatus('Booking saved.',true);
+      saveBtn.disabled=true; saveBtn.textContent=idToUpdate?'Updating…':'Saving…';
+      var write = idToUpdate
+        ? db.collection('rentals').doc(idToUpdate).update(data)
+        : (function(){
+            return nextBookingRef().then(function(ref){
+              data.bookingRef=ref;
+              return db.collection('rentals').add(data);
+            });
+          })();
+      write.then(function(){
+        cancelEdit();
+        setStatus(idToUpdate?'Booking updated.':'Booking saved.',true);
       }).catch(function(){
         setStatus('Could not save — please try again.',false);
       }).finally(function(){
-        saveBtn.disabled=false; saveBtn.textContent='Save Booking';
+        saveBtn.disabled=false; saveBtn.textContent=idToUpdate?'Update Booking':'Save Booking';
       });
     };
   }
@@ -511,6 +592,7 @@ textarea{resize:vertical;min-height:56px}
     var endDate=document.getElementById('endDate').value;
     var status=document.getElementById('statusSel').value;
     var notes=document.getElementById('notes').value.trim();
+    var deposit=document.getElementById('deposit').value.trim();
     if(!propName||!renter||!startDate||!endDate) return;
     if(endDate<startDate){
       document.getElementById('conflictArea').innerHTML='<div class="conflict-box"><strong>Check your dates</strong>"Back by" is before "Out from".</div>';
@@ -519,14 +601,16 @@ textarea{resize:vertical;min-height:56px}
     var user=auth.currentUser;
     var data={
       propName:propName, renter:renter, contactEmail:contactEmail, contactPhone:contactPhone,
-      startDate:startDate, endDate:endDate, status:status, notes:notes,
-      staffEmail:user?user.email:'', createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      startDate:startDate, endDate:endDate, status:status, notes:notes, deposit:deposit,
+      staffEmail:user?user.email:'', updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     };
-    var doSave=saveBooking(data);
-    var conflicts=findConflicts(propName,startDate,endDate,null);
+    if(!editingId){ data.createdAt=firebase.firestore.FieldValue.serverTimestamp(); }
+    var doSave=saveBooking(data,editingId);
+    var conflicts=findConflicts(propName,startDate,endDate,editingId);
     if(conflicts.length){ showConflicts(conflicts,doSave); } else { document.getElementById('conflictArea').innerHTML=''; doSave(); }
   });
 
+  document.getElementById('cancelEditBtn').addEventListener('click',function(e){ e.preventDefault(); cancelEdit(); });
   document.getElementById('propFilter').addEventListener('change',renderBookingList);
   document.getElementById('prevBtn').addEventListener('click',function(){viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--;}selectedDate=null;renderCalendar();renderDayDetail();});
   document.getElementById('nextBtn').addEventListener('click',function(){viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++;}selectedDate=null;renderCalendar();renderDayDetail();});
@@ -538,7 +622,7 @@ textarea{resize:vertical;min-height:56px}
     unsubscribe=db.collection('rentals').orderBy('startDate','asc').limit(500).onSnapshot(function(snap){
       rentals=snap.docs.map(function(doc){
         var d=doc.data();
-        return {id:doc.id,propName:d.propName||'',renter:d.renter||'',contactEmail:d.contactEmail||'',contactPhone:d.contactPhone||'',startDate:d.startDate||'',endDate:d.endDate||'',status:d.status||'confirmed',notes:d.notes||'',staffEmail:d.staffEmail||''};
+        return {id:doc.id,propName:d.propName||'',renter:d.renter||'',contactEmail:d.contactEmail||'',contactPhone:d.contactPhone||'',startDate:d.startDate||'',endDate:d.endDate||'',status:d.status||'confirmed',notes:d.notes||'',staffEmail:d.staffEmail||'',bookingRef:d.bookingRef||'',deposit:d.deposit||''};
       });
       renderAll();
       setStatus(rentals.length+' booking'+(rentals.length===1?'':'s')+' on record.');
@@ -546,7 +630,7 @@ textarea{resize:vertical;min-height:56px}
       setStatus('Could not load bookings ('+err.code+').',false);
     });
   }
-  function stopBookingsListener(){ if(unsubscribe){unsubscribe();unsubscribe=null;} rentals=[]; }
+  function stopBookingsListener(){ if(unsubscribe){unsubscribe();unsubscribe=null;} rentals=[]; editingId=null; deleteConfirmId=null; }
 
   document.getElementById('loginForm').addEventListener('submit',function(e){
     e.preventDefault();
