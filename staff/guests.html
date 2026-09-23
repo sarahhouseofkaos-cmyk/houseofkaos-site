@@ -165,6 +165,24 @@ textarea{resize:vertical;min-height:44px}
 .status-line{font-size:.78rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
 .saved-flash{color:var(--ok)}
 
+.ref-tag{font-family:var(--mono);font-size:.68rem;color:var(--gold);letter-spacing:.03em;margin-right:.4rem}
+.qr-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.qr-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.badge.arrived{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(10,8,7,.82);z-index:50;
+  display:flex;align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-box{
+  background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  padding:1.6rem;max-width:340px;width:100%;text-align:center;
+}
+.modal-box h3{font-family:var(--serif-display);font-weight:500;font-size:1.1rem;color:var(--gold-bright);margin-bottom:.3rem}
+.modal-box .modal-sub{font-size:.85rem;color:var(--cream-dim);margin-bottom:1rem}
+#qrCanvasWrap{background:#fff;display:inline-block;padding:12px;border-radius:2px;margin-bottom:1rem}
+.modal-close{margin-top:.8rem}
+
 @media (max-width:520px){
   .row2,.row3{grid-template-columns:1fr}
   .ev-table{font-size:.78rem}
@@ -177,6 +195,7 @@ textarea{resize:vertical;min-height:44px}
   <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Guest Tickets</span></div>
   <div class="who" id="whoBar" hidden>
     <a href="index.html" class="nav-link">Prop Bookings</a>
+    <a href="scan.html" class="nav-link">Check Guests In</a>
     <span id="whoEmail"></span>
     <button class="signout-btn" id="signOutBtn">Sign Out</button>
   </div>
@@ -355,10 +374,23 @@ textarea{resize:vertical;min-height:44px}
   </div>
 </div>
 
+<div class="modal-overlay" id="qrModal" hidden>
+  <div class="modal-box">
+    <h3 id="qrGuestName">—</h3>
+    <div class="modal-sub" id="qrGuestSub">—</div>
+    <div id="qrCanvasWrap"></div>
+    <div class="hint">Staff scan this at the door to confirm the guest and table. Save or screenshot it onto the ticket.</div>
+    <div class="btn-row modal-close">
+      <button type="button" class="btn ghost" id="qrCloseBtn">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- Firebase (compat SDK — plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
 (function(){
@@ -402,6 +434,17 @@ textarea{resize:vertical;min-height:44px}
   }
 
   function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+
+  function nextGuestRef(){
+    var counterRef=db.collection('counters').doc('guestRefs');
+    return db.runTransaction(function(t){
+      return t.get(counterRef).then(function(doc){
+        var next=(doc.exists && doc.data().seq)?doc.data().seq+1:1;
+        t.set(counterRef,{seq:next},{merge:true});
+        return next;
+      });
+    }).then(function(n){ return 'GT-'+String(n).padStart(4,'0'); });
+  }
 
   // ---------- events ----------
   function renderEvents(){
@@ -553,8 +596,10 @@ textarea{resize:vertical;min-height:44px}
       var partyBit = g.partyGroup ? '<span class="party-tag" style="border:1px solid '+colorFor(g.partyGroup).bd+';color:'+colorFor(g.partyGroup).text+'">'+escapeHtml(g.partyGroup)+(partySize>1?' ('+partySize+')':'')+'</span>' : '';
       var contactBits=[g.contactEmail,g.contactPhone].filter(Boolean).join(' · ');
       var extraBits=[g.tableNo?('Table '+g.tableNo):'', g.menuChoice].filter(Boolean).join(' · ');
+      var refBit = g.guestRef ? '<span class="ref-tag">'+escapeHtml(g.guestRef)+'</span>' : '';
+      var arrivedBit = g.arrived ? ' <span class="badge arrived">Arrived</span>' : '';
       main.innerHTML=
-        '<div class="gr-name">'+partyBit+escapeHtml(g.name)+' <span class="badge '+statusClass(g.paymentStatus)+'">'+escapeHtml(g.paymentStatus||'Not Paid')+'</span></div>'+
+        '<div class="gr-name">'+refBit+partyBit+escapeHtml(g.name)+' <span class="badge '+statusClass(g.paymentStatus)+'">'+escapeHtml(g.paymentStatus||'Not Paid')+'</span>'+arrivedBit+'</div>'+
         '<div class="gr-meta">'+(e?escapeHtml(e.name):'<em>Event removed</em>')+' &middot; '+money(ticketPrice)+' ticket &middot; paid '+money(paid)+
         (balance>0?' &middot; <span class="balance-flag">'+money(balance)+' owing</span>':'')+'</div>'+
         (contactBits?'<div class="gr-meta">'+escapeHtml(contactBits)+'</div>':'')+
@@ -563,6 +608,8 @@ textarea{resize:vertical;min-height:44px}
         (g.specialRequests?'<div class="gr-notes">Requests: '+escapeHtml(g.specialRequests)+'</div>':'')+
         (g.notes?'<div class="gr-notes">'+escapeHtml(g.notes)+'</div>':'');
       var btns=document.createElement('div'); btns.className='row-btns';
+      var qr=document.createElement('button'); qr.type='button'; qr.className='qr-btn'; qr.textContent='QR';
+      qr.addEventListener('click',function(){ openQrModal(g); });
       var edit=document.createElement('button'); edit.type='button'; edit.className='edit-btn'; edit.textContent='Edit';
       edit.addEventListener('click',function(){ startGuestEdit(g.id); });
       var del=document.createElement('button'); del.type='button';
@@ -572,10 +619,23 @@ textarea{resize:vertical;min-height:44px}
         if(deleteGuestConfirmId===g.id){ deleteGuest(g.id); deleteGuestConfirmId=null; }
         else{ deleteGuestConfirmId=g.id; renderGuestList(); }
       });
-      btns.appendChild(edit); btns.appendChild(del);
+      btns.appendChild(qr); btns.appendChild(edit); btns.appendChild(del);
       row.appendChild(main); row.appendChild(btns); list.appendChild(row);
     });
   }
+
+  function openQrModal(g){
+    var e=eventById(g.eventId);
+    document.getElementById('qrGuestName').textContent=g.name;
+    document.getElementById('qrGuestSub').textContent=(e?e.name+' — ':'')+(g.tableNo?('Table '+g.tableNo):'Table not yet assigned');
+    var wrap=document.getElementById('qrCanvasWrap');
+    wrap.innerHTML='';
+    var url=window.location.origin+window.location.pathname.replace(/guests\.html$/,'')+'scan.html?g='+encodeURIComponent(g.id);
+    new QRCode(wrap,{text:url,width:220,height:220,colorDark:'#0a0807',colorLight:'#ffffff'});
+    document.getElementById('qrModal').hidden=false;
+  }
+  document.getElementById('qrCloseBtn').addEventListener('click',function(){ document.getElementById('qrModal').hidden=true; });
+  document.getElementById('qrModal').addEventListener('click',function(e){ if(e.target.id==='qrModal') e.target.hidden=true; });
 
   function startGuestEdit(id){
     var g=guests.filter(function(x){return x.id===id;})[0]; if(!g) return;
@@ -633,12 +693,19 @@ textarea{resize:vertical;min-height:44px}
       staffEmail:user?user.email:'',
       updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     };
-    if(!editingGuestId){ data.createdAt=firebase.firestore.FieldValue.serverTimestamp(); }
     var btn=document.getElementById('saveGuestBtn');
     btn.disabled=true; btn.textContent=editingGuestId?'Updating…':'Saving…';
-    var write = editingGuestId
-      ? db.collection('guests').doc(editingGuestId).update(data)
-      : db.collection('guests').add(data);
+    var write;
+    if(editingGuestId){
+      write = db.collection('guests').doc(editingGuestId).update(data);
+    }else{
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      data.arrived=false;
+      write = nextGuestRef().then(function(ref){
+        data.guestRef=ref;
+        return db.collection('guests').add(data);
+      });
+    }
     write.then(function(){
       cancelGuestEdit();
       setStatus(editingGuestId?'Guest updated.':'Guest saved.',true);
@@ -671,7 +738,7 @@ textarea{resize:vertical;min-height:44px}
         return {id:doc.id,eventId:d.eventId||'',partyGroup:d.partyGroup||'',name:d.name||'',contactEmail:d.contactEmail||'',
           contactPhone:d.contactPhone||'',paymentStatus:d.paymentStatus||'Not Paid',amountPaid:d.amountPaid||0,
           tableNo:d.tableNo||'',menuChoice:d.menuChoice||'',allergies:d.allergies||'',specialRequests:d.specialRequests||'',
-          notes:d.notes||'',staffEmail:d.staffEmail||''};
+          notes:d.notes||'',staffEmail:d.staffEmail||'',guestRef:d.guestRef||'',arrived:!!d.arrived,arrivedAt:d.arrivedAt||null};
       });
       renderAll();
       setStatus(guests.length+' guest'+(guests.length===1?'':'s')+' on record.');
