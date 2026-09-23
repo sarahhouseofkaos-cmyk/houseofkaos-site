@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff | House of Kaos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0807;
+  --coal:#12100e;
+  --panel:#171412;
+  --panel-raised:#1d1814;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --ok:#8fae7a;
+  --ok-bg:rgba(143,174,122,.15);
+  --conflict:#d3796f;
+  --conflict-bg:rgba(211,121,111,.14);
+  --tentative:#b98f4a;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.08rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+::selection{background:rgba(201,169,106,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+[hidden]{display:none!important}
+
+/* ---------- top bar ---------- */
+header.top{
+  border-bottom:1px solid var(--line-soft);
+  padding:1.1rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
+.brand span{color:var(--gold)}
+.brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim)}
+.signout-btn{
+  background:none;border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer;
+}
+.signout-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+/* ---------- login ---------- */
+#loginScreen{
+  min-height:calc(100vh - 70px);
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 1.5rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(201,169,106,.05), transparent 34%),
+    radial-gradient(circle at 85% 75%, rgba(201,169,106,.04), transparent 30%),
+    var(--black);
+}
+.login-box{
+  width:100%;max-width:380px;
+  background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  padding:2.2rem 2rem;
+}
+.login-box h1{
+  font-family:var(--serif-display);font-weight:600;font-size:1.5rem;color:var(--cream);
+  margin-bottom:.3rem;letter-spacing:.02em;
+}
+.login-box .sub{color:var(--cream-dim);font-style:italic;font-size:.95rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+label{
+  display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem;
+}
+input[type=email],input[type=password],input[type=text],input[type=date],select,textarea{
+  width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+  font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.btn{
+  font-family:var(--serif-body);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.7rem 1.3rem;border:1px solid var(--gold);color:var(--black);background:var(--gold);
+  border-radius:2px;cursor:pointer;transition:background .2s,color .2s;width:100%;
+}
+.btn:hover{background:var(--gold-bright)}
+.btn:disabled{opacity:.5;cursor:default}
+.login-error{
+  color:var(--conflict);font-size:.85rem;margin-top:.9rem;min-height:1.2em;
+}
+
+/* ---------- app shell ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1.6rem;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:1.4rem}
+.panel + .panel{margin-top:1.6rem}
+
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:.6rem}
+.cal-head h2{font-family:var(--serif-display);font-weight:500;font-size:1.3rem;margin:0;color:var(--gold-bright);letter-spacing:.03em}
+.nav-btn{
+  background:none;border:1px solid var(--line);color:var(--cream);
+  font-family:var(--mono);font-size:.95rem;width:34px;height:34px;border-radius:2px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;
+}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.cal-nav{display:flex;gap:.5rem}
+.today-btn{
+  background:none;border:1px solid var(--line-soft);color:var(--cream-dim);
+  font-family:var(--serif-body);font-size:.85rem;letter-spacing:.05em;
+  padding:.3rem .7rem;border-radius:2px;cursor:pointer;margin-left:.5rem;
+}
+.today-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+.weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px}
+.weekdays span{
+  text-align:center;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  color:var(--cream-dim);text-transform:uppercase;padding-block:.3rem;
+}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.day{
+  background:var(--panel-raised);min-height:78px;border-radius:2px;padding:.35rem .4rem;
+  border:1px solid transparent;display:flex;flex-direction:column;gap:.2rem;
+}
+.day.blank{background:transparent}
+.day.today{border-color:var(--gold)}
+.day.selected{border-color:var(--gold-bright);background:rgba(201,169,106,.09)}
+.day.has-items{cursor:pointer}
+.day.has-items:hover{border-color:var(--line)}
+.daynum{font-family:var(--mono);font-size:.8rem;color:var(--cream-dim);font-variant-numeric:tabular-nums}
+.day.today .daynum{color:var(--gold-bright)}
+.chip{font-size:.68rem;line-height:1.2;padding:.12rem .35rem;border-radius:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-left:2px solid}
+.chip.tentative{opacity:.72;border-style:dashed}
+.more{font-size:.65rem;color:var(--cream-dim);font-family:var(--mono);padding-left:.35rem}
+
+.day-detail{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid var(--line-soft)}
+.day-detail h3{font-family:var(--serif-display);font-weight:500;font-size:1.05rem;color:var(--gold-bright);margin:0 0 .7rem}
+.dd-row{display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:.5rem 0;border-bottom:1px solid var(--line-soft)}
+.dd-row:last-child{border-bottom:none}
+.dd-main{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.dd-prop{font-weight:600;color:var(--cream)}
+.dd-meta{font-size:.85rem;color:var(--cream-dim)}
+.empty-note{color:var(--cream-dim);font-style:italic;font-size:.95rem}
+
+h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem;margin:0 0 1rem;color:var(--gold-bright);letter-spacing:.02em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+textarea{resize:vertical;min-height:56px}
+.btn.ghost{background:none;color:var(--cream);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+.btn-row{display:flex;gap:.6rem;margin-top:.4rem}
+
+.conflict-box{background:var(--conflict-bg);border:1px solid var(--conflict);border-radius:2px;padding:.8rem .9rem;margin-bottom:.9rem;font-size:.92rem}
+.conflict-box strong{color:var(--conflict);font-family:var(--serif-display);font-weight:600;display:block;margin-bottom:.3rem}
+.conflict-box ul{margin:.4rem 0 0;padding-left:1.1rem}
+
+.list-filter{display:flex;gap:.6rem;margin-bottom:.9rem;align-items:center}
+.list-filter select{flex:1}
+.booking-row{display:flex;justify-content:space-between;gap:.7rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid var(--line-soft)}
+.booking-row:last-child{border-bottom:none}
+.br-main{min-width:0}
+.br-prop{font-weight:600;color:var(--cream)}
+.br-meta{font-size:.85rem;color:var(--cream-dim);margin-top:.15rem}
+.br-notes{font-size:.85rem;color:var(--cream-dim);font-style:italic;margin-top:.2rem}
+.badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;white-space:nowrap}
+.badge.confirmed{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.badge.tentative{color:var(--tentative);background:rgba(185,143,74,.15);border:1px solid var(--tentative)}
+.del-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.del-btn:hover{border-color:var(--conflict);color:var(--conflict)}
+.del-btn.confirming{border-color:var(--conflict);color:var(--conflict);background:var(--conflict-bg)}
+
+.status-line{font-size:.78rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
+.saved-flash{color:var(--ok)}
+
+@media (max-width:520px){
+  .day{min-height:60px}
+  .chip{font-size:.62rem}
+  .row2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Prop Bookings</span></div>
+  <div class="who" id="whoBar" hidden>
+    <span id="whoEmail"></span>
+    <button class="signout-btn" id="signOutBtn">Sign Out</button>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Staff Sign In</h1>
+    <div class="sub">Enter the details Sarah set up for you.</div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="loginBtn">Sign In</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
+  <div class="grid">
+    <div>
+      <div class="panel">
+        <div class="cal-head">
+          <div style="display:flex;align-items:center">
+            <h2 id="monthLabel">—</h2>
+            <button class="today-btn" id="todayBtn">Today</button>
+          </div>
+          <div class="cal-nav">
+            <button class="nav-btn" id="prevBtn" aria-label="Previous month">‹</button>
+            <button class="nav-btn" id="nextBtn" aria-label="Next month">›</button>
+          </div>
+        </div>
+        <div class="weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="day-detail" id="dayDetail" hidden>
+          <h3 id="dayDetailTitle"></h3>
+          <div id="dayDetailBody"></div>
+        </div>
+      </div>
+      <div class="status-line" id="statusLine">Loading bookings…</div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h2 class="side-title">New Booking</h2>
+        <div id="conflictArea"></div>
+        <form id="bookingForm">
+          <div class="field">
+            <label for="propName">Prop</label>
+            <input type="text" id="propName" list="propList" placeholder="e.g. Raven Candelabra" required>
+            <datalist id="propList"></datalist>
+          </div>
+          <div class="field">
+            <label for="renter">Renter / Event</label>
+            <input type="text" id="renter" placeholder="e.g. Vermont Hotel — Reanimation Dinner" required>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="startDate">Out from</label>
+              <input type="date" id="startDate" required>
+            </div>
+            <div class="field">
+              <label for="endDate">Back by</label>
+              <input type="date" id="endDate" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="statusSel">Status</label>
+            <select id="statusSel">
+              <option value="confirmed">Confirmed</option>
+              <option value="tentative">Tentative</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">Notes</label>
+            <textarea id="notes" placeholder="Optional — condition, contact, collection point…"></textarea>
+          </div>
+          <div class="btn-row">
+            <button type="submit" class="btn" id="saveBtn">Save Booking</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2 class="side-title">All Bookings</h2>
+        <div class="list-filter">
+          <select id="propFilter"><option value="">All props</option></select>
+        </div>
+        <div id="bookingList"><p class="empty-note">No bookings yet — the first one saved will appear here.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase (compat SDK — plain script tags, no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+    authDomain: "house-of-kaos-bookings.firebaseapp.com",
+    projectId: "house-of-kaos-bookings",
+    storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+    messagingSenderId: "967474223133",
+    appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var MONTH_NAMES=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var PALETTE=[
+    {bd:'#c9a96a',text:'#e0c68c',bg:'rgba(201,169,106,.16)'},
+    {bd:'#c1685f',text:'#e2938a',bg:'rgba(193,104,95,.16)'},
+    {bd:'#8fae7a',text:'#aacf95',bg:'rgba(143,174,122,.16)'},
+    {bd:'#7a94ae',text:'#9fc0e0',bg:'rgba(122,148,174,.16)'},
+    {bd:'#a37aae',text:'#cf9fe0',bg:'rgba(163,122,174,.16)'},
+    {bd:'#ae945a',text:'#e0c37a',bg:'rgba(174,148,90,.16)'}
+  ];
+
+  var rentals=[];
+  var unsubscribe=null;
+  var viewYear, viewMonth, selectedDate=null, deleteConfirmId=null;
+  var todayISO=isoDate(new Date());
+  var now=new Date(); viewYear=now.getFullYear(); viewMonth=now.getMonth();
+
+  function isoDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function fmtDate(iso){var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+  function colorFor(name){var h=0;for(var i=0;i<name.length;i++){h=(h*31+name.charCodeAt(i))>>>0;}return PALETTE[h%PALETTE.length];}
+  function rangesOverlap(s1,e1,s2,e2){return s1<=e2 && s2<=e1;}
+  function normProp(s){return s.trim().toLowerCase();}
+  function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+
+  function setStatus(msg,ok){
+    var el=document.getElementById('statusLine');
+    el.textContent=msg;
+    el.className='status-line'+(ok?' saved-flash':'');
+  }
+
+  // ---------- calendar ----------
+  function renderCalendar(){
+    document.getElementById('monthLabel').textContent=MONTH_NAMES[viewMonth]+' '+viewYear;
+    var grid=document.getElementById('calGrid'); grid.innerHTML='';
+    var first=new Date(viewYear,viewMonth,1);
+    var startWeekday=first.getDay();
+    var daysInMonth=new Date(viewYear,viewMonth+1,0).getDate();
+
+    for(var i=0;i<startWeekday;i++){var b=document.createElement('div');b.className='day blank';grid.appendChild(b);}
+
+    for(var day=1;day<=daysInMonth;day++){
+      var iso=viewYear+'-'+String(viewMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      var items=rentals.filter(function(r){return rangesOverlap(r.startDate,r.endDate,iso,iso);});
+      var cell=document.createElement('div');
+      cell.className='day'+(iso===todayISO?' today':'')+(items.length?' has-items':'')+(iso===selectedDate?' selected':'');
+      var num=document.createElement('div'); num.className='daynum'; num.textContent=String(day); cell.appendChild(num);
+
+      items.slice(0,3).forEach(function(r){
+        var c=colorFor(r.propName);
+        var chip=document.createElement('div');
+        chip.className='chip'+(r.status==='tentative'?' tentative':'');
+        chip.style.borderColor=c.bd; chip.style.color=c.text; chip.style.background=c.bg;
+        chip.textContent=r.propName; cell.appendChild(chip);
+      });
+      if(items.length>3){
+        var more=document.createElement('div'); more.className='more'; more.textContent='+'+(items.length-3)+' more';
+        cell.appendChild(more);
+      }
+      if(items.length){
+        cell.addEventListener('click',(function(iso){return function(){
+          selectedDate=(selectedDate===iso)?null:iso; renderCalendar(); renderDayDetail();
+        };})(iso));
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  function renderDayDetail(){
+    var wrap=document.getElementById('dayDetail');
+    if(!selectedDate){wrap.hidden=true;return;}
+    wrap.hidden=false;
+    document.getElementById('dayDetailTitle').textContent=fmtDate(selectedDate);
+    var items=rentals.filter(function(r){return rangesOverlap(r.startDate,r.endDate,selectedDate,selectedDate);});
+    var body=document.getElementById('dayDetailBody'); body.innerHTML='';
+    if(!items.length){body.innerHTML='<p class="empty-note">Nothing out this day.</p>';return;}
+    items.forEach(function(r){
+      var row=document.createElement('div'); row.className='dd-row';
+      var main=document.createElement('div'); main.className='dd-main';
+      main.innerHTML='<span class="dd-prop">'+escapeHtml(r.propName)+'</span><span class="dd-meta">'+escapeHtml(r.renter)+'</span>';
+      var badge=document.createElement('span'); badge.className='badge '+r.status; badge.textContent=r.status;
+      row.appendChild(main); row.appendChild(badge); body.appendChild(row);
+    });
+  }
+
+  function renderPropOptions(){
+    var names=Array.from(new Set(rentals.map(function(r){return r.propName;}))).sort(function(a,b){return a.localeCompare(b);});
+    document.getElementById('propList').innerHTML=names.map(function(n){return '<option value="'+escapeHtml(n)+'">';}).join('');
+    var filter=document.getElementById('propFilter');
+    var cur=filter.value;
+    filter.innerHTML='<option value="">All props</option>'+names.map(function(n){return '<option value="'+escapeHtml(n)+'">'+escapeHtml(n)+'</option>';}).join('');
+    if(names.indexOf(cur)!==-1) filter.value=cur;
+  }
+
+  function renderBookingList(){
+    var filterVal=document.getElementById('propFilter').value;
+    var list=document.getElementById('bookingList');
+    var sorted=rentals.slice().sort(function(a,b){return a.startDate<b.startDate?-1:a.startDate>b.startDate?1:0;});
+    if(filterVal) sorted=sorted.filter(function(r){return r.propName===filterVal;});
+    if(!sorted.length){
+      list.innerHTML='<p class="empty-note">'+(rentals.length?'No bookings for this prop.':'No bookings yet — the first one saved will appear here.')+'</p>';
+      return;
+    }
+    list.innerHTML='';
+    sorted.forEach(function(r){
+      var row=document.createElement('div'); row.className='booking-row';
+      var main=document.createElement('div'); main.className='br-main';
+      main.innerHTML=
+        '<div class="br-prop">'+escapeHtml(r.propName)+' <span class="badge '+r.status+'">'+r.status+'</span></div>'+
+        '<div class="br-meta">'+escapeHtml(r.renter)+' &middot; '+fmtDate(r.startDate)+' → '+fmtDate(r.endDate)+
+        (r.staffEmail?(' &middot; logged by '+escapeHtml(r.staffEmail.split('@')[0])):'')+'</div>'+
+        (r.notes?'<div class="br-notes">'+escapeHtml(r.notes)+'</div>':'');
+      var del=document.createElement('button');
+      del.className='del-btn'+(deleteConfirmId===r.id?' confirming':'');
+      del.textContent=deleteConfirmId===r.id?'Confirm?':'Remove';
+      del.addEventListener('click',function(){
+        if(deleteConfirmId===r.id){ deleteBooking(r.id); deleteConfirmId=null; }
+        else{ deleteConfirmId=r.id; renderBookingList(); }
+      });
+      row.appendChild(main); row.appendChild(del); list.appendChild(row);
+    });
+  }
+
+  function renderAll(){ renderCalendar(); renderDayDetail(); renderPropOptions(); renderBookingList(); }
+
+  function findConflicts(propName,start,end,excludeId){
+    var np=normProp(propName);
+    return rentals.filter(function(r){
+      if(excludeId && r.id===excludeId) return false;
+      return normProp(r.propName)===np && rangesOverlap(r.startDate,r.endDate,start,end);
+    });
+  }
+
+  function showConflicts(list,onSaveAnyway){
+    var area=document.getElementById('conflictArea');
+    if(!list.length){area.innerHTML='';return;}
+    var items=list.map(function(r){return '<li>'+escapeHtml(r.renter)+' &middot; '+fmtDate(r.startDate)+' → '+fmtDate(r.endDate)+'</li>';}).join('');
+    area.innerHTML='<div class="conflict-box"><strong>Already booked for these dates</strong>This prop overlaps with:<ul>'+items+'</ul></div>';
+    var box=area.querySelector('.conflict-box');
+    var btnRow=document.createElement('div'); btnRow.className='btn-row';
+    var saveAnywayBtn=document.createElement('button');
+    saveAnywayBtn.type='button'; saveAnywayBtn.className='btn ghost'; saveAnywayBtn.textContent='Save Anyway';
+    saveAnywayBtn.addEventListener('click',onSaveAnyway);
+    btnRow.appendChild(saveAnywayBtn); box.appendChild(btnRow);
+  }
+
+  function deleteBooking(id){
+    db.collection('rentals').doc(id).delete().catch(function(){ setStatus('Could not remove — try again.',false); });
+  }
+
+  function saveBooking(data){
+    var saveBtn=document.getElementById('saveBtn');
+    return function(){
+      saveBtn.disabled=true; saveBtn.textContent='Saving…';
+      db.collection('rentals').add(data).then(function(){
+        document.getElementById('bookingForm').reset();
+        document.getElementById('conflictArea').innerHTML='';
+        setStatus('Booking saved.',true);
+      }).catch(function(){
+        setStatus('Could not save — please try again.',false);
+      }).finally(function(){
+        saveBtn.disabled=false; saveBtn.textContent='Save Booking';
+      });
+    };
+  }
+
+  document.getElementById('bookingForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var propName=document.getElementById('propName').value.trim();
+    var renter=document.getElementById('renter').value.trim();
+    var startDate=document.getElementById('startDate').value;
+    var endDate=document.getElementById('endDate').value;
+    var status=document.getElementById('statusSel').value;
+    var notes=document.getElementById('notes').value.trim();
+    if(!propName||!renter||!startDate||!endDate) return;
+    if(endDate<startDate){
+      document.getElementById('conflictArea').innerHTML='<div class="conflict-box"><strong>Check your dates</strong>"Back by" is before "Out from".</div>';
+      return;
+    }
+    var user=auth.currentUser;
+    var data={
+      propName:propName, renter:renter, startDate:startDate, endDate:endDate, status:status, notes:notes,
+      staffEmail:user?user.email:'', createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    var doSave=saveBooking(data);
+    var conflicts=findConflicts(propName,startDate,endDate,null);
+    if(conflicts.length){ showConflicts(conflicts,doSave); } else { document.getElementById('conflictArea').innerHTML=''; doSave(); }
+  });
+
+  document.getElementById('propFilter').addEventListener('change',renderBookingList);
+  document.getElementById('prevBtn').addEventListener('click',function(){viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--;}selectedDate=null;renderCalendar();renderDayDetail();});
+  document.getElementById('nextBtn').addEventListener('click',function(){viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++;}selectedDate=null;renderCalendar();renderDayDetail();});
+  document.getElementById('todayBtn').addEventListener('click',function(){var n=new Date();viewYear=n.getFullYear();viewMonth=n.getMonth();selectedDate=todayISO;renderCalendar();renderDayDetail();});
+
+  // ---------- auth wiring ----------
+  function startBookingsListener(){
+    if(unsubscribe) return;
+    unsubscribe=db.collection('rentals').orderBy('startDate','asc').limit(500).onSnapshot(function(snap){
+      rentals=snap.docs.map(function(doc){
+        var d=doc.data();
+        return {id:doc.id,propName:d.propName||'',renter:d.renter||'',startDate:d.startDate||'',endDate:d.endDate||'',status:d.status||'confirmed',notes:d.notes||'',staffEmail:d.staffEmail||''};
+      });
+      renderAll();
+      setStatus(rentals.length+' booking'+(rentals.length===1?'':'s')+' on record.');
+    },function(err){
+      setStatus('Could not load bookings ('+err.code+').',false);
+    });
+  }
+  function stopBookingsListener(){ if(unsubscribe){unsubscribe();unsubscribe=null;} rentals=[]; }
+
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('loginEmail').value.trim();
+    var pw=document.getElementById('loginPassword').value;
+    var btn=document.getElementById('loginBtn');
+    var err=document.getElementById('loginError');
+    err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+    auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+      err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+        ? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+        : 'Sign-in failed: '+e2.message;
+    }).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+  });
+
+  document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+
+  auth.onAuthStateChanged(function(user){
+    var loginScreen=document.getElementById('loginScreen');
+    var appWrap=document.getElementById('appWrap');
+    var whoBar=document.getElementById('whoBar');
+    if(user){
+      loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+      document.getElementById('whoEmail').textContent=user.email;
+      document.getElementById('loginForm').reset();
+      renderAll();
+      startBookingsListener();
+    }else{
+      loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+      stopBookingsListener();
+    }
+  });
+})();
+</script>
+</body>
+</html>
