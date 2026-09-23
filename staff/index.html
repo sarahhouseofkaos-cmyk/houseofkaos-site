@@ -266,6 +266,16 @@ textarea{resize:vertical;min-height:56px}
           </div>
           <div class="row2">
             <div class="field">
+              <label for="contactEmail">Contact Email</label>
+              <input type="text" id="contactEmail" placeholder="e.g. jane@example.com">
+            </div>
+            <div class="field">
+              <label for="contactPhone">Contact Mobile</label>
+              <input type="text" id="contactPhone" placeholder="e.g. 07700 900222">
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
               <label for="startDate">Out from</label>
               <input type="date" id="startDate" required>
             </div>
@@ -400,7 +410,9 @@ textarea{resize:vertical;min-height:56px}
     items.forEach(function(r){
       var row=document.createElement('div'); row.className='dd-row';
       var main=document.createElement('div'); main.className='dd-main';
-      main.innerHTML='<span class="dd-prop">'+escapeHtml(r.propName)+'</span><span class="dd-meta">'+escapeHtml(r.renter)+'</span>';
+      var contactBits=[r.contactEmail,r.contactPhone].filter(Boolean).join(' · ');
+      main.innerHTML='<span class="dd-prop">'+escapeHtml(r.propName)+'</span><span class="dd-meta">'+escapeHtml(r.renter)+
+        (contactBits?(' &middot; '+escapeHtml(contactBits)):'')+'</span>';
       var badge=document.createElement('span'); badge.className='badge '+r.status; badge.textContent=r.status;
       row.appendChild(main); row.appendChild(badge); body.appendChild(row);
     });
@@ -428,10 +440,12 @@ textarea{resize:vertical;min-height:56px}
     sorted.forEach(function(r){
       var row=document.createElement('div'); row.className='booking-row';
       var main=document.createElement('div'); main.className='br-main';
+      var contactBits=[r.contactEmail,r.contactPhone].filter(Boolean).join(' · ');
       main.innerHTML=
         '<div class="br-prop">'+escapeHtml(r.propName)+' <span class="badge '+r.status+'">'+r.status+'</span></div>'+
         '<div class="br-meta">'+escapeHtml(r.renter)+' &middot; '+fmtDate(r.startDate)+' → '+fmtDate(r.endDate)+
         (r.staffEmail?(' &middot; logged by '+escapeHtml(r.staffEmail.split('@')[0])):'')+'</div>'+
+        (contactBits?'<div class="br-meta">'+escapeHtml(contactBits)+'</div>':'')+
         (r.notes?'<div class="br-notes">'+escapeHtml(r.notes)+'</div>':'');
       var del=document.createElement('button');
       del.className='del-btn'+(deleteConfirmId===r.id?' confirming':'');
@@ -491,6 +505,8 @@ textarea{resize:vertical;min-height:56px}
     e.preventDefault();
     var propName=document.getElementById('propName').value.trim();
     var renter=document.getElementById('renter').value.trim();
+    var contactEmail=document.getElementById('contactEmail').value.trim();
+    var contactPhone=document.getElementById('contactPhone').value.trim();
     var startDate=document.getElementById('startDate').value;
     var endDate=document.getElementById('endDate').value;
     var status=document.getElementById('statusSel').value;
@@ -502,7 +518,8 @@ textarea{resize:vertical;min-height:56px}
     }
     var user=auth.currentUser;
     var data={
-      propName:propName, renter:renter, startDate:startDate, endDate:endDate, status:status, notes:notes,
+      propName:propName, renter:renter, contactEmail:contactEmail, contactPhone:contactPhone,
+      startDate:startDate, endDate:endDate, status:status, notes:notes,
       staffEmail:user?user.email:'', createdAt:firebase.firestore.FieldValue.serverTimestamp()
     };
     var doSave=saveBooking(data);
@@ -521,7 +538,7 @@ textarea{resize:vertical;min-height:56px}
     unsubscribe=db.collection('rentals').orderBy('startDate','asc').limit(500).onSnapshot(function(snap){
       rentals=snap.docs.map(function(doc){
         var d=doc.data();
-        return {id:doc.id,propName:d.propName||'',renter:d.renter||'',startDate:d.startDate||'',endDate:d.endDate||'',status:d.status||'confirmed',notes:d.notes||'',staffEmail:d.staffEmail||''};
+        return {id:doc.id,propName:d.propName||'',renter:d.renter||'',contactEmail:d.contactEmail||'',contactPhone:d.contactPhone||'',startDate:d.startDate||'',endDate:d.endDate||'',status:d.status||'confirmed',notes:d.notes||'',staffEmail:d.staffEmail||''};
       });
       renderAll();
       setStatus(rentals.length+' booking'+(rentals.length===1?'':'s')+' on record.');
