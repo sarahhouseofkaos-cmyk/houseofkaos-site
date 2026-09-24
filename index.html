@@ -316,6 +316,16 @@ h2{
   display:block;margin-bottom:1.4rem;opacity:.8;
 }
 .legacy-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.legacy-card.has-photo{padding:0}
+.legacy-card.has-photo::before{display:none}
+.legacy-card .legacy-photo{height:210px;overflow:hidden}
+.legacy-card .legacy-photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(1.05);
+  transition:transform .6s ease,filter .6s ease;
+}
+.legacy-card.has-photo:hover .legacy-photo img{transform:scale(1.06);filter:saturate(1.15) brightness(1.05)}
+.legacy-card .legacy-body{padding:2.4rem 2.2rem 2.8rem}
 .legacy-card h3{
   font-family:var(--serif-display);font-weight:500;
   font-size:1.5rem;letter-spacing:.12em;text-transform:uppercase;
@@ -775,17 +785,23 @@ footer p{color:var(--cream-dim);font-size:.95rem}
     <h2>The Legacy</h2>
     <p class="section-lede">Nights that linger long after the last candle is out.</p>
     <div class="legacy-grid">
-      <a class="legacy-card" href="vampire-ball.html">
-        <h3>The Vampire Ball</h3>
-        <div class="when">May 30, 2026</div>
-        <p>Our first grand ball — an evening of crimson elegance, candlelit waltzes and creatures of the night, remembered fondly by all who survived it.</p>
-        <div class="read-more">Read the Story &rarr;</div>
+      <a class="legacy-card has-photo" href="vampire-ball.html">
+        <div class="legacy-photo"><img src="images/vampire-ball/ball-2-thumb.jpg" alt="A guest in top hat and purple velvet holding court on an ornate gilded throne at the Vampire Ball" loading="lazy"></div>
+        <div class="legacy-body">
+          <h3>The Vampire Ball</h3>
+          <div class="when">May 30, 2026</div>
+          <p>Our first grand ball — an evening of crimson elegance, candlelit waltzes and creatures of the night, remembered fondly by all who survived it.</p>
+          <div class="read-more">Read the Story &rarr;</div>
+        </div>
       </a>
-      <a class="legacy-card" href="haunted-forest.html">
-        <h3>The Haunted Forest</h3>
-        <div class="when">Private Themed Dinner</div>
-        <p>An exclusive dinner deep in an enchanted woodland of shadow and whisper, staged for a select gathering of guests.</p>
-        <div class="read-more">Read the Story &rarr;</div>
+      <a class="legacy-card has-photo" href="haunted-forest.html">
+        <div class="legacy-photo"><img src="images/haunted-forest/table-2-thumb.jpg" alt="A candlelit dinner table in the Haunted Forest, dressed with black roses and dark foliage" loading="lazy"></div>
+        <div class="legacy-body">
+          <h3>The Haunted Forest</h3>
+          <div class="when">Private Themed Dinner</div>
+          <p>An exclusive dinner deep in an enchanted woodland of shadow and whisper, staged for a select gathering of guests.</p>
+          <div class="read-more">Read the Story &rarr;</div>
+        </div>
       </a>
       <a class="legacy-card" href="nights-of-kaos.html">
         <h3>Nights of Kaos</h3>
