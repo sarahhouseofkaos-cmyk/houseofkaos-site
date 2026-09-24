@@ -17,7 +17,7 @@
 <meta property="og:title" content="The Haunted Forest | House of Kaos">
 <meta property="og:description" content="A private themed dinner staged deep in an enchanted woodland of shadow and whisper.">
 <meta property="og:url" content="https://houseofkaos.co.uk/haunted-forest.html">
-<meta property="og:image" content="https://houseofkaos.co.uk/og-image.png">
+<meta property="og:image" content="https://houseofkaos.co.uk/images/haunted-forest/table-2.jpg">
 <meta property="og:locale" content="en_GB">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,6 +137,21 @@ blockquote{
 .other-nights ul{list-style:none}
 .other-nights li{margin-bottom:.6rem;font-size:1rem}
 
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin:1.6rem 0 2.6rem;
+}
+.gallery a{display:block;border:1px solid var(--line-soft);overflow:hidden}
+.gallery img{
+  width:100%;height:280px;object-fit:cover;
+  display:block;
+  filter:saturate(1.05);
+  transition:transform .5s ease, filter .5s ease;
+}
+.gallery a:hover img{transform:scale(1.05);filter:saturate(1.15) brightness(1.05)}
+
 .cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
 .btn{
   display:inline-block;
@@ -187,6 +202,12 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
 
   <h2>The Setting</h2>
   <p>Every detail was placed with intent — from the table dressing to the half-glimpsed movement at the treeline. The Haunted Forest leaned on suggestion as much as spectacle, letting shadow and whisper do as much work as any costume.</p>
+
+  <div class="gallery">
+    <a href="images/haunted-forest/table-2.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-2.jpg" alt="The Haunted Forest dinner table, dressed in black with dark blue floral trees and deep red roses, lit in cool blue light" loading="lazy"></a>
+    <a href="images/haunted-forest/table-3.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-3.jpg" alt="The Haunted Forest table setting close up, with skull, antlers, dried flowers and candlelight among the woodland decor" loading="lazy"></a>
+    <a href="images/haunted-forest/table-1.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-1.jpg" alt="The Haunted Forest dining room, with a tall dark tree centrepiece over the candlelit table" loading="lazy"></a>
+  </div>
 
   <h2>Why It Mattered</h2>
   <p>Private dinners like the Haunted Forest sit at the more intimate end of what House of Kaos does — proof that the House's brand of immersive theatre works as well around a dinner table for a handful of guests as it does at a hundred-and-fifty-strong ball. It's a format we return to whenever the story calls for something smaller and closer.</p>
