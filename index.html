@@ -358,21 +358,24 @@ h2{
 
 /* ---------- performers ---------- */
 .ptype-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.6rem;margin-top:3rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1rem;margin-top:3rem;
 }
 .ptype{
   border:1px solid var(--line-soft);
-  padding:2.2rem 1.6rem;text-align:center;
+  padding:1.4rem 1rem;text-align:center;
   transition:border-color .4s;
 }
 .ptype:hover{border-color:var(--gold)}
 .ptype h4{
   font-family:var(--serif-display);font-weight:500;
-  font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);
-  margin-bottom:.7rem;
+  font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream);
+  margin-bottom:.5rem;
 }
-.ptype p{color:var(--cream-dim);font-size:.98rem;margin:0}
+.ptype p{color:var(--cream-dim);font-size:.85rem;margin:0;line-height:1.5}
+@media (max-width:640px){
+  .ptype-grid{grid-template-columns:repeat(2,1fr)}
+}
 .performers-cta{text-align:center;margin-top:3.2rem}
 .performers-note{
   text-align:center;color:var(--cream-dim);font-style:italic;font-size:1rem;
