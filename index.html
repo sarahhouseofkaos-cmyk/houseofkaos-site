@@ -302,11 +302,13 @@ h2{
 /* ---------- legacy ---------- */
 .legacy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
 .legacy-card{
+  display:block;
   border:1px solid var(--line-soft);
   background:var(--coal);
   padding:2.8rem 2.2rem;text-align:center;
   position:relative;
   transition:border-color .4s,transform .4s;
+  cursor:pointer;
 }
 .legacy-card::before{
   content:"✦";
@@ -323,7 +325,12 @@ h2{
   font-size:.78rem;letter-spacing:.35em;text-transform:uppercase;
   color:var(--gold);margin-bottom:1.2rem;
 }
-.legacy-card p{color:var(--cream-dim);font-size:1.05rem}
+.legacy-card p{color:var(--cream-dim);font-size:1.05rem;margin-bottom:1.4rem}
+.legacy-card .read-more{
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);
+}
+.legacy-card:hover .read-more{color:var(--gold-bright)}
 
 /* ---------- about ---------- */
 .about-quote{
@@ -741,21 +748,24 @@ footer p{color:var(--cream-dim);font-size:.95rem}
     <h2>The Legacy</h2>
     <p class="section-lede">Nights that linger long after the last candle is out.</p>
     <div class="legacy-grid">
-      <div class="legacy-card">
+      <a class="legacy-card" href="vampire-ball.html">
         <h3>The Vampire Ball</h3>
         <div class="when">May 30, 2026</div>
         <p>Our first grand ball — an evening of crimson elegance, candlelit waltzes and creatures of the night, remembered fondly by all who survived it.</p>
-      </div>
-      <div class="legacy-card">
+        <div class="read-more">Read the Story &rarr;</div>
+      </a>
+      <a class="legacy-card" href="haunted-forest.html">
         <h3>The Haunted Forest</h3>
         <div class="when">Private Themed Dinner</div>
         <p>An exclusive dinner deep in an enchanted woodland of shadow and whisper, staged for a select gathering of guests.</p>
-      </div>
-      <div class="legacy-card">
+        <div class="read-more">Read the Story &rarr;</div>
+      </a>
+      <a class="legacy-card" href="nights-of-kaos.html">
         <h3>Nights of Kaos</h3>
         <div class="when">The Gatherings</div>
         <p>The evenings between the grand occasions — where the House's community gathers, and the next story begins to take shape.</p>
-      </div>
+        <div class="read-more">Read the Story &rarr;</div>
+      </a>
     </div>
   </div>
 </section>
