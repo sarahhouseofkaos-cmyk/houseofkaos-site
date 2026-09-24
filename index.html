@@ -354,6 +354,17 @@ h2{
 .legacy-more .legacy-card::before{display:none}
 
 /* ---------- about ---------- */
+.about-portrait{
+  max-width:640px;margin:0 auto 3rem;
+  border:1px solid var(--line);
+  padding:8px;
+  background:var(--coal);
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+}
+.about-portrait img{
+  width:100%;display:block;
+  filter:contrast(1.05) brightness(.96);
+}
 .about-quote{
   font-family:var(--serif-body);font-style:italic;
   font-size:1.7rem;line-height:1.6;color:var(--cream);
@@ -844,6 +855,9 @@ footer p{color:var(--cream-dim);font-size:.95rem}
     <div class="kicker">The House</div>
     <h2>About House of Kaos</h2>
     <p class="section-lede">Architects of atmosphere. Curators of the dark and the beautiful.</p>
+    <div class="about-portrait">
+      <img src="images/about/about-duo.jpg" alt="A stylised gothic Victorian portrait evoking the House of Kaos aesthetic" loading="lazy">
+    </div>
     <p class="about-quote"><span class="q-mark">“</span>Every event is a world built from scratch — atmosphere, narrative and company conspiring toward one unforgettable night.<span class="q-mark">”</span></p>
     <div class="about-text">
       <p>House of Kaos creates immersive gothic events in Newcastle upon Tyne — themed dinners and grand balls where costume is required, theatre is everywhere, and every detail has been placed with intent.</p>
