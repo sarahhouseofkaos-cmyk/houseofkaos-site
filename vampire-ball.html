@@ -17,7 +17,7 @@
 <meta property="og:title" content="The Vampire Ball | House of Kaos">
 <meta property="og:description" content="House of Kaos's first grand ball — an evening of crimson elegance, candlelit waltzes and creatures of the night.">
 <meta property="og:url" content="https://houseofkaos.co.uk/vampire-ball.html">
-<meta property="og:image" content="https://houseofkaos.co.uk/og-image.png">
+<meta property="og:image" content="https://houseofkaos.co.uk/images/vampire-ball/ball-1.jpg">
 <meta property="og:locale" content="en_GB">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,6 +137,66 @@ blockquote{
 .other-nights ul{list-style:none}
 .other-nights li{margin-bottom:.6rem;font-size:1rem}
 
+.gallery-wrap{
+  position:relative;
+  margin:2.4rem -1.5rem 1rem;
+}
+.gallery-wrap::before,
+.gallery-wrap::after{
+  content:"";
+  position:absolute;top:0;bottom:0;
+  width:2.5rem;z-index:2;
+  pointer-events:none;
+}
+.gallery-wrap::before{ left:0; background:linear-gradient(to right, var(--black), transparent); }
+.gallery-wrap::after{ right:0; background:linear-gradient(to left, var(--black), transparent); }
+.gallery{
+  display:flex;
+  gap:1rem;
+  overflow-x:auto;
+  scroll-snap-type:x proximity;
+  padding:0 1.5rem 1.2rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) transparent;
+}
+.gallery::-webkit-scrollbar{height:6px}
+.gallery::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.gallery::-webkit-scrollbar-track{background:transparent}
+.gallery a{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  display:block;
+  height:38vh;
+  max-height:320px;
+  min-height:200px;
+  border:1px solid var(--line-soft);
+  overflow:hidden;
+  position:relative;
+}
+.gallery a::after{
+  content:"⤢";
+  position:absolute;top:.7rem;right:.7rem;
+  width:1.8rem;height:1.8rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,8,7,.55);
+  color:var(--cream);
+  font-size:.95rem;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.gallery a:hover::after{opacity:1}
+.gallery img{
+  height:100%;width:auto;
+  display:block;
+  filter:saturate(1.05);
+  transition:transform .6s ease, filter .6s ease;
+}
+.gallery a:hover img{transform:scale(1.035);filter:saturate(1.15) brightness(1.05)}
+.gallery-note{
+  font-size:.85rem;color:var(--cream-dim);font-style:italic;
+  margin-top:0;margin-bottom:2.6rem;
+}
+
 .cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
 .btn{
   display:inline-block;
@@ -187,6 +247,20 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
 
   <h2>The Look</h2>
   <p>Vampiric elegance was the brief, and guests answered in full: Victorian and Edwardian silhouettes, velvet and lace, statement collars and a great deal of tastefully applied blood-red. It set the template for the House style that now runs through every event — gothic, romantic and always with an eye for detail.</p>
+
+  <div class="gallery-wrap">
+    <div class="gallery">
+      <a href="images/vampire-ball/ball-1.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-1.jpg" alt="A group of guests in gothic black gowns beneath a floral arch at the Vampire Ball" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-6.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-6.jpg" alt="Three guests in lace masquerade masks posing together at the Vampire Ball" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-2.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-2.jpg" alt="A guest in top hat and purple velvet holding court on an ornate gilded throne" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-4.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-4.jpg" alt="A plated course from the Vampire Ball dinner, beef wellington with seasonal vegetables" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-7.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-7.jpg" alt="A guest in top hat and waistcoat laughing at the dinner table" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-3.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-3.jpg" alt="A plated course from the Vampire Ball dinner, roast chicken with seasonal vegetables" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-5.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-5.jpg" alt="A guest in a top hat and cape amid the crowd at the Vampire Ball" loading="lazy"></a>
+      <a href="images/vampire-ball/ball-8.jpg" target="_blank" rel="noopener"><img src="images/vampire-ball/ball-8.jpg" alt="Four guests in gothic evening wear posing together at the Vampire Ball" loading="lazy"></a>
+    </div>
+  </div>
+  <p class="gallery-note">Scroll or swipe through &middot; click any photo to view it full size.</p>
 
   <h2>Why It Mattered</h2>
   <p>As the first of the House's grand balls, the Vampire Ball marked the beginning of what House of Kaos has become — proof that Newcastle had an appetite for an evening built entirely around atmosphere, costume and theatre. Every ball and dinner since has carried a little of that first night with it.</p>
