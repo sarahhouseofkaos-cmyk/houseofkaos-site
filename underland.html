@@ -141,6 +141,66 @@ blockquote{
   margin-top:0;margin-bottom:2.6rem;
 }
 
+.gallery-wrap{
+  position:relative;
+  margin:2.4rem -1.5rem 1rem;
+}
+.gallery-wrap::before,
+.gallery-wrap::after{
+  content:"";
+  position:absolute;top:0;bottom:0;
+  width:2.5rem;z-index:2;
+  pointer-events:none;
+}
+.gallery-wrap::before{ left:0; background:linear-gradient(to right, var(--black), transparent); }
+.gallery-wrap::after{ right:0; background:linear-gradient(to left, var(--black), transparent); }
+.gallery{
+  display:flex;
+  gap:1rem;
+  overflow-x:auto;
+  scroll-snap-type:x proximity;
+  padding:0 1.5rem 1.2rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) transparent;
+}
+.gallery::-webkit-scrollbar{height:6px}
+.gallery::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.gallery::-webkit-scrollbar-track{background:transparent}
+.gallery a{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  display:block;
+  height:38vh;
+  max-height:320px;
+  min-height:200px;
+  border:1px solid var(--line-soft);
+  overflow:hidden;
+  position:relative;
+}
+.gallery a::after{
+  content:"⤢";
+  position:absolute;top:.7rem;right:.7rem;
+  width:1.8rem;height:1.8rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,8,7,.55);
+  color:var(--cream);
+  font-size:.95rem;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.gallery a:hover::after{opacity:1}
+.gallery img{
+  height:100%;width:auto;
+  display:block;
+  filter:saturate(1.05);
+  transition:transform .6s ease, filter .6s ease;
+}
+.gallery a:hover img{transform:scale(1.035);filter:saturate(1.15) brightness(1.05)}
+.gallery-note{
+  font-size:.85rem;color:var(--cream-dim);font-style:italic;
+  margin-top:0;margin-bottom:2.6rem;
+}
+
 .other-nights{
   margin-top:4rem;
   border:1px solid var(--line-soft);
@@ -202,10 +262,14 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
   <h2>The Setting</h2>
   <p>Roses, fairy lights and gilded thrones set the scene for Underland's central court — equal parts tea party and coronation, with every detail chosen to tip the familiar Wonderland into something a little darker and more theatrical.</p>
 
-  <div class="feature-photo">
-    <img src="images/underland/thrones.jpg" alt="A Cheshire Cat and a Mad Hatter seated on ornate gilded thrones amid roses and fairy lights at Underland" loading="lazy">
+  <div class="gallery-wrap">
+    <div class="gallery">
+      <a href="images/underland/thrones.jpg" target="_blank" rel="noopener"><img src="images/underland/thrones.jpg" alt="A Cheshire Cat and a Mad Hatter seated on ornate gilded thrones amid roses and fairy lights at Underland" loading="lazy"></a>
+      <a href="images/underland/underland-2.jpg" target="_blank" rel="noopener"><img src="images/underland/underland-2.jpg" alt="Two guests in black attire seated together on the ornate red and gold thrones at Underland, beneath a heart-shaped arch of roses and fairy lights" loading="lazy"></a>
+      <a href="images/underland/underland-3.jpg" target="_blank" rel="noopener"><img src="images/underland/underland-3.jpg" alt="The Queen of Hearts and King of Hearts in red costume beneath the rose and fairy light heart arch at Underland" loading="lazy"></a>
+    </div>
   </div>
-  <p class="feature-note">The Cheshire Cat and the Mad Hatter, holding court at Underland.</p>
+  <p class="gallery-note">Scroll or swipe through &middot; click any photo to view it full size.</p>
 
   <h2>Why It Mattered</h2>
   <p>Underland marked House of Kaos' first turn toward a literary world rather than a purely gothic one — proof that the House's brand of immersive theatre can take on any story and still make it feel unmistakably its own. It's a direction we're excited to return to.</p>
