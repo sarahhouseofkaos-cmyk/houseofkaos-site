@@ -138,23 +138,27 @@ blockquote{
 .other-nights li{margin-bottom:.6rem;font-size:1rem}
 
 .gallery{
-  column-count:3;
-  column-gap:.9rem;
-  margin:1.8rem 0 2.8rem;
+  margin:2.4rem 0 2.8rem;
+  display:flex;
+  flex-direction:column;
+  gap:2.2rem;
 }
-@media (max-width:720px){ .gallery{column-count:2} }
-@media (max-width:460px){ .gallery{column-count:1} }
 .gallery a{
   display:block;
-  break-inside:avoid;
-  margin-bottom:.9rem;
   border:1px solid var(--line-soft);
   overflow:hidden;
   position:relative;
+  width:84%;
+}
+.gallery a:nth-child(odd){ margin-right:auto; }
+.gallery a:nth-child(even){ margin-left:auto; }
+.gallery a:nth-child(3n){ width:100%; }
+@media (max-width:640px){
+  .gallery a, .gallery a:nth-child(3n){ width:100%; }
 }
 .gallery a::after{
   content:"⤢";
-  position:absolute;top:.5rem;right:.5rem;
+  position:absolute;top:.7rem;right:.7rem;
   width:1.8rem;height:1.8rem;
   display:flex;align-items:center;justify-content:center;
   background:rgba(10,8,7,.55);
@@ -170,10 +174,10 @@ blockquote{
   filter:saturate(1.05);
   transition:transform .6s ease, filter .6s ease;
 }
-.gallery a:hover img{transform:scale(1.045);filter:saturate(1.15) brightness(1.05)}
+.gallery a:hover img{transform:scale(1.035);filter:saturate(1.15) brightness(1.05)}
 .gallery-note{
   font-size:.85rem;color:var(--cream-dim);font-style:italic;
-  margin-top:-1.6rem;margin-bottom:2.6rem;
+  margin-top:-1rem;margin-bottom:2.6rem;
 }
 
 .cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
@@ -229,7 +233,6 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
 
   <div class="gallery">
     <a href="images/haunted-forest/table-7.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-7.jpg" alt="The Haunted Forest dinner table in full, dressed in black with dark blue floral trees and deep red roses down its length" loading="lazy"></a>
-    <a href="images/haunted-forest/table-1.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-1.jpg" alt="The Haunted Forest dining room, with a tall dark tree centrepiece over the candlelit table" loading="lazy"></a>
     <a href="images/haunted-forest/table-5.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-5.jpg" alt="Close-up place setting at the Haunted Forest table with wine glasses and deep red roses" loading="lazy"></a>
     <a href="images/haunted-forest/table-4.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-4.jpg" alt="A dining chair beside the candlelit Haunted Forest table, with the woodland trees blurred beyond" loading="lazy"></a>
     <a href="images/haunted-forest/table-2.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-2.jpg" alt="The Haunted Forest dinner table, dressed in black with dark blue floral trees and deep red roses, lit in cool blue light" loading="lazy"></a>
