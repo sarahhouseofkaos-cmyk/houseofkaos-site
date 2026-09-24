@@ -356,6 +356,29 @@ h2{
   font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
 }
 
+/* ---------- performers ---------- */
+.ptype-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.6rem;margin-top:3rem;
+}
+.ptype{
+  border:1px solid var(--line-soft);
+  padding:2.2rem 1.6rem;text-align:center;
+  transition:border-color .4s;
+}
+.ptype:hover{border-color:var(--gold)}
+.ptype h4{
+  font-family:var(--serif-display);font-weight:500;
+  font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);
+  margin-bottom:.7rem;
+}
+.ptype p{color:var(--cream-dim);font-size:.98rem;margin:0}
+.performers-cta{text-align:center;margin-top:3.2rem}
+.performers-note{
+  text-align:center;color:var(--cream-dim);font-style:italic;font-size:1rem;
+  margin-top:1.2rem;
+}
+
 /* ---------- contact ---------- */
 .contact-wrap{
   border:1px solid var(--line);
@@ -664,6 +687,7 @@ footer p{color:var(--cream-dim);font-size:.95rem}
       <li><a href="#events">Events</a></li>
       <li><a href="#legacy">Past Evenings</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#performers">Performers</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -790,6 +814,41 @@ footer p{color:var(--cream-dim);font-size:.95rem}
         <h4>Alex</h4>
         <span>Co-Director</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PERFORMERS ======================= -->
+<section id="performers">
+  <div class="narrow">
+    <div class="kicker">Join The House</div>
+    <h2>Artists &amp; Performers</h2>
+    <p class="section-lede">Every night we stage is built around performance — we're always looking for the right people to build it with.</p>
+    <div class="about-text">
+      <p>From Volcarna's live set at the Siren's Abyss Ball to the smaller moments of theatre woven between courses at our themed dinners, performance sits at the centre of a House of Kaos night, not around the edges of it. If your act belongs somewhere gothic, dark or a little strange, we'd like to hear from you.</p>
+      <p>We book for both our grand balls and our smaller dinners and gatherings, so there's room for acts of very different scale — from a full stage set to something intimate enough to work table-side.</p>
+    </div>
+    <div class="ptype-grid">
+      <div class="ptype">
+        <h4>Live Music</h4>
+        <p>Bands, singers and solo acts who can hold a room dressed for the occasion.</p>
+      </div>
+      <div class="ptype">
+        <h4>Circus &amp; Aerial</h4>
+        <p>Aerialists, fire performers, dancers and other physical acts.</p>
+      </div>
+      <div class="ptype">
+        <h4>Performers &amp; Actors</h4>
+        <p>Characters, walkabout acts and theatrical moments woven through the evening.</p>
+      </div>
+      <div class="ptype">
+        <h4>Artisans &amp; Makers</h4>
+        <p>Makeup artists, body painters, tarot readers and other table-side specialists.</p>
+      </div>
+    </div>
+    <div class="performers-cta">
+      <a class="btn btn-solid" href="#contact">Introduce Yourself</a>
+      <p class="performers-note">Select "Artist / Performer" on the enquiry form below and tell us about your act.</p>
     </div>
   </div>
 </section>
@@ -933,7 +992,7 @@ footer p{color:var(--cream-dim);font-size:.95rem}
   <div class="foot-sub">Nights &amp; Balls</div>
   <p style="margin-bottom:.6rem;font-size:.85rem"><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a> &middot; <a href="https://www.instagram.com/houseofkaos74/" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://x.com/House_of_Kaos" target="_blank" rel="noopener">X</a> &middot; <a href="https://www.linkedin.com/company/128553960/" target="_blank" rel="noopener">LinkedIn</a></p>
   <p>&copy; 2026 House of Kaos Ltd · Newcastle upon Tyne · houseofkaos.co.uk</p>
-  <p style="margin-top:.6rem;font-size:.85rem"><a href="dress-code.html">Dress Code</a> &middot; <a href="terms.html">Terms &amp; Conditions</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+  <p style="margin-top:.6rem;font-size:.85rem"><a href="dress-code.html">Dress Code</a> &middot; <a href="terms.html">Terms &amp; Conditions</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="accessibility.html">Accessibility</a></p>
 </footer>
 
 </body>
