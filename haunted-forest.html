@@ -137,24 +137,41 @@ blockquote{
 .other-nights ul{list-style:none}
 .other-nights li{margin-bottom:.6rem;font-size:1rem}
 
-.gallery{
-  margin:2.4rem 0 2.8rem;
-  display:flex;
-  flex-direction:column;
-  gap:2.2rem;
+.gallery-wrap{
+  position:relative;
+  margin:2.4rem -1.5rem 1rem;
 }
+.gallery-wrap::before,
+.gallery-wrap::after{
+  content:"";
+  position:absolute;top:0;bottom:0;
+  width:2.5rem;z-index:2;
+  pointer-events:none;
+}
+.gallery-wrap::before{ left:0; background:linear-gradient(to right, var(--black), transparent); }
+.gallery-wrap::after{ right:0; background:linear-gradient(to left, var(--black), transparent); }
+.gallery{
+  display:flex;
+  gap:1rem;
+  overflow-x:auto;
+  scroll-snap-type:x proximity;
+  padding:0 1.5rem 1.2rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) transparent;
+}
+.gallery::-webkit-scrollbar{height:6px}
+.gallery::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.gallery::-webkit-scrollbar-track{background:transparent}
 .gallery a{
+  flex:0 0 auto;
+  scroll-snap-align:start;
   display:block;
+  height:60vh;
+  max-height:460px;
+  min-height:280px;
   border:1px solid var(--line-soft);
   overflow:hidden;
   position:relative;
-  width:84%;
-}
-.gallery a:nth-child(odd){ margin-right:auto; }
-.gallery a:nth-child(even){ margin-left:auto; }
-.gallery a:nth-child(3n){ width:100%; }
-@media (max-width:640px){
-  .gallery a, .gallery a:nth-child(3n){ width:100%; }
 }
 .gallery a::after{
   content:"⤢";
@@ -169,7 +186,7 @@ blockquote{
 }
 .gallery a:hover::after{opacity:1}
 .gallery img{
-  width:100%;height:auto;
+  height:100%;width:auto;
   display:block;
   filter:saturate(1.05);
   transition:transform .6s ease, filter .6s ease;
@@ -177,7 +194,7 @@ blockquote{
 .gallery a:hover img{transform:scale(1.035);filter:saturate(1.15) brightness(1.05)}
 .gallery-note{
   font-size:.85rem;color:var(--cream-dim);font-style:italic;
-  margin-top:-1rem;margin-bottom:2.6rem;
+  margin-top:0;margin-bottom:2.6rem;
 }
 
 .cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
@@ -231,15 +248,17 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
   <h2>The Setting</h2>
   <p>Every detail was placed with intent — from the table dressing to the half-glimpsed movement at the treeline. The Haunted Forest leaned on suggestion as much as spectacle, letting shadow and whisper do as much work as any costume.</p>
 
-  <div class="gallery">
-    <a href="images/haunted-forest/table-7.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-7.jpg" alt="The Haunted Forest dinner table in full, dressed in black with dark blue floral trees and deep red roses down its length" loading="lazy"></a>
-    <a href="images/haunted-forest/table-5.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-5.jpg" alt="Close-up place setting at the Haunted Forest table with wine glasses and deep red roses" loading="lazy"></a>
-    <a href="images/haunted-forest/table-4.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-4.jpg" alt="A dining chair beside the candlelit Haunted Forest table, with the woodland trees blurred beyond" loading="lazy"></a>
-    <a href="images/haunted-forest/table-2.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-2.jpg" alt="The Haunted Forest dinner table, dressed in black with dark blue floral trees and deep red roses, lit in cool blue light" loading="lazy"></a>
-    <a href="images/haunted-forest/table-6.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-6.jpg" alt="Close-up of the dark blue foliage trees lit from below, part of the Haunted Forest decor" loading="lazy"></a>
-    <a href="images/haunted-forest/table-3.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-3.jpg" alt="The Haunted Forest table setting close up, with skull, antlers, dried flowers and candlelight among the woodland decor" loading="lazy"></a>
+  <div class="gallery-wrap">
+    <div class="gallery">
+      <a href="images/haunted-forest/table-7.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-7.jpg" alt="The Haunted Forest dinner table in full, dressed in black with dark blue floral trees and deep red roses down its length" loading="lazy"></a>
+      <a href="images/haunted-forest/table-5.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-5.jpg" alt="Close-up place setting at the Haunted Forest table with wine glasses and deep red roses" loading="lazy"></a>
+      <a href="images/haunted-forest/table-4.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-4.jpg" alt="A dining chair beside the candlelit Haunted Forest table, with the woodland trees blurred beyond" loading="lazy"></a>
+      <a href="images/haunted-forest/table-2.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-2.jpg" alt="The Haunted Forest dinner table, dressed in black with dark blue floral trees and deep red roses, lit in cool blue light" loading="lazy"></a>
+      <a href="images/haunted-forest/table-6.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-6.jpg" alt="Close-up of the dark blue foliage trees lit from below, part of the Haunted Forest decor" loading="lazy"></a>
+      <a href="images/haunted-forest/table-3.jpg" target="_blank" rel="noopener"><img src="images/haunted-forest/table-3.jpg" alt="The Haunted Forest table setting close up, with skull, antlers, dried flowers and candlelight among the woodland decor" loading="lazy"></a>
+    </div>
   </div>
-  <p class="gallery-note">Click any photo to view it full size.</p>
+  <p class="gallery-note">Scroll or swipe through &middot; click any photo to view it full size.</p>
 
   <h2>Why It Mattered</h2>
   <p>Private dinners like the Haunted Forest sit at the more intimate end of what House of Kaos does — proof that the House's brand of immersive theatre works as well around a dinner table for a handful of guests as it does at a hundred-and-fifty-strong ball. It's a format we return to whenever the story calls for something smaller and closer.</p>
