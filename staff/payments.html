@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff — Payment Plans | House of Kaos</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--black:#0a0807;
+--coal:#12100e;
+--panel:#171412;
+--panel-raised:#1d1814;
+--line:rgba(201,169,106,.28);
+--line-soft:rgba(201,169,106,.14);
+--gold:#c9a96a;
+--gold-bright:#e0c68c;
+--cream:#ece4d4;
+--cream-dim:#b9b0a0;
+--ok:#8fae7a;
+--ok-bg:rgba(143,174,122,.15);
+--conflict:#d3796f;
+--conflict-bg:rgba(211,121,111,.14);
+--tentative:#b98f4a;
+--serif-display:'Playfair Display',Georgia,serif;
+--serif-body:'Cormorant Garamond',Georgia,serif;
+--mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+background:var(--black);
+color:var(--cream);
+font-family:var(--serif-body);
+font-size:1.08rem;
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+min-height:100vh;
+}
+::selection{background:rgba(201,169,106,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+[hidden]{display:none!important}
+
+header.top{
+border-bottom:1px solid var(--line-soft);
+padding:1.1rem 1.5rem;
+display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.brand{font-family:var(--serif-display);font-weight:600;letter-spacing:.03em;font-size:1.15rem;color:var(--cream)}
+.brand span{color:var(--gold)}
+.brand-sub{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:.15rem}
+.who{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--cream-dim);flex-wrap:wrap}
+.nav-link{
+font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;
+border:1px solid var(--line);padding:.35rem .8rem;border-radius:2px;color:var(--cream);
+}
+.nav-link:hover{border-color:var(--gold);color:var(--gold-bright)}
+.signout-btn{
+background:none;border:1px solid var(--line);color:var(--cream);
+font-family:var(--serif-body);font-size:.85rem;padding:.4rem .9rem;border-radius:2px;cursor:pointer;
+}
+.signout-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+#loginScreen{
+min-height:calc(100vh - 70px);
+display:flex;align-items:center;justify-content:center;
+padding:2rem 1.5rem;
+background:
+radial-gradient(circle at 20% 20%, rgba(201,169,106,.05), transparent 34%),
+radial-gradient(circle at 85% 75%, rgba(201,169,106,.04), transparent 30%),
+var(--black);
+}
+.login-box{
+width:100%;max-width:380px;
+background:var(--panel);border:1px solid var(--line);border-radius:2px;
+padding:2.2rem 2rem;
+}
+.login-box h1{
+font-family:var(--serif-display);font-weight:600;font-size:1.5rem;color:var(--cream);
+margin-bottom:.3rem;letter-spacing:.02em;
+}
+.login-box .sub{color:var(--cream-dim);font-style:italic;font-size:.95rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+label{
+display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem;
+}
+input[type=email],input[type=password],input[type=text],input[type=date],input[type=number],select,textarea{
+width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.btn{
+font-family:var(--serif-body);font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;
+padding:.7rem 1.3rem;border:1px solid var(--gold);color:var(--black);background:var(--gold);
+border-radius:2px;cursor:pointer;transition:background .2s,color .2s;width:100%;
+}
+.btn:hover{background:var(--gold-bright)}
+.btn:disabled{opacity:.5;cursor:default}
+.login-error{
+color:var(--conflict);font-size:.85rem;margin-top:.9rem;min-height:1.2em;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:1.4rem}
+.panel + .panel{margin-top:1.6rem}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1.6rem;align-items:start;margin-top:1.6rem}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+
+h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem;margin:0 0 1rem;color:var(--gold-bright);letter-spacing:.02em}
+.side-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.side-title-row .side-title{margin:0}
+.cancel-edit-btn{background:none;border:none;color:var(--cream-dim);font-family:var(--serif-body);font-size:.85rem;cursor:pointer;text-decoration:underline}
+.cancel-edit-btn:hover{color:var(--gold-bright)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+textarea{resize:vertical;min-height:44px}
+.btn.ghost{background:none;color:var(--cream);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+.btn-row{display:flex;gap:.6rem;margin-top:.4rem}
+.readout{font-family:var(--mono);font-size:.95rem;color:var(--gold-bright);padding:.55rem 0}
+.hint{font-size:.78rem;color:var(--cream-dim);margin-top:.3rem}
+.empty-note{color:var(--cream-dim);font-style:italic;font-size:.95rem}
+
+.list-filter{display:flex;gap:.6rem;margin-bottom:.9rem;align-items:center}
+.list-filter select{flex:1}
+.plan-row{display:flex;justify-content:space-between;gap:.7rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid var(--line-soft)}
+.plan-row:last-child{border-bottom:none}
+.pr-main{min-width:0}
+.pr-name{font-weight:600;color:var(--cream)}
+.pr-meta{font-size:.85rem;color:var(--cream-dim);margin-top:.15rem}
+.pr-notes{font-size:.85rem;color:var(--cream-dim);font-style:italic;margin-top:.2rem}
+.row-btns{display:flex;gap:.4rem;flex-shrink:0}
+.badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;white-space:nowrap}
+.badge.paid{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.badge.deposit{color:var(--tentative);background:rgba(185,143,74,.15);border:1px solid var(--tentative)}
+.badge.unpaid{color:var(--conflict);background:var(--conflict-bg);border:1px solid var(--conflict)}
+.balance-flag{color:var(--tentative)}
+.ref-tag{font-family:var(--mono);font-size:.68rem;color:var(--gold);letter-spacing:.03em;margin-right:.4rem}
+.edit-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.edit-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.del-btn{background:none;border:1px solid var(--line);color:var(--cream-dim);font-family:var(--mono);font-size:.7rem;padding:.25rem .5rem;border-radius:2px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.del-btn:hover{border-color:var(--conflict);color:var(--conflict)}
+.del-btn.confirming{border-color:var(--conflict);color:var(--conflict);background:var(--conflict-bg)}
+
+.status-line{font-size:.78rem;color:var(--cream-dim);margin-top:1rem;text-align:center}
+.saved-flash{color:var(--ok)}
+
+.summary-strip{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:1rem;font-family:var(--mono);font-size:.78rem;color:var(--cream-dim)}
+.summary-strip b{color:var(--gold-bright);font-size:.95rem;font-family:var(--serif-body)}
+
+@media (max-width:520px){
+.row2,.row3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+<div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Payment Plans</span></div>
+<div class="who" id="whoBar" hidden>
+<a href="index.html" class="nav-link">Prop Bookings</a>
+<a href="guests.html" class="nav-link">Guest Tickets</a>
+<a href="scan.html" class="nav-link">Check Guests In</a>
+<a href="tickets.html" class="nav-link">Generate Tickets</a>
+<a href="runsheet.html" class="nav-link">Run Sheet</a>
+<span id="whoEmail"></span>
+<button class="signout-btn" id="signOutBtn">Sign Out</button>
+</div>
+</header>
+
+<div id="loginScreen">
+<div class="login-box">
+<h1>Staff Sign In</h1>
+<div class="sub">Enter the details Sarah set up for you.</div>
+<form id="loginForm">
+<div class="field">
+<label for="loginEmail">Email</label>
+<input type="email" id="loginEmail" required autocomplete="username">
+</div>
+<div class="field">
+<label for="loginPassword">Password</label>
+<input type="password" id="loginPassword" required autocomplete="current-password">
+</div>
+<button type="submit" class="btn" id="loginBtn">Sign In</button>
+<div class="login-error" id="loginError"></div>
+</form>
+</div>
+</div>
+
+<div class="wrap" id="appWrap" hidden>
+
+<div class="grid">
+<!-- PLAN LIST -->
+<div>
+<div class="panel">
+<h2 class="side-title">Payment Plans</h2>
+<div class="summary-strip" id="summaryStrip"></div>
+<div class="list-filter">
+<select id="eventFilter"><option value="">All events</option></select>
+<select id="statusFilter">
+<option value="">All statuses</option>
+<option value="Active">Active</option>
+<option value="Overdue">Overdue</option>
+<option value="Paid Off">Paid Off</option>
+</select>
+</div>
+<div id="planList"><p class="empty-note">No payment plans yet — the first one saved will appear here.</p></div>
+</div>
+<div class="status-line" id="statusLine">Loading…</div>
+</div>
+
+<!-- PLAN FORM -->
+<div class="panel">
+<div class="side-title-row">
+<h2 class="side-title" id="planFormTitle">New Payment Plan</h2>
+<a href="#" class="cancel-edit-btn" id="cancelPlanEditBtn" hidden>Cancel edit</a>
+</div>
+<form id="planForm">
+<div class="field">
+<label for="pEvent">Event</label>
+<select id="pEvent" required><option value="">Select an event…</option></select>
+</div>
+<div class="row2">
+<div class="field">
+<label for="pName">Guest / Party Name</label>
+<input type="text" id="pName" required>
+</div>
+<div class="field">
+<label for="pParty">Party / Table Group</label>
+<input type="text" id="pParty" placeholder="e.g. Ravenswood Party">
+</div>
+</div>
+<div class="row2">
+<div class="field">
+<label for="pEmail">Contact Email</label>
+<input type="text" id="pEmail" placeholder="e.g. jane@example.com">
+</div>
+<div class="field">
+<label for="pPhone">Contact Mobile</label>
+<input type="text" id="pPhone" placeholder="e.g. 07700 900222">
+</div>
+</div>
+<div class="row3">
+<div class="field">
+<label for="pTotal">Total Amount (£)</label>
+<input type="number" id="pTotal" min="0" step="0.01" required>
+</div>
+<div class="field">
+<label for="pWeeks">Plan Length (weeks)</label>
+<select id="pWeeks">
+<option value="8">8 weeks</option>
+<option value="12">12 weeks</option>
+<option value="16">16 weeks</option>
+</select>
+</div>
+<div class="field">
+<label for="pFirstDate">First Payment Date</label>
+<input type="date" id="pFirstDate" required>
+</div>
+</div>
+<div class="field">
+<label>Instalment Amount</label>
+<div class="readout" id="pInstalmentReadout">—</div>
+</div>
+<div class="row2">
+<div class="field">
+<label for="pPaidCount">Instalments Paid</label>
+<input type="number" id="pPaidCount" min="0" step="1" value="0">
+</div>
+<div class="field">
+<label>Balance Remaining</label>
+<div class="readout" id="pBalanceReadout">—</div>
+</div>
+</div>
+<div class="field">
+<label>Next Due Date</label>
+<div class="readout" id="pNextDueReadout">—</div>
+</div>
+<div class="field">
+<label for="pNotes">Notes</label>
+<textarea id="pNotes"></textarea>
+</div>
+<div class="btn-row">
+<button type="submit" class="btn" id="savePlanBtn">Save Payment Plan</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<!-- Firebase (compat SDK — plain script tags, no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+"use strict";
+
+var firebaseConfig = {
+apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+authDomain: "house-of-kaos-bookings.firebaseapp.com",
+projectId: "house-of-kaos-bookings",
+storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+messagingSenderId: "967474223133",
+appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+};
+firebase.initializeApp(firebaseConfig);
+var auth = firebase.auth();
+var db = firebase.firestore();
+
+var events=[], plans=[];
+var unsubEvents=null, unsubPlans=null;
+var editingPlanId=null, deletePlanConfirmId=null;
+
+function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function fmtDate(iso){if(!iso) return '';var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function money(n){return '£'+(Number(n)||0).toFixed(2);}
+function todayIso(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function addWeeksIso(iso,weeks){if(!iso) return '';var p=iso.split('-');var d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));d.setDate(d.getDate()+weeks*7);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+function setStatus(msg,ok){
+var el=document.getElementById('statusLine');
+el.textContent=msg;
+el.className='status-line'+(ok?' saved-flash':'');
+}
+
+function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+
+function nextPlanRef(){
+var counterRef=db.collection('counters').doc('paymentPlanRefs');
+return db.runTransaction(function(t){
+return t.get(counterRef).then(function(doc){
+var next=(doc.exists && doc.data().seq)?doc.data().seq+1:1;
+t.set(counterRef,{seq:next},{merge:true});
+return next;
+});
+}).then(function(n){ return 'PP-'+String(n).padStart(4,'0'); });
+}
+
+// ---------- derived figures ----------
+function planFigures(p){
+var weeks=Number(p.planWeeks)||8;
+var total=Number(p.totalAmount)||0;
+var instalment=weeks>0?total/weeks:0;
+var paidCount=Number(p.instalmentsPaid)||0;
+var amountPaid=Math.min(instalment*paidCount,total);
+var balance=Math.max(total-amountPaid,0);
+var nextDue = balance>0 ? addWeeksIso(p.firstPaymentDate,paidCount) : '';
+var status = balance<=0 ? 'Paid Off' : (nextDue && nextDue<todayIso() ? 'Overdue' : 'Active');
+return {weeks:weeks,instalment:instalment,paidCount:paidCount,amountPaid:amountPaid,balance:balance,nextDue:nextDue,status:status};
+}
+function statusClass(status){return status==='Paid Off'?'paid':status==='Overdue'?'unpaid':'deposit';}
+
+// ---------- event options ----------
+function renderEventOptions(){
+var sorted=events.slice().sort(function(a,b){return (a.name||'').localeCompare(b.name||'');});
+var filter=document.getElementById('eventFilter');
+var curF=filter.value;
+filter.innerHTML='<option value="">All events</option>'+sorted.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+if(sorted.some(function(e){return e.id===curF;})) filter.value=curF;
+
+var sel=document.getElementById('pEvent');
+var curS=sel.value;
+sel.innerHTML='<option value="">Select an event…</option>'+sorted.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+if(sorted.some(function(e){return e.id===curS;})) sel.value=curS;
+}
+
+// ---------- form live readouts ----------
+function updateFormReadouts(){
+var total=parseFloat(document.getElementById('pTotal').value)||0;
+var weeks=parseInt(document.getElementById('pWeeks').value,10)||8;
+var paidCount=parseInt(document.getElementById('pPaidCount').value,10)||0;
+var firstDate=document.getElementById('pFirstDate').value;
+var instalment=weeks>0?total/weeks:0;
+var amountPaid=Math.min(instalment*paidCount,total);
+var balance=Math.max(total-amountPaid,0);
+var nextDue = balance>0 ? addWeeksIso(firstDate,paidCount) : '';
+document.getElementById('pInstalmentReadout').textContent = total>0 ? money(instalment)+' / week' : '—';
+document.getElementById('pBalanceReadout').textContent = total>0 ? money(balance) : '—';
+document.getElementById('pNextDueReadout').textContent = nextDue ? fmtDate(nextDue) : (balance<=0 && total>0 ? 'Paid off' : '—');
+}
+['pTotal','pWeeks','pPaidCount','pFirstDate'].forEach(function(id){
+document.getElementById(id).addEventListener('input',updateFormReadouts);
+document.getElementById(id).addEventListener('change',updateFormReadouts);
+});
+
+// ---------- list ----------
+function renderSummary(){
+var strip=document.getElementById('summaryStrip');
+var totalOutstanding=0, overdueCount=0, activeCount=0;
+plans.forEach(function(p){
+var f=planFigures(p);
+if(f.status!=='Paid Off') totalOutstanding+=f.balance;
+if(f.status==='Overdue') overdueCount++;
+if(f.status==='Active') activeCount++;
+});
+strip.innerHTML=
+'<span><b>'+plans.length+'</b> plan'+(plans.length===1?'':'s')+'</span>'+
+'<span><b>'+activeCount+'</b> active</span>'+
+'<span><b>'+overdueCount+'</b> overdue</span>'+
+'<span><b>'+money(totalOutstanding)+'</b> outstanding</span>';
+}
+
+function renderPlanList(){
+var eventVal=document.getElementById('eventFilter').value;
+var statusVal=document.getElementById('statusFilter').value;
+var list=document.getElementById('planList');
+var filtered=plans.filter(function(p){
+if(eventVal && p.eventId!==eventVal) return false;
+if(statusVal && planFigures(p).status!==statusVal) return false;
+return true;
+});
+filtered.sort(function(a,b){
+var fa=planFigures(a), fb=planFigures(b);
+var order={'Overdue':0,'Active':1,'Paid Off':2};
+if(order[fa.status]!==order[fb.status]) return order[fa.status]-order[fb.status];
+return (fa.nextDue||'').localeCompare(fb.nextDue||'');
+});
+if(!filtered.length){
+list.innerHTML='<p class="empty-note">'+(plans.length?'No payment plans match this filter.':'No payment plans yet — the first one saved will appear here.')+'</p>';
+renderSummary();
+return;
+}
+list.innerHTML='';
+filtered.forEach(function(p){
+var e=eventById(p.eventId);
+var f=planFigures(p);
+var row=document.createElement('div'); row.className='plan-row';
+var main=document.createElement('div'); main.className='pr-main';
+var refBit = p.planRef ? '<span class="ref-tag">'+escapeHtml(p.planRef)+'</span>' : '';
+var contactBits=[p.contactEmail,p.contactPhone].filter(Boolean).join(' · ');
+main.innerHTML=
+'<div class="pr-name">'+refBit+escapeHtml(p.name)+(p.partyGroup?' <span style="color:var(--cream-dim);font-weight:400">('+escapeHtml(p.partyGroup)+')</span>':'')+' <span class="badge '+statusClass(f.status)+'">'+f.status+'</span></div>'+
+'<div class="pr-meta">'+(e?escapeHtml(e.name):'<em>Event removed</em>')+' &middot; '+money(p.totalAmount)+' total &middot; '+f.weeks+'-week plan &middot; '+money(f.instalment)+'/wk</div>'+
+'<div class="pr-meta">Paid '+f.paidCount+' of '+f.weeks+' &middot; '+money(f.amountPaid)+' received'+
+(f.balance>0?' &middot; <span class="balance-flag">'+money(f.balance)+' owing</span>':'')+
+(f.nextDue?' &middot; next due '+fmtDate(f.nextDue):'')+'</div>'+
+(contactBits?'<div class="pr-meta">'+escapeHtml(contactBits)+'</div>':'')+
+(p.notes?'<div class="pr-notes">'+escapeHtml(p.notes)+'</div>':'');
+var btns=document.createElement('div'); btns.className='row-btns';
+var edit=document.createElement('button'); edit.type='button'; edit.className='edit-btn'; edit.textContent='Edit';
+edit.addEventListener('click',function(){ startPlanEdit(p.id); });
+var del=document.createElement('button'); del.type='button';
+del.className='del-btn'+(deletePlanConfirmId===p.id?' confirming':'');
+del.textContent=deletePlanConfirmId===p.id?'Confirm?':'Remove';
+del.addEventListener('click',function(){
+if(deletePlanConfirmId===p.id){ deletePlan(p.id); deletePlanConfirmId=null; }
+else{ deletePlanConfirmId=p.id; renderPlanList(); }
+});
+btns.appendChild(edit); btns.appendChild(del);
+row.appendChild(main); row.appendChild(btns); list.appendChild(row);
+});
+renderSummary();
+}
+
+function startPlanEdit(id){
+var p=plans.filter(function(x){return x.id===id;})[0]; if(!p) return;
+editingPlanId=id; deletePlanConfirmId=null;
+document.getElementById('pEvent').value=p.eventId||'';
+document.getElementById('pName').value=p.name||'';
+document.getElementById('pParty').value=p.partyGroup||'';
+document.getElementById('pEmail').value=p.contactEmail||'';
+document.getElementById('pPhone').value=p.contactPhone||'';
+document.getElementById('pTotal').value=p.totalAmount||0;
+document.getElementById('pWeeks').value=p.planWeeks||8;
+document.getElementById('pFirstDate').value=p.firstPaymentDate||'';
+document.getElementById('pPaidCount').value=p.instalmentsPaid||0;
+document.getElementById('pNotes').value=p.notes||'';
+updateFormReadouts();
+document.getElementById('planFormTitle').textContent='Edit Payment Plan';
+document.getElementById('cancelPlanEditBtn').hidden=false;
+document.getElementById('savePlanBtn').textContent='Update Payment Plan';
+document.getElementById('planForm').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function cancelPlanEdit(){
+editingPlanId=null;
+document.getElementById('planForm').reset();
+document.getElementById('pPaidCount').value=0;
+updateFormReadouts();
+document.getElementById('planFormTitle').textContent='New Payment Plan';
+document.getElementById('cancelPlanEditBtn').hidden=true;
+document.getElementById('savePlanBtn').textContent='Save Payment Plan';
+}
+function deletePlan(id){
+db.collection('paymentPlans').doc(id).delete().catch(function(){ setStatus('Could not remove payment plan — try again.',false); });
+}
+
+document.getElementById('planForm').addEventListener('submit',function(ev){
+ev.preventDefault();
+var eventId=document.getElementById('pEvent').value;
+var name=document.getElementById('pName').value.trim();
+var total=parseFloat(document.getElementById('pTotal').value);
+var firstDate=document.getElementById('pFirstDate').value;
+if(!eventId||!name||isNaN(total)||!firstDate) return;
+var user=auth.currentUser;
+var data={
+eventId:eventId,
+name:name,
+partyGroup:document.getElementById('pParty').value.trim(),
+contactEmail:document.getElementById('pEmail').value.trim(),
+contactPhone:document.getElementById('pPhone').value.trim(),
+totalAmount:total,
+planWeeks:parseInt(document.getElementById('pWeeks').value,10)||8,
+firstPaymentDate:firstDate,
+instalmentsPaid:parseInt(document.getElementById('pPaidCount').value,10)||0,
+notes:document.getElementById('pNotes').value.trim(),
+staffEmail:user?user.email:'',
+updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+};
+var btn=document.getElementById('savePlanBtn');
+btn.disabled=true; btn.textContent=editingPlanId?'Updating…':'Saving…';
+var write;
+if(editingPlanId){
+write = db.collection('paymentPlans').doc(editingPlanId).update(data);
+}else{
+data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+write = nextPlanRef().then(function(ref){
+data.planRef=ref;
+return db.collection('paymentPlans').add(data);
+});
+}
+write.then(function(){
+cancelPlanEdit();
+setStatus(editingPlanId?'Payment plan updated.':'Payment plan saved.',true);
+}).catch(function(){
+setStatus('Could not save payment plan — please try again.',false);
+}).finally(function(){
+btn.disabled=false; btn.textContent=editingPlanId?'Update Payment Plan':'Save Payment Plan';
+});
+});
+document.getElementById('cancelPlanEditBtn').addEventListener('click',function(e){ e.preventDefault(); cancelPlanEdit(); });
+document.getElementById('eventFilter').addEventListener('change',renderPlanList);
+document.getElementById('statusFilter').addEventListener('change',renderPlanList);
+
+function renderAll(){ renderEventOptions(); renderPlanList(); }
+
+// ---------- auth / listeners ----------
+function startListeners(){
+if(unsubEvents) return;
+unsubEvents=db.collection('events').orderBy('date','asc').limit(300).onSnapshot(function(snap){
+events=snap.docs.map(function(doc){
+var d=doc.data();
+return {id:doc.id,name:d.name||'',date:d.date||'',venue:d.venue||'',ticketPrice:d.ticketPrice||0,capacity:d.capacity||null};
+});
+renderAll();
+},function(err){ setStatus('Could not load events ('+err.code+').',false); });
+
+unsubPlans=db.collection('paymentPlans').orderBy('createdAt','asc').limit(1000).onSnapshot(function(snap){
+plans=snap.docs.map(function(doc){
+var d=doc.data();
+return {id:doc.id,eventId:d.eventId||'',name:d.name||'',partyGroup:d.partyGroup||'',contactEmail:d.contactEmail||'',
+contactPhone:d.contactPhone||'',totalAmount:d.totalAmount||0,planWeeks:d.planWeeks||8,firstPaymentDate:d.firstPaymentDate||'',
+instalmentsPaid:d.instalmentsPaid||0,notes:d.notes||'',staffEmail:d.staffEmail||'',planRef:d.planRef||''};
+});
+renderAll();
+setStatus(plans.length+' payment plan'+(plans.length===1?'':'s')+' on record.');
+},function(err){ setStatus('Could not load payment plans ('+err.code+').',false); });
+}
+function stopListeners(){
+if(unsubEvents){unsubEvents();unsubEvents=null;}
+if(unsubPlans){unsubPlans();unsubPlans=null;}
+events=[]; plans=[]; editingPlanId=null; deletePlanConfirmId=null;
+}
+
+document.getElementById('loginForm').addEventListener('submit',function(e){
+e.preventDefault();
+var email=document.getElementById('loginEmail').value.trim();
+var pw=document.getElementById('loginPassword').value;
+var btn=document.getElementById('loginBtn');
+var err=document.getElementById('loginError');
+err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+: 'Sign-in failed: '+e2.message;
+}).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+});
+
+document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+
+auth.onAuthStateChanged(function(user){
+var loginScreen=document.getElementById('loginScreen');
+var appWrap=document.getElementById('appWrap');
+var whoBar=document.getElementById('whoBar');
+if(user){
+loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+document.getElementById('whoEmail').textContent=user.email;
+document.getElementById('loginForm').reset();
+updateFormReadouts();
+startListeners();
+}else{
+loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+stopListeners();
+}
+});
+})();
+</script>
+</body>
+</html>

@@ -13,23 +13,23 @@
 
 <style>
 :root{
-  --black:#0a0807;
-  --panel:#171412;
-  --panel-raised:#1d1814;
-  --line:rgba(201,169,106,.28);
-  --line-soft:rgba(201,169,106,.14);
-  --gold:#c9a96a;
-  --gold-bright:#e0c68c;
-  --cream:#ece4d4;
-  --cream-dim:#b9b0a0;
-  --ok:#8fae7a;
-  --ok-bg:rgba(143,174,122,.15);
-  --conflict:#d3796f;
-  --conflict-bg:rgba(211,121,111,.14);
-  --tentative:#b98f4a;
-  --serif-display:'Playfair Display',Georgia,serif;
-  --serif-body:'Cormorant Garamond',Georgia,serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
+--black:#0a0807;
+--panel:#171412;
+--panel-raised:#1d1814;
+--line:rgba(201,169,106,.28);
+--line-soft:rgba(201,169,106,.14);
+--gold:#c9a96a;
+--gold-bright:#e0c68c;
+--cream:#ece4d4;
+--cream-dim:#b9b0a0;
+--ok:#8fae7a;
+--ok-bg:rgba(143,174,122,.15);
+--conflict:#d3796f;
+--conflict-bg:rgba(211,121,111,.14);
+--tentative:#b98f4a;
+--serif-display:'Playfair Display',Georgia,serif;
+--serif-body:'Cormorant Garamond',Georgia,serif;
+--mono:'IBM Plex Mono',ui-monospace,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -55,8 +55,8 @@ header.top{border-bottom:1px solid var(--line-soft);padding:1.1rem 1.5rem;displa
 .field{margin-bottom:1rem}
 label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:.35rem}
 input[type=email],input[type=password],input[type=text],input[type=time],select,textarea{
-  width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
-  font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
+width:100%;background:var(--black);border:1px solid var(--line);color:var(--cream);
+font-family:var(--serif-body);font-size:1rem;padding:.6rem .7rem;border-radius:2px;
 }
 textarea{resize:vertical;min-height:2.4rem}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
@@ -82,13 +82,11 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
 .saved-flash{color:var(--ok)}
 .error-flash{color:var(--conflict)}
 
-/* progress */
 .progress-summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
 .progress-summary .count{font-family:var(--serif-display);font-size:1.3rem;color:var(--gold-bright)}
 .progress-track{flex:1;min-width:140px;height:8px;background:var(--panel-raised);border-radius:4px;overflow:hidden}
 .progress-track-fill{height:100%;background:var(--ok);width:0%;transition:width .2s}
 
-/* checklist */
 .category-block{margin-bottom:1.6rem}
 .category-block:last-child{margin-bottom:0}
 .category-title{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line-soft);padding-bottom:.4rem;margin-bottom:.6rem}
@@ -125,147 +123,148 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
 <body>
 
 <header class="top">
-  <div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Event Run Sheet</span></div>
-  <div class="who" id="whoBar" hidden>
-    <a href="index.html" class="nav-link">Prop Bookings</a>
-    <a href="guests.html" class="nav-link">Guest Tickets</a>
-    <a href="scan.html" class="nav-link">Check Guests In</a>
-    <a href="tickets.html" class="nav-link">Generate Tickets</a>
-    <span id="whoEmail"></span>
-    <button class="signout-btn" id="signOutBtn">Sign Out</button>
-  </div>
+<div class="brand">HOUSE OF KAOS<span>.</span><span class="brand-sub">Staff — Event Run Sheet</span></div>
+<div class="who" id="whoBar" hidden>
+<a href="index.html" class="nav-link">Prop Bookings</a>
+<a href="guests.html" class="nav-link">Guest Tickets</a>
+<a href="scan.html" class="nav-link">Check Guests In</a>
+<a href="tickets.html" class="nav-link">Generate Tickets</a>
+<a href="payments.html" class="nav-link">Payment Plans</a>
+<span id="whoEmail"></span>
+<button class="signout-btn" id="signOutBtn">Sign Out</button>
+</div>
 </header>
 
 <div id="loginScreen">
-  <div class="login-box">
-    <h1>Staff Sign In</h1>
-    <div class="sub">Enter the details Sarah set up for you.</div>
-    <form id="loginForm">
-      <div class="field">
-        <label for="loginEmail">Email</label>
-        <input type="email" id="loginEmail" required autocomplete="username">
-      </div>
-      <div class="field">
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" required autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn" id="loginBtn" style="width:100%">Sign In</button>
-      <div class="login-error" id="loginError"></div>
-    </form>
-  </div>
+<div class="login-box">
+<h1>Staff Sign In</h1>
+<div class="sub">Enter the details Sarah set up for you.</div>
+<form id="loginForm">
+<div class="field">
+<label for="loginEmail">Email</label>
+<input type="email" id="loginEmail" required autocomplete="username">
+</div>
+<div class="field">
+<label for="loginPassword">Password</label>
+<input type="password" id="loginPassword" required autocomplete="current-password">
+</div>
+<button type="submit" class="btn" id="loginBtn" style="width:100%">Sign In</button>
+<div class="login-error" id="loginError"></div>
+</form>
+</div>
 </div>
 
 <div class="wrap" id="appWrap" hidden>
-  <div class="panel">
-    <h2 class="side-title">Event</h2>
-    <div class="field" style="margin-bottom:0">
-      <label for="rsEvent">Choose an event</label>
-      <select id="rsEvent"><option value="">Select an event…</option></select>
-    </div>
-    <div class="hint" id="eventInfoHint"></div>
-  </div>
+<div class="panel">
+<h2 class="side-title">Event</h2>
+<div class="field" style="margin-bottom:0">
+<label for="rsEvent">Choose an event</label>
+<select id="rsEvent"><option value="">Select an event…</option></select>
+</div>
+<div class="hint" id="eventInfoHint"></div>
+</div>
 
-  <div class="panel" id="contactsPanel" hidden>
-    <div class="side-title-row">
-      <h2 class="side-title" style="margin:0">Key Contacts</h2>
-      <button type="button" class="icon-btn" id="showAddContactBtn">+ Add Contact</button>
-    </div>
+<div class="panel" id="contactsPanel" hidden>
+<div class="side-title-row">
+<h2 class="side-title" style="margin:0">Key Contacts</h2>
+<button type="button" class="icon-btn" id="showAddContactBtn">+ Add Contact</button>
+</div>
 
-    <div class="edit-row" id="contactFormRow" hidden>
-      <div class="side-title-row">
-        <span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="contactFormTitle">Add Contact</span>
-        <button type="button" class="cancel-edit-btn" id="cancelContactEditBtn">Cancel</button>
-      </div>
-      <form id="contactForm">
-        <input type="hidden" id="contactId">
-        <div class="row2">
-          <div class="field">
-            <label for="contactRole">Who</label>
-            <input type="text" id="contactRole" required placeholder="e.g. Venue Manager, Volcarna (performer)">
-          </div>
-          <div class="field">
-            <label for="contactName">Name</label>
-            <input type="text" id="contactName" placeholder="Contact's name">
-          </div>
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label for="contactPhone">Phone</label>
-            <input type="text" id="contactPhone" placeholder="e.g. 07123 456789">
-          </div>
-          <div class="field">
-            <label for="contactNotes">Notes</label>
-            <input type="text" id="contactNotes" placeholder="e.g. arrives 4pm, side entrance">
-          </div>
-        </div>
-        <button type="submit" class="btn small" id="contactSaveBtn">Save Contact</button>
-      </form>
-    </div>
+<div class="edit-row" id="contactFormRow" hidden>
+<div class="side-title-row">
+<span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="contactFormTitle">Add Contact</span>
+<button type="button" class="cancel-edit-btn" id="cancelContactEditBtn">Cancel</button>
+</div>
+<form id="contactForm">
+<input type="hidden" id="contactId">
+<div class="row2">
+<div class="field">
+<label for="contactRole">Who</label>
+<input type="text" id="contactRole" required placeholder="e.g. Venue Manager, Volcarna (performer)">
+</div>
+<div class="field">
+<label for="contactName">Name</label>
+<input type="text" id="contactName" placeholder="Contact's name">
+</div>
+</div>
+<div class="row2">
+<div class="field">
+<label for="contactPhone">Phone</label>
+<input type="text" id="contactPhone" placeholder="e.g. 07123 456789">
+</div>
+<div class="field">
+<label for="contactNotes">Notes</label>
+<input type="text" id="contactNotes" placeholder="e.g. arrives 4pm, side entrance">
+</div>
+</div>
+<button type="submit" class="btn small" id="contactSaveBtn">Save Contact</button>
+</form>
+</div>
 
-    <div id="contactsBody" style="margin-top:.6rem"></div>
-    <div class="empty-note" id="contactsEmptyNote" hidden>No contacts added for this event yet.</div>
-  </div>
+<div id="contactsBody" style="margin-top:.6rem"></div>
+<div class="empty-note" id="contactsEmptyNote" hidden>No contacts added for this event yet.</div>
+</div>
 
-  <div class="panel" id="checklistPanel" hidden>
-    <div class="progress-summary">
-      <h2 class="side-title" style="margin:0">Run Sheet</h2>
-      <div style="display:flex;align-items:center;gap:.8rem;flex:1;justify-content:flex-end">
-        <div class="progress-track"><div class="progress-track-fill" id="progressFill"></div></div>
-        <span class="count" id="progressCount">0 / 0</span>
-      </div>
-    </div>
-    <div class="btn-row">
-      <button type="button" class="btn ghost small" id="loadTemplateBtn">Add Starter Checklist</button>
-      <button type="button" class="btn ghost small" id="showAddFormBtn">+ Add Task</button>
-      <button type="button" class="btn ghost small" id="hideDoneBtn">Hide Completed</button>
-      <button type="button" class="btn ghost small" id="chronoToggleBtn">Sort by Time</button>
-    </div>
+<div class="panel" id="checklistPanel" hidden>
+<div class="progress-summary">
+<h2 class="side-title" style="margin:0">Run Sheet</h2>
+<div style="display:flex;align-items:center;gap:.8rem;flex:1;justify-content:flex-end">
+<div class="progress-track"><div class="progress-track-fill" id="progressFill"></div></div>
+<span class="count" id="progressCount">0 / 0</span>
+</div>
+</div>
+<div class="btn-row">
+<button type="button" class="btn ghost small" id="loadTemplateBtn">Add Starter Checklist</button>
+<button type="button" class="btn ghost small" id="showAddFormBtn">+ Add Task</button>
+<button type="button" class="btn ghost small" id="hideDoneBtn">Hide Completed</button>
+<button type="button" class="btn ghost small" id="chronoToggleBtn">Sort by Time</button>
+</div>
 
-    <div class="edit-row" id="taskFormRow" hidden>
-      <div class="side-title-row">
-        <span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="taskFormTitle">Add Task</span>
-        <button type="button" class="cancel-edit-btn" id="cancelTaskEditBtn">Cancel</button>
-      </div>
-      <form id="taskForm">
-        <input type="hidden" id="taskId">
-        <div class="field">
-          <label for="taskTitle">Task</label>
-          <input type="text" id="taskTitle" required placeholder="e.g. Bar stocked &amp; set up">
-        </div>
-        <div class="row3">
-          <div class="field">
-            <label for="taskCategory">Category</label>
-            <select id="taskCategory">
-              <option>Load-in &amp; Setup</option>
-              <option>Décor &amp; Props</option>
-              <option>Bar &amp; Catering</option>
-              <option>Staff &amp; Briefing</option>
-              <option>Performers</option>
-              <option>Front of House</option>
-              <option>Close-down</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="taskTime">Target time</label>
-            <input type="text" id="taskTime" placeholder="e.g. 5:00pm or Doors -30min">
-          </div>
-          <div class="field">
-            <label for="taskAssigned">Assigned to</label>
-            <input type="text" id="taskAssigned" placeholder="Staff name">
-          </div>
-        </div>
-        <div class="field">
-          <label for="taskNotes">Notes</label>
-          <textarea id="taskNotes" placeholder="Anything staff need to know"></textarea>
-        </div>
-        <button type="submit" class="btn" id="taskSaveBtn">Save Task</button>
-      </form>
-    </div>
+<div class="edit-row" id="taskFormRow" hidden>
+<div class="side-title-row">
+<span style="font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright)" id="taskFormTitle">Add Task</span>
+<button type="button" class="cancel-edit-btn" id="cancelTaskEditBtn">Cancel</button>
+</div>
+<form id="taskForm">
+<input type="hidden" id="taskId">
+<div class="field">
+<label for="taskTitle">Task</label>
+<input type="text" id="taskTitle" required placeholder="e.g. Bar stocked &amp; set up">
+</div>
+<div class="row3">
+<div class="field">
+<label for="taskCategory">Category</label>
+<select id="taskCategory">
+<option>Load-in &amp; Setup</option>
+<option>Décor &amp; Props</option>
+<option>Bar &amp; Catering</option>
+<option>Staff &amp; Briefing</option>
+<option>Performers</option>
+<option>Front of House</option>
+<option>Close-down</option>
+<option>Other</option>
+</select>
+</div>
+<div class="field">
+<label for="taskTime">Target time</label>
+<input type="text" id="taskTime" placeholder="e.g. 5:00pm or Doors -30min">
+</div>
+<div class="field">
+<label for="taskAssigned">Assigned to</label>
+<input type="text" id="taskAssigned" placeholder="Staff name">
+</div>
+</div>
+<div class="field">
+<label for="taskNotes">Notes</label>
+<textarea id="taskNotes" placeholder="Anything staff need to know"></textarea>
+</div>
+<button type="submit" class="btn" id="taskSaveBtn">Save Task</button>
+</form>
+</div>
 
-    <div id="checklistBody" style="margin-top:1.2rem"></div>
-    <div class="empty-note" id="emptyNote" hidden>No tasks yet for this event — add one above or load the starter checklist.</div>
-  </div>
+<div id="checklistBody" style="margin-top:1.2rem"></div>
+<div class="empty-note" id="emptyNote" hidden>No tasks yet for this event — add one above or load the starter checklist.</div>
+</div>
 </div>
 
 <!-- Firebase (compat SDK) -->
@@ -275,509 +274,505 @@ h2.side-title{font-family:var(--serif-display);font-weight:500;font-size:1.15rem
 
 <script>
 (function(){
-  "use strict";
+"use strict";
 
-  var firebaseConfig = {
-    apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
-    authDomain: "house-of-kaos-bookings.firebaseapp.com",
-    projectId: "house-of-kaos-bookings",
-    storageBucket: "house-of-kaos-bookings.firebasestorage.app",
-    messagingSenderId: "967474223133",
-    appId: "1:967474223133:web:9e322eb02381ecc823cef4"
-  };
-  firebase.initializeApp(firebaseConfig);
-  var auth = firebase.auth();
-  var db = firebase.firestore();
+var firebaseConfig = {
+apiKey: "AIzaSyB7hELLbDYjVHO-5xxBfW5cXZUfXRnMiLc",
+authDomain: "house-of-kaos-bookings.firebaseapp.com",
+projectId: "house-of-kaos-bookings",
+storageBucket: "house-of-kaos-bookings.firebasestorage.app",
+messagingSenderId: "967474223133",
+appId: "1:967474223133:web:9e322eb02381ecc823cef4"
+};
+firebase.initializeApp(firebaseConfig);
+var auth = firebase.auth();
+var db = firebase.firestore();
 
-  var events=[];
-  var tasks=[];
-  var contacts=[];
-  var editingTaskId=null;
-  var editingContactId=null;
-  var hideDone=false;
-  var chronoView=false;
-  var CATEGORY_ORDER=['Load-in & Setup','Décor & Props','Bar & Catering','Staff & Briefing','Performers','Front of House','Close-down','Other'];
+var events=[];
+var tasks=[];
+var contacts=[];
+var editingTaskId=null;
+var editingContactId=null;
+var hideDone=false;
+var chronoView=false;
+var CATEGORY_ORDER=['Load-in & Setup','Décor & Props','Bar & Catering','Staff & Briefing','Performers','Front of House','Close-down','Other'];
 
-  // Parses common time formats ("5:00pm", "5pm", "17:00", "5:30 PM") into minutes
-  // since midnight for sorting. Anything else (e.g. "Doors -30min") returns null
-  // and is treated as having no set time.
-  function parseTimeToMinutes(str){
-    if(!str) return null;
-    var s=String(str).trim().toLowerCase();
-    var m=s.match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/);
-    if(!m) return null;
-    var hour=parseInt(m[1],10);
-    var minute=m[2]?parseInt(m[2],10):0;
-    var ampm=m[3];
-    if(isNaN(hour)||hour>23||minute>59) return null;
-    if(ampm){
-      if(hour<1||hour>12) return null;
-      if(ampm==='pm' && hour!==12) hour+=12;
-      if(ampm==='am' && hour===12) hour=0;
-    }
-    return hour*60+minute;
-  }
+function parseTimeToMinutes(str){
+if(!str) return null;
+var s=String(str).trim().toLowerCase();
+var m=s.match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/);
+if(!m) return null;
+var hour=parseInt(m[1],10);
+var minute=m[2]?parseInt(m[2],10):0;
+var ampm=m[3];
+if(isNaN(hour)||hour>23||minute>59) return null;
+if(ampm){
+if(hour<1||hour>12) return null;
+if(ampm==='pm' && hour!==12) hour+=12;
+if(ampm==='am' && hour===12) hour=0;
+}
+return hour*60+minute;
+}
 
-  var STARTER_TEMPLATE=[
-    ['Load-in & Setup','Venue access confirmed with venue contact'],
-    ['Load-in & Setup','Load-in van access & parking arranged'],
-    ['Load-in & Setup','Tables & seating plan laid out, matching table numbers to guest records'],
-    ['Load-in & Setup','Guest check-in station set up (phone/tablet + charger for QR scanning)'],
-    ['Load-in & Setup','Signage placed (entrance, cloakroom, toilets)'],
-    ['Décor & Props','Décor & props loaded in from House of Kaos Props'],
-    ['Décor & Props','Décor set dressed on tables & venue'],
-    ['Bar & Catering','Bar stocked & set up'],
-    ['Bar & Catering','Catering/kitchen team arrival confirmed'],
-    ['Bar & Catering','Menu choices given to catering team'],
-    ['Bar & Catering','Allergy list given to catering team'],
-    ['Staff & Briefing','Staff rota confirmed & shared'],
-    ['Staff & Briefing','Staff briefing held (roles, timings, emergency procedures)'],
-    ['Staff & Briefing','First aid kit on site & first-aider identified'],
-    ['Staff & Briefing','All staff arrived & signed in'],
-    ['Performers','Performer(s) arrival & load-in confirmed'],
-    ['Performers','Performer set time & tech/sound check done'],
-    ['Front of House','Doors open on time'],
-    ['Front of House','Guest check-in / QR scanning station ready'],
-    ['Front of House','Cloakroom open'],
-    ['Close-down','Last orders called'],
-    ['Close-down','Guests out & venue cleared'],
-    ['Close-down','Décor & props packed down'],
-    ['Close-down','Venue handed back / walkthrough with venue contact'],
-    ['Close-down','Lost property collected']
-  ];
+var STARTER_TEMPLATE=[
+['Load-in & Setup','Venue access confirmed with venue contact'],
+['Load-in & Setup','Load-in van access & parking arranged'],
+['Load-in & Setup','Tables & seating plan laid out, matching table numbers to guest records'],
+['Load-in & Setup','Guest check-in station set up (phone/tablet + charger for QR scanning)'],
+['Load-in & Setup','Signage placed (entrance, cloakroom, toilets)'],
+['Décor & Props','Décor & props loaded in from House of Kaos Props'],
+['Décor & Props','Décor set dressed on tables & venue'],
+['Bar & Catering','Bar stocked & set up'],
+['Bar & Catering','Catering/kitchen team arrival confirmed'],
+['Bar & Catering','Menu choices given to catering team'],
+['Bar & Catering','Allergy list given to catering team'],
+['Staff & Briefing','Staff rota confirmed & shared'],
+['Staff & Briefing','Staff briefing held (roles, timings, emergency procedures)'],
+['Staff & Briefing','First aid kit on site & first-aider identified'],
+['Staff & Briefing','All staff arrived & signed in'],
+['Performers','Performer(s) arrival & load-in confirmed'],
+['Performers','Performer set time & tech/sound check done'],
+['Front of House','Doors open on time'],
+['Front of House','Guest check-in / QR scanning station ready'],
+['Front of House','Cloakroom open'],
+['Close-down','Last orders called'],
+['Close-down','Guests out & venue cleared'],
+['Close-down','Décor & props packed down'],
+['Close-down','Venue handed back / walkthrough with venue contact'],
+['Close-down','Lost property collected']
+];
 
-  function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
-  function setStatus(msg,kind){
-    // reuse a lightweight status via title attribute fallback; simplest: console + transient element
-    var el=document.getElementById('statusLine');
-    if(!el){
-      el=document.createElement('div');
-      el.className='status-line';
-      el.id='statusLine';
-      document.getElementById('checklistPanel').appendChild(el);
-    }
-    el.textContent=msg;
-    el.className='status-line'+(kind==='ok'?' saved-flash':kind==='err'?' error-flash':'');
-  }
+function escapeHtml(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function setStatus(msg,kind){
+var el=document.getElementById('statusLine');
+if(!el){
+el=document.createElement('div');
+el.className='status-line';
+el.id='statusLine';
+document.getElementById('checklistPanel').appendChild(el);
+}
+el.textContent=msg;
+el.className='status-line'+(kind==='ok'?' saved-flash':kind==='err'?' error-flash':'');
+}
 
-  function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
+function eventById(id){ return events.filter(function(e){return e.id===id;})[0]; }
 
-  function loadEvents(){
-    return db.collection('events').orderBy('date','asc').limit(300).get().then(function(snap){
-      events=snap.docs.map(function(doc){ var d=doc.data(); return Object.assign({id:doc.id},d); });
-      var sel=document.getElementById('rsEvent');
-      sel.innerHTML='<option value="">Select an event…</option>'+events.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
-    });
-  }
+function loadEvents(){
+return db.collection('events').orderBy('date','asc').limit(300).get().then(function(snap){
+events=snap.docs.map(function(doc){ var d=doc.data(); return Object.assign({id:doc.id},d); });
+var sel=document.getElementById('rsEvent');
+sel.innerHTML='<option value="">Select an event…</option>'+events.map(function(e){return '<option value="'+e.id+'">'+escapeHtml(e.name)+'</option>';}).join('');
+});
+}
 
-  document.getElementById('rsEvent').addEventListener('change',function(){
-    var e=eventById(this.value);
-    var hint=document.getElementById('eventInfoHint');
-    var panel=document.getElementById('checklistPanel');
-    var contactsPanel=document.getElementById('contactsPanel');
-    if(!e){ hint.textContent=''; panel.hidden=true; contactsPanel.hidden=true; return; }
-    hint.textContent=(e.date?e.date+' — ':'')+(e.venue||'');
-    panel.hidden=false;
-    contactsPanel.hidden=false;
-    loadTasksForEvent(e.id);
-    loadContactsForEvent(e.id);
-  });
+document.getElementById('rsEvent').addEventListener('change',function(){
+var e=eventById(this.value);
+var hint=document.getElementById('eventInfoHint');
+var panel=document.getElementById('checklistPanel');
+var contactsPanel=document.getElementById('contactsPanel');
+if(!e){ hint.textContent=''; panel.hidden=true; contactsPanel.hidden=true; return; }
+hint.textContent=(e.date?e.date+' — ':'')+(e.venue||'');
+panel.hidden=false;
+contactsPanel.hidden=false;
+loadTasksForEvent(e.id);
+loadContactsForEvent(e.id);
+});
 
-  function loadTasksForEvent(eventId){
-    setStatus('Loading run sheet…');
-    return db.collection('runsheet').where('eventId','==',eventId).get().then(function(snap){
-      tasks=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
-      tasks.sort(function(a,b){
-        var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
-        var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
-        return ta-tb;
-      });
-      renderChecklist();
-      setStatus('');
-    }).catch(function(err){
-      setStatus('Could not load run sheet — '+(err&&err.message?err.message:'try again')+'.','err');
-    });
-  }
+function loadTasksForEvent(eventId){
+setStatus('Loading run sheet…');
+return db.collection('runsheet').where('eventId','==',eventId).get().then(function(snap){
+tasks=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
+tasks.sort(function(a,b){
+var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+return ta-tb;
+});
+renderChecklist();
+setStatus('');
+}).catch(function(err){
+setStatus('Could not load run sheet — '+(err&&err.message?err.message:'try again')+'.','err');
+});
+}
 
-  function renderChecklist(){
-    var body=document.getElementById('checklistBody');
-    var emptyNote=document.getElementById('emptyNote');
-    var visible=hideDone?tasks.filter(function(t){return !t.done;}):tasks;
+function renderChecklist(){
+var body=document.getElementById('checklistBody');
+var emptyNote=document.getElementById('emptyNote');
+var visible=hideDone?tasks.filter(function(t){return !t.done;}):tasks;
 
-    var doneCount=tasks.filter(function(t){return t.done;}).length;
-    document.getElementById('progressCount').textContent=doneCount+' / '+tasks.length;
-    document.getElementById('progressFill').style.width=tasks.length?Math.round((doneCount/tasks.length)*100)+'%':'0%';
+var doneCount=tasks.filter(function(t){return t.done;}).length;
+document.getElementById('progressCount').textContent=doneCount+' / '+tasks.length;
+document.getElementById('progressFill').style.width=tasks.length?Math.round((doneCount/tasks.length)*100)+'%':'0%';
 
-    if(!tasks.length){
-      body.innerHTML='';
-      emptyNote.hidden=false;
-      return;
-    }
-    emptyNote.hidden=true;
+if(!tasks.length){
+body.innerHTML='';
+emptyNote.hidden=false;
+return;
+}
+emptyNote.hidden=true;
 
-    if(chronoView){
-      var withTime=[];
-      var withoutTime=[];
-      visible.forEach(function(t){
-        var mins=parseTimeToMinutes(t.time);
-        if(mins===null){ withoutTime.push(t); }
-        else{ withTime.push({t:t,mins:mins}); }
-      });
-      withTime.sort(function(a,b){ return a.mins-b.mins; });
-      var orderedRows=withTime.map(function(x){ return taskRowHtml(x.t,true); }).join('');
-      var noTimeRows=withoutTime.map(function(t){ return taskRowHtml(t,true); }).join('');
-      body.innerHTML=
-        (orderedRows?'<div class="category-block"><div class="category-title">In Order</div>'+orderedRows+'</div>':'')
-        + (noTimeRows?'<div class="category-block"><div class="category-title">No Time Set</div>'+noTimeRows+'</div>':'');
-    }else{
-      var byCat={};
-      visible.forEach(function(t){
-        var cat=t.category||'Other';
-        if(!byCat[cat]) byCat[cat]=[];
-        byCat[cat].push(t);
-      });
+if(chronoView){
+var withTime=[];
+var withoutTime=[];
+visible.forEach(function(t){
+var mins=parseTimeToMinutes(t.time);
+if(mins===null){ withoutTime.push(t); }
+else{ withTime.push({t:t,mins:mins}); }
+});
+withTime.sort(function(a,b){ return a.mins-b.mins; });
+var orderedRows=withTime.map(function(x){ return taskRowHtml(x.t,true); }).join('');
+var noTimeRows=withoutTime.map(function(t){ return taskRowHtml(t,true); }).join('');
+body.innerHTML=
+(orderedRows?'<div class="category-block"><div class="category-title">In Order</div>'+orderedRows+'</div>':'')
++ (noTimeRows?'<div class="category-block"><div class="category-title">No Time Set</div>'+noTimeRows+'</div>':'');
+}else{
+var byCat={};
+visible.forEach(function(t){
+var cat=t.category||'Other';
+if(!byCat[cat]) byCat[cat]=[];
+byCat[cat].push(t);
+});
 
-      var cats=Object.keys(byCat).sort(function(a,b){
-        var ia=CATEGORY_ORDER.indexOf(a); if(ia===-1) ia=999;
-        var ib=CATEGORY_ORDER.indexOf(b); if(ib===-1) ib=999;
-        return ia-ib;
-      });
+var cats=Object.keys(byCat).sort(function(a,b){
+var ia=CATEGORY_ORDER.indexOf(a); if(ia===-1) ia=999;
+var ib=CATEGORY_ORDER.indexOf(b); if(ib===-1) ib=999;
+return ia-ib;
+});
 
-      body.innerHTML=cats.map(function(cat){
-        var rows=byCat[cat].map(function(t){ return taskRowHtml(t,false); }).join('');
-        return '<div class="category-block"><div class="category-title">'+escapeHtml(cat)+'</div>'+rows+'</div>';
-      }).join('');
-    }
+body.innerHTML=cats.map(function(cat){
+var rows=byCat[cat].map(function(t){ return taskRowHtml(t,false); }).join('');
+return '<div class="category-block"><div class="category-title">'+escapeHtml(cat)+'</div>'+rows+'</div>';
+}).join('');
+}
 
-    body.querySelectorAll('.task-check').forEach(function(cb){
-      cb.addEventListener('change',function(){ toggleDone(this.getAttribute('data-id'), this.checked); });
-    });
-    body.querySelectorAll('.edit-task-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){ startEditTask(this.getAttribute('data-id')); });
-    });
-    body.querySelectorAll('.remove-task-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){ removeTask(this.getAttribute('data-id')); });
-    });
-  }
+body.querySelectorAll('.task-check').forEach(function(cb){
+cb.addEventListener('change',function(){ toggleDone(this.getAttribute('data-id'), this.checked); });
+});
+body.querySelectorAll('.edit-task-btn').forEach(function(btn){
+btn.addEventListener('click',function(){ startEditTask(this.getAttribute('data-id')); });
+});
+body.querySelectorAll('.remove-task-btn').forEach(function(btn){
+btn.addEventListener('click',function(){ removeTask(this.getAttribute('data-id')); });
+});
+}
 
-  function taskRowHtml(t, showCatTag){
-    var meta=[];
-    if(t.time) meta.push('<span class="time-tag">'+escapeHtml(t.time)+'</span>');
-    if(showCatTag) meta.push('<span class="chrono-tag">'+escapeHtml(t.category||'Other')+'</span>');
-    if(t.assignedTo) meta.push(escapeHtml(t.assignedTo));
-    if(t.done && t.doneBy) meta.push('done by '+escapeHtml(t.doneBy));
-    return '<div class="task-row'+(t.done?' done':'')+'" data-id="'+t.id+'">'
-      + '<input type="checkbox" class="task-check" '+(t.done?'checked':'')+' data-id="'+t.id+'">'
-      + '<div class="task-body">'
-      +   '<div class="task-title">'+escapeHtml(t.title)+'</div>'
-      +   (meta.length?'<div class="task-meta">'+meta.join(' &middot; ')+'</div>':'')
-      +   (t.notes?'<div class="task-notes">'+escapeHtml(t.notes)+'</div>':'')
-      + '</div>'
-      + '<div class="task-actions">'
-      +   '<button type="button" class="icon-btn edit-task-btn" data-id="'+t.id+'">Edit</button>'
-      +   '<button type="button" class="icon-btn danger remove-task-btn" data-id="'+t.id+'">Remove</button>'
-      + '</div>'
-      + '</div>';
-  }
+function taskRowHtml(t, showCatTag){
+var meta=[];
+if(t.time) meta.push('<span class="time-tag">'+escapeHtml(t.time)+'</span>');
+if(showCatTag) meta.push('<span class="chrono-tag">'+escapeHtml(t.category||'Other')+'</span>');
+if(t.assignedTo) meta.push(escapeHtml(t.assignedTo));
+if(t.done && t.doneBy) meta.push('done by '+escapeHtml(t.doneBy));
+return '<div class="task-row'+(t.done?' done':'')+'" data-id="'+t.id+'">'
++ '<input type="checkbox" class="task-check" '+(t.done?'checked':'')+' data-id="'+t.id+'">'
++ '<div class="task-body">'
++ '<div class="task-title">'+escapeHtml(t.title)+'</div>'
++ (meta.length?'<div class="task-meta">'+meta.join(' &middot; ')+'</div>':'')
++ (t.notes?'<div class="task-notes">'+escapeHtml(t.notes)+'</div>':'')
++ '</div>'
++ '<div class="task-actions">'
++ '<button type="button" class="icon-btn edit-task-btn" data-id="'+t.id+'">Edit</button>'
++ '<button type="button" class="icon-btn danger remove-task-btn" data-id="'+t.id+'">Remove</button>'
++ '</div>'
++ '</div>';
+}
 
-  function toggleDone(taskId, val){
-    var user=auth.currentUser;
-    db.collection('runsheet').doc(taskId).update({
-      done: val,
-      doneAt: val ? firebase.firestore.FieldValue.serverTimestamp() : null,
-      doneBy: val ? (user?user.email:'') : ''
-    }).then(function(){
-      var t=tasks.filter(function(x){return x.id===taskId;})[0];
-      if(t){ t.done=val; t.doneBy=val?(user?user.email:''):''; }
-      renderChecklist();
-    }).catch(function(err){
-      setStatus('Could not update task — '+(err&&err.message?err.message:'try again')+'.','err');
-      renderChecklist();
-    });
-  }
+function toggleDone(taskId, val){
+var user=auth.currentUser;
+db.collection('runsheet').doc(taskId).update({
+done: val,
+doneAt: val ? firebase.firestore.FieldValue.serverTimestamp() : null,
+doneBy: val ? (user?user.email:'') : ''
+}).then(function(){
+var t=tasks.filter(function(x){return x.id===taskId;})[0];
+if(t){ t.done=val; t.doneBy=val?(user?user.email:''):''; }
+renderChecklist();
+}).catch(function(err){
+setStatus('Could not update task — '+(err&&err.message?err.message:'try again')+'.','err');
+renderChecklist();
+});
+}
 
-  function removeTask(taskId){
-    if(!window.confirm('Remove this task from the run sheet?')) return;
-    db.collection('runsheet').doc(taskId).delete().then(function(){
-      tasks=tasks.filter(function(t){return t.id!==taskId;});
-      renderChecklist();
-    }).catch(function(err){
-      setStatus('Could not remove task — '+(err&&err.message?err.message:'try again')+'.','err');
-    });
-  }
+function removeTask(taskId){
+if(!window.confirm('Remove this task from the run sheet?')) return;
+db.collection('runsheet').doc(taskId).delete().then(function(){
+tasks=tasks.filter(function(t){return t.id!==taskId;});
+renderChecklist();
+}).catch(function(err){
+setStatus('Could not remove task — '+(err&&err.message?err.message:'try again')+'.','err');
+});
+}
 
-  function startEditTask(taskId){
-    var t=tasks.filter(function(x){return x.id===taskId;})[0];
-    if(!t) return;
-    editingTaskId=taskId;
-    document.getElementById('taskFormTitle').textContent='Edit Task';
-    document.getElementById('taskId').value=taskId;
-    document.getElementById('taskTitle').value=t.title||'';
-    document.getElementById('taskCategory').value=t.category||'Other';
-    document.getElementById('taskTime').value=t.time||'';
-    document.getElementById('taskAssigned').value=t.assignedTo||'';
-    document.getElementById('taskNotes').value=t.notes||'';
-    document.getElementById('taskFormRow').hidden=false;
-    document.getElementById('taskTitle').focus();
-  }
+function startEditTask(taskId){
+var t=tasks.filter(function(x){return x.id===taskId;})[0];
+if(!t) return;
+editingTaskId=taskId;
+document.getElementById('taskFormTitle').textContent='Edit Task';
+document.getElementById('taskId').value=taskId;
+document.getElementById('taskTitle').value=t.title||'';
+document.getElementById('taskCategory').value=t.category||'Other';
+document.getElementById('taskTime').value=t.time||'';
+document.getElementById('taskAssigned').value=t.assignedTo||'';
+document.getElementById('taskNotes').value=t.notes||'';
+document.getElementById('taskFormRow').hidden=false;
+document.getElementById('taskTitle').focus();
+}
 
-  function resetTaskForm(){
-    editingTaskId=null;
-    document.getElementById('taskFormTitle').textContent='Add Task';
-    document.getElementById('taskForm').reset();
-    document.getElementById('taskId').value='';
-    document.getElementById('taskFormRow').hidden=true;
-  }
+function resetTaskForm(){
+editingTaskId=null;
+document.getElementById('taskFormTitle').textContent='Add Task';
+document.getElementById('taskForm').reset();
+document.getElementById('taskId').value='';
+document.getElementById('taskFormRow').hidden=true;
+}
 
-  document.getElementById('showAddFormBtn').addEventListener('click',function(){
-    if(editingTaskId){ resetTaskForm(); }
-    document.getElementById('taskFormRow').hidden=false;
-    document.getElementById('taskTitle').focus();
-  });
-  document.getElementById('cancelTaskEditBtn').addEventListener('click',resetTaskForm);
+document.getElementById('showAddFormBtn').addEventListener('click',function(){
+if(editingTaskId){ resetTaskForm(); }
+document.getElementById('taskFormRow').hidden=false;
+document.getElementById('taskTitle').focus();
+});
+document.getElementById('cancelTaskEditBtn').addEventListener('click',resetTaskForm);
 
-  document.getElementById('hideDoneBtn').addEventListener('click',function(){
-    hideDone=!hideDone;
-    this.textContent=hideDone?'Show Completed':'Hide Completed';
-    renderChecklist();
-  });
+document.getElementById('hideDoneBtn').addEventListener('click',function(){
+hideDone=!hideDone;
+this.textContent=hideDone?'Show Completed':'Hide Completed';
+renderChecklist();
+});
 
-  document.getElementById('chronoToggleBtn').addEventListener('click',function(){
-    chronoView=!chronoView;
-    this.textContent=chronoView?'Group by Category':'Sort by Time';
-    renderChecklist();
-  });
+document.getElementById('chronoToggleBtn').addEventListener('click',function(){
+chronoView=!chronoView;
+this.textContent=chronoView?'Group by Category':'Sort by Time';
+renderChecklist();
+});
 
-  document.getElementById('taskForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    var eventId=document.getElementById('rsEvent').value;
-    if(!eventId){ setStatus('Choose an event first.','err'); return; }
-    var btn=document.getElementById('taskSaveBtn');
-    btn.disabled=true;
-    var data={
-      eventId:eventId,
-      title:document.getElementById('taskTitle').value.trim(),
-      category:document.getElementById('taskCategory').value,
-      time:document.getElementById('taskTime').value.trim(),
-      assignedTo:document.getElementById('taskAssigned').value.trim(),
-      notes:document.getElementById('taskNotes').value.trim(),
-      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
-    };
-    if(!data.title){ setStatus('Task needs a title.','err'); btn.disabled=false; return; }
+document.getElementById('taskForm').addEventListener('submit',function(e){
+e.preventDefault();
+var eventId=document.getElementById('rsEvent').value;
+if(!eventId){ setStatus('Choose an event first.','err'); return; }
+var btn=document.getElementById('taskSaveBtn');
+btn.disabled=true;
+var data={
+eventId:eventId,
+title:document.getElementById('taskTitle').value.trim(),
+category:document.getElementById('taskCategory').value,
+time:document.getElementById('taskTime').value.trim(),
+assignedTo:document.getElementById('taskAssigned').value.trim(),
+notes:document.getElementById('taskNotes').value.trim(),
+updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+};
+if(!data.title){ setStatus('Task needs a title.','err'); btn.disabled=false; return; }
 
-    var promise;
-    if(editingTaskId){
-      promise=db.collection('runsheet').doc(editingTaskId).update(data);
-    }else{
-      data.done=false;
-      data.doneAt=null;
-      data.doneBy='';
-      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
-      promise=db.collection('runsheet').add(data);
-    }
-    promise.then(function(){
-      resetTaskForm();
-      return loadTasksForEvent(eventId);
-    }).then(function(){
-      setStatus('Saved.','ok');
-    }).catch(function(err){
-      setStatus('Could not save task — '+(err&&err.message?err.message:'try again')+'.','err');
-    }).finally(function(){
-      btn.disabled=false;
-    });
-  });
+var promise;
+if(editingTaskId){
+promise=db.collection('runsheet').doc(editingTaskId).update(data);
+}else{
+data.done=false;
+data.doneAt=null;
+data.doneBy='';
+data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+promise=db.collection('runsheet').add(data);
+}
+promise.then(function(){
+resetTaskForm();
+return loadTasksForEvent(eventId);
+}).then(function(){
+setStatus('Saved.','ok');
+}).catch(function(err){
+setStatus('Could not save task — '+(err&&err.message?err.message:'try again')+'.','err');
+}).finally(function(){
+btn.disabled=false;
+});
+});
 
-  document.getElementById('loadTemplateBtn').addEventListener('click',function(){
-    var eventId=document.getElementById('rsEvent').value;
-    if(!eventId){ setStatus('Choose an event first.','err'); return; }
-    var existingTitles=tasks.map(function(t){return (t.title||'').trim().toLowerCase();});
-    var toAdd=STARTER_TEMPLATE.filter(function(pair){
-      return existingTitles.indexOf(pair[1].trim().toLowerCase())===-1;
-    });
-    if(!toAdd.length){ setStatus('Starter checklist is already on this run sheet.','ok'); return; }
-    var btn=this;
-    btn.disabled=true;
-    setStatus('Adding starter checklist…');
-    var batch=db.batch();
-    toAdd.forEach(function(pair){
-      var ref=db.collection('runsheet').doc();
-      batch.set(ref,{
-        eventId:eventId,
-        category:pair[0],
-        title:pair[1],
-        time:'',
-        assignedTo:'',
-        notes:'',
-        done:false,
-        doneAt:null,
-        doneBy:'',
-        createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-        updatedAt:firebase.firestore.FieldValue.serverTimestamp()
-      });
-    });
-    batch.commit().then(function(){
-      return loadTasksForEvent(eventId);
-    }).then(function(){
-      setStatus(toAdd.length+' task'+(toAdd.length===1?'':'s')+' added.','ok');
-    }).catch(function(err){
-      setStatus('Could not add starter checklist — '+(err&&err.message?err.message:'try again')+'.','err');
-    }).finally(function(){
-      btn.disabled=false;
-    });
-  });
+document.getElementById('loadTemplateBtn').addEventListener('click',function(){
+var eventId=document.getElementById('rsEvent').value;
+if(!eventId){ setStatus('Choose an event first.','err'); return; }
+var existingTitles=tasks.map(function(t){return (t.title||'').trim().toLowerCase();});
+var toAdd=STARTER_TEMPLATE.filter(function(pair){
+return existingTitles.indexOf(pair[1].trim().toLowerCase())===-1;
+});
+if(!toAdd.length){ setStatus('Starter checklist is already on this run sheet.','ok'); return; }
+var btn=this;
+btn.disabled=true;
+setStatus('Adding starter checklist…');
+var batch=db.batch();
+toAdd.forEach(function(pair){
+var ref=db.collection('runsheet').doc();
+batch.set(ref,{
+eventId:eventId,
+category:pair[0],
+title:pair[1],
+time:'',
+assignedTo:'',
+notes:'',
+done:false,
+doneAt:null,
+doneBy:'',
+createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+});
+});
+batch.commit().then(function(){
+return loadTasksForEvent(eventId);
+}).then(function(){
+setStatus(toAdd.length+' task'+(toAdd.length===1?'':'s')+' added.','ok');
+}).catch(function(err){
+setStatus('Could not add starter checklist — '+(err&&err.message?err.message:'try again')+'.','err');
+}).finally(function(){
+btn.disabled=false;
+});
+});
 
-  // ---------- key contacts ----------
-  function loadContactsForEvent(eventId){
-    return db.collection('contacts').where('eventId','==',eventId).get().then(function(snap){
-      contacts=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
-      contacts.sort(function(a,b){
-        var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
-        var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
-        return ta-tb;
-      });
-      renderContacts();
-    }).catch(function(err){
-      setStatus('Could not load contacts — '+(err&&err.message?err.message:'try again')+'.','err');
-    });
-  }
+// ---------- key contacts ----------
+function loadContactsForEvent(eventId){
+return db.collection('contacts').where('eventId','==',eventId).get().then(function(snap){
+contacts=snap.docs.map(function(doc){ return Object.assign({id:doc.id},doc.data()); });
+contacts.sort(function(a,b){
+var ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;
+var tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;
+return ta-tb;
+});
+renderContacts();
+}).catch(function(err){
+setStatus('Could not load contacts — '+(err&&err.message?err.message:'try again')+'.','err');
+});
+}
 
-  function renderContacts(){
-    var body=document.getElementById('contactsBody');
-    var emptyNote=document.getElementById('contactsEmptyNote');
-    if(!contacts.length){
-      body.innerHTML='';
-      emptyNote.hidden=false;
-      return;
-    }
-    emptyNote.hidden=true;
-    body.innerHTML=contacts.map(function(c){
-      var metaParts=[];
-      if(c.phone) metaParts.push('<a href="tel:'+escapeHtml(c.phone.replace(/\s+/g,''))+'">'+escapeHtml(c.phone)+'</a>');
-      if(c.notes) metaParts.push(escapeHtml(c.notes));
-      return '<div class="contact-row" data-id="'+c.id+'">'
-        + '<div class="contact-body">'
-        +   '<div class="contact-role">'+escapeHtml(c.role)+'</div>'
-        +   (c.name?'<div class="contact-name">'+escapeHtml(c.name)+'</div>':'')
-        +   (metaParts.length?'<div class="contact-meta">'+metaParts.join(' &middot; ')+'</div>':'')
-        + '</div>'
-        + '<div class="contact-actions">'
-        +   '<button type="button" class="icon-btn edit-contact-btn" data-id="'+c.id+'">Edit</button>'
-        +   '<button type="button" class="icon-btn danger remove-contact-btn" data-id="'+c.id+'">Remove</button>'
-        + '</div>'
-        + '</div>';
-    }).join('');
+function renderContacts(){
+var body=document.getElementById('contactsBody');
+var emptyNote=document.getElementById('contactsEmptyNote');
+if(!contacts.length){
+body.innerHTML='';
+emptyNote.hidden=false;
+return;
+}
+emptyNote.hidden=true;
+body.innerHTML=contacts.map(function(c){
+var metaParts=[];
+if(c.phone) metaParts.push('<a href="tel:'+escapeHtml(c.phone.replace(/\s+/g,''))+'">'+escapeHtml(c.phone)+'</a>');
+if(c.notes) metaParts.push(escapeHtml(c.notes));
+return '<div class="contact-row" data-id="'+c.id+'">'
++ '<div class="contact-body">'
++ '<div class="contact-role">'+escapeHtml(c.role)+'</div>'
++ (c.name?'<div class="contact-name">'+escapeHtml(c.name)+'</div>':'')
++ (metaParts.length?'<div class="contact-meta">'+metaParts.join(' &middot; ')+'</div>':'')
++ '</div>'
++ '<div class="contact-actions">'
++ '<button type="button" class="icon-btn edit-contact-btn" data-id="'+c.id+'">Edit</button>'
++ '<button type="button" class="icon-btn danger remove-contact-btn" data-id="'+c.id+'">Remove</button>'
++ '</div>'
++ '</div>';
+}).join('');
 
-    body.querySelectorAll('.edit-contact-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){ startEditContact(this.getAttribute('data-id')); });
-    });
-    body.querySelectorAll('.remove-contact-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){ removeContact(this.getAttribute('data-id')); });
-    });
-  }
+body.querySelectorAll('.edit-contact-btn').forEach(function(btn){
+btn.addEventListener('click',function(){ startEditContact(this.getAttribute('data-id')); });
+});
+body.querySelectorAll('.remove-contact-btn').forEach(function(btn){
+btn.addEventListener('click',function(){ removeContact(this.getAttribute('data-id')); });
+});
+}
 
-  function startEditContact(contactId){
-    var c=contacts.filter(function(x){return x.id===contactId;})[0];
-    if(!c) return;
-    editingContactId=contactId;
-    document.getElementById('contactFormTitle').textContent='Edit Contact';
-    document.getElementById('contactId').value=contactId;
-    document.getElementById('contactRole').value=c.role||'';
-    document.getElementById('contactName').value=c.name||'';
-    document.getElementById('contactPhone').value=c.phone||'';
-    document.getElementById('contactNotes').value=c.notes||'';
-    document.getElementById('contactFormRow').hidden=false;
-    document.getElementById('contactRole').focus();
-  }
+function startEditContact(contactId){
+var c=contacts.filter(function(x){return x.id===contactId;})[0];
+if(!c) return;
+editingContactId=contactId;
+document.getElementById('contactFormTitle').textContent='Edit Contact';
+document.getElementById('contactId').value=contactId;
+document.getElementById('contactRole').value=c.role||'';
+document.getElementById('contactName').value=c.name||'';
+document.getElementById('contactPhone').value=c.phone||'';
+document.getElementById('contactNotes').value=c.notes||'';
+document.getElementById('contactFormRow').hidden=false;
+document.getElementById('contactRole').focus();
+}
 
-  function resetContactForm(){
-    editingContactId=null;
-    document.getElementById('contactFormTitle').textContent='Add Contact';
-    document.getElementById('contactForm').reset();
-    document.getElementById('contactId').value='';
-    document.getElementById('contactFormRow').hidden=true;
-  }
+function resetContactForm(){
+editingContactId=null;
+document.getElementById('contactFormTitle').textContent='Add Contact';
+document.getElementById('contactForm').reset();
+document.getElementById('contactId').value='';
+document.getElementById('contactFormRow').hidden=true;
+}
 
-  function removeContact(contactId){
-    if(!window.confirm('Remove this contact?')) return;
-    db.collection('contacts').doc(contactId).delete().then(function(){
-      contacts=contacts.filter(function(c){return c.id!==contactId;});
-      renderContacts();
-    }).catch(function(err){
-      setStatus('Could not remove contact — '+(err&&err.message?err.message:'try again')+'.','err');
-    });
-  }
+function removeContact(contactId){
+if(!window.confirm('Remove this contact?')) return;
+db.collection('contacts').doc(contactId).delete().then(function(){
+contacts=contacts.filter(function(c){return c.id!==contactId;});
+renderContacts();
+}).catch(function(err){
+setStatus('Could not remove contact — '+(err&&err.message?err.message:'try again')+'.','err');
+});
+}
 
-  document.getElementById('showAddContactBtn').addEventListener('click',function(){
-    if(editingContactId){ resetContactForm(); }
-    document.getElementById('contactFormRow').hidden=false;
-    document.getElementById('contactRole').focus();
-  });
-  document.getElementById('cancelContactEditBtn').addEventListener('click',resetContactForm);
+document.getElementById('showAddContactBtn').addEventListener('click',function(){
+if(editingContactId){ resetContactForm(); }
+document.getElementById('contactFormRow').hidden=false;
+document.getElementById('contactRole').focus();
+});
+document.getElementById('cancelContactEditBtn').addEventListener('click',resetContactForm);
 
-  document.getElementById('contactForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    var eventId=document.getElementById('rsEvent').value;
-    if(!eventId){ setStatus('Choose an event first.','err'); return; }
-    var btn=document.getElementById('contactSaveBtn');
-    btn.disabled=true;
-    var data={
-      eventId:eventId,
-      role:document.getElementById('contactRole').value.trim(),
-      name:document.getElementById('contactName').value.trim(),
-      phone:document.getElementById('contactPhone').value.trim(),
-      notes:document.getElementById('contactNotes').value.trim(),
-      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
-    };
-    if(!data.role){ setStatus('Contact needs a "who" — a role or name.','err'); btn.disabled=false; return; }
+document.getElementById('contactForm').addEventListener('submit',function(e){
+e.preventDefault();
+var eventId=document.getElementById('rsEvent').value;
+if(!eventId){ setStatus('Choose an event first.','err'); return; }
+var btn=document.getElementById('contactSaveBtn');
+btn.disabled=true;
+var data={
+eventId:eventId,
+role:document.getElementById('contactRole').value.trim(),
+name:document.getElementById('contactName').value.trim(),
+phone:document.getElementById('contactPhone').value.trim(),
+notes:document.getElementById('contactNotes').value.trim(),
+updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+};
+if(!data.role){ setStatus('Contact needs a "who" — a role or name.','err'); btn.disabled=false; return; }
 
-    var promise;
-    if(editingContactId){
-      promise=db.collection('contacts').doc(editingContactId).update(data);
-    }else{
-      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
-      promise=db.collection('contacts').add(data);
-    }
-    promise.then(function(){
-      resetContactForm();
-      return loadContactsForEvent(eventId);
-    }).then(function(){
-      setStatus('Saved.','ok');
-    }).catch(function(err){
-      setStatus('Could not save contact — '+(err&&err.message?err.message:'try again')+'.','err');
-    }).finally(function(){
-      btn.disabled=false;
-    });
-  });
+var promise;
+if(editingContactId){
+promise=db.collection('contacts').doc(editingContactId).update(data);
+}else{
+data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+promise=db.collection('contacts').add(data);
+}
+promise.then(function(){
+resetContactForm();
+return loadContactsForEvent(eventId);
+}).then(function(){
+setStatus('Saved.','ok');
+}).catch(function(err){
+setStatus('Could not save contact — '+(err&&err.message?err.message:'try again')+'.','err');
+}).finally(function(){
+btn.disabled=false;
+});
+});
 
-  // ---------- auth ----------
-  document.getElementById('loginForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    var email=document.getElementById('loginEmail').value.trim();
-    var pw=document.getElementById('loginPassword').value;
-    var btn=document.getElementById('loginBtn');
-    var err=document.getElementById('loginError');
-    err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
-    auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
-      err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
-        ? 'Email or password not recognised — check with Sarah if you\'re not sure.'
-        : 'Sign-in failed: '+e2.message;
-    }).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
-  });
-  document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
+// ---------- auth ----------
+document.getElementById('loginForm').addEventListener('submit',function(e){
+e.preventDefault();
+var email=document.getElementById('loginEmail').value.trim();
+var pw=document.getElementById('loginPassword').value;
+var btn=document.getElementById('loginBtn');
+var err=document.getElementById('loginError');
+err.textContent=''; btn.disabled=true; btn.textContent='Signing in…';
+auth.signInWithEmailAndPassword(email,pw).catch(function(e2){
+err.textContent = (e2.code==='auth/invalid-credential'||e2.code==='auth/wrong-password'||e2.code==='auth/user-not-found')
+? 'Email or password not recognised — check with Sarah if you\'re not sure.'
+: 'Sign-in failed: '+e2.message;
+}).finally(function(){ btn.disabled=false; btn.textContent='Sign In'; });
+});
+document.getElementById('signOutBtn').addEventListener('click',function(){ auth.signOut(); });
 
-  auth.onAuthStateChanged(function(user){
-    var loginScreen=document.getElementById('loginScreen');
-    var appWrap=document.getElementById('appWrap');
-    var whoBar=document.getElementById('whoBar');
-    if(user){
-      loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
-      document.getElementById('whoEmail').textContent=user.email;
-      document.getElementById('loginForm').reset();
-      loadEvents();
-    }else{
-      loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
-    }
-  });
+auth.onAuthStateChanged(function(user){
+var loginScreen=document.getElementById('loginScreen');
+var appWrap=document.getElementById('appWrap');
+var whoBar=document.getElementById('whoBar');
+if(user){
+loginScreen.hidden=true; appWrap.hidden=false; whoBar.hidden=false;
+document.getElementById('whoEmail').textContent=user.email;
+document.getElementById('loginForm').reset();
+loadEvents();
+}else{
+loginScreen.hidden=false; appWrap.hidden=true; whoBar.hidden=true;
+}
+});
 })();
 </script>
 </body>
