@@ -58,3 +58,7 @@ header.hero::after{background:radial-gradient(45% 35% at 75% 70%,rgba(201,163,92
   header.hero::before,header.hero::after,.hero-content::before{animation:none}
   .hero-scroll::after{animation:none;opacity:.7}
 }
+
+/* ---- hero video layer ---- */
+.hok-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;z-index:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.hok-video{display:none}}
