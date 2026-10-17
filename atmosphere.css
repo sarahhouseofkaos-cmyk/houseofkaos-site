@@ -66,3 +66,38 @@ header.hero::after{background:radial-gradient(45% 35% at 75% 70%,rgba(201,163,92
 /* video replaces the old hero photo; photo returns for reduced-motion */
 .hero-bg{background:radial-gradient(60% 45% at 50% 42%,rgba(201,169,106,.07),transparent 70%),linear-gradient(rgba(10,8,7,.5),rgba(10,8,7,.72))}
 @media (prefers-reduced-motion:reduce){.hero-bg{background:radial-gradient(60% 45% at 50% 42%,rgba(201,169,106,.07),transparent 70%),linear-gradient(rgba(10,8,7,.5),rgba(10,8,7,.72)),url("images/hero/hero-candles.jpg") center 35% / cover no-repeat}}
+
+
+/* ===== Step 3: Upcoming Events ===== */
+#events .ev-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:auto auto;gap:24px;margin-top:2.5rem}
+#events .ev-card{position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;transition:transform .3s ease,border-color .3s ease}
+#events .ev-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+#events .ev-ball{grid-row:1 / span 2;display:flex;flex-direction:column}
+#events .ev-art{position:relative;height:240px;overflow:hidden;background:#0d1618}
+#events .ev-art i{position:absolute;inset:0;background:radial-gradient(70% 90% at 30% 20%,rgba(46,111,106,.55),transparent 70%),radial-gradient(60% 80% at 80% 90%,rgba(142,47,60,.35),transparent 70%),linear-gradient(160deg,#10262a,#14101a);transition:transform .8s cubic-bezier(.22,.8,.3,1);will-change:transform}
+#events .ev-art svg{position:absolute;inset:0;width:100%;height:100%;opacity:.35;transition:transform .8s cubic-bezier(.22,.8,.3,1)}
+#events .ev-ball:hover .ev-art i,#events .ev-ball:hover .ev-art svg{transform:scale(1.05)}
+#events .ev-date{position:absolute;left:20px;bottom:16px;font-family:'Cormorant Garamond',serif;color:var(--gold-soft);line-height:1}
+#events .ev-date b{font-size:3.2rem;font-weight:500}#events .ev-date span{display:block;font-family:'IM Fell English',serif;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:var(--muted);margin-top:.35rem}
+#events .ev-body{padding:1.6rem 1.6rem 1.8rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+#events .ev-theme{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+#events .ev-card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2rem;line-height:1.1;color:var(--text);margin:0}
+#events .ev-card .desc{color:var(--muted);margin:0;line-height:1.7}
+#events .ev-meta{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin:.4rem 0}
+#events .ev-meta span{font-size:.82rem;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:.25rem .8rem}
+#events .ev-meta b{color:var(--gold-soft)}
+#events .ev-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:auto;padding-top:.6rem}
+#events .ev-side{padding:1.6rem}
+#events .ev-wait{border-color:rgba(142,47,60,.55)}
+#events .ev-tag{display:inline-block;align-self:flex-start;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#e9a9b2;border:1px solid var(--crimson);border-radius:999px;padding:.2rem .8rem}
+#events .ev-form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem}
+#events .ev-form input{flex:1 1 180px;min-width:0;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:3px;padding:.75rem .9rem;font:inherit}
+#events .ev-form input:focus{outline:2px solid var(--gold);outline-offset:2px}
+#events .ev-form button{cursor:pointer}
+#events .ev-note{font-size:.8rem;color:var(--muted);margin:.2rem 0 0}
+#events .ev-band{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 2rem;padding:1.1rem 1.6rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted)}
+#events .ev-band p{margin:0;font-style:italic}
+#events .ev-band a{color:var(--gold-soft);margin-left:1rem;text-decoration:none;border-bottom:1px solid var(--line)}
+#events .ev-band a:hover{border-color:var(--gold)}
+@media (max-width:860px){#events .ev-grid{grid-template-columns:1fr}#events .ev-ball{grid-row:auto}#events .ev-art{height:200px}}
+@media (prefers-reduced-motion:reduce){#events .ev-card,#events .ev-art i,#events .ev-art svg{transition:none}#events .ev-card:hover{transform:none}#events .ev-ball:hover .ev-art i,#events .ev-ball:hover .ev-art svg{transform:none}}
