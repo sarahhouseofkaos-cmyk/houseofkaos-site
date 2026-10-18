@@ -5,4 +5,44 @@
           <changefreq>weekly</changefreq>
           <priority>1.0</priority>
     </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/private-events.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/reanimation-dinner.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/vampire-ball.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/haunted-forest.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/underland.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/nights-of-kaos.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/payment-plan.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
+    <url>
+          <loc>https://houseofkaos.co.uk/dress-code.html</loc>
+          <changefreq>monthly</changefreq>
+          <priority>0.7</priority>
+    </url>
 </urlset>
