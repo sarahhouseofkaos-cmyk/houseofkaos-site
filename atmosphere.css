@@ -195,3 +195,9 @@ footer{position:relative;border-top:1px solid rgba(201,163,92,.2)}
 .candle-glow{position:fixed;left:0;right:0;bottom:0;height:150px;pointer-events:none;z-index:1;background:radial-gradient(60% 100% at 50% 100%,rgba(255,170,80,.18),rgba(255,140,60,.05) 55%,transparent 75%);animation:candle 5s ease-in-out infinite alternate}
 @keyframes candle{0%{opacity:.55}50%{opacity:.9}100%{opacity:.65}}
 @media (prefers-reduced-motion:reduce){nav::before,.ptype-art svg,.ptype h4,.ptype p,.ptype::before,.ptype::after,.faq-item summary::after,.faq-item::details-content{transition:none}.candle-glow{animation:none;opacity:.6}}
+
+/* Siren's Abyss ambient video behind the ball card */
+#events .ev-ball{position:relative;overflow:hidden;isolation:isolate}
+#events .ev-ball .sirens-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;z-index:-2;pointer-events:none}
+#events .ev-ball::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(20,16,26,.15) 0%,rgba(20,16,26,.6) 45%,rgba(20,16,26,.82) 100%)}
+@media (prefers-reduced-motion:reduce){.sirens-video{display:none}}
