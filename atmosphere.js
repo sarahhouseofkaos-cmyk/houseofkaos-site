@@ -19,3 +19,37 @@
   }
   d.readyState==='loading'?d.addEventListener('DOMContentLoaded',go):go();
 })(document);
+
+/* Step 4: gentle parallax on Evenings Past photos (desktop, motion allowed) */
+(function(){
+  var mq=window.matchMedia('(min-width:861px) and (prefers-reduced-motion:no-preference)');
+  var imgs=[],ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight;
+    imgs.forEach(function(img){
+      var r=img.parentNode.getBoundingClientRect();
+      if(r.bottom<-100||r.top>vh+100)return;
+      var p=(r.top+r.height/2-vh/2)/(vh/2+r.height/2);
+      p=Math.max(-1,Math.min(1,p));
+      img.style.setProperty('--py',(p*-28).toFixed(1)+'px');
+    });
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  function init(){
+    imgs=[].slice.call(document.querySelectorAll('#legacy .legacy-photo img'));
+    if(!imgs.length)return;
+    function toggle(){
+      window.removeEventListener('scroll',onScroll);
+      window.removeEventListener('resize',onScroll);
+      if(mq.matches){
+        window.addEventListener('scroll',onScroll,{passive:true});
+        window.addEventListener('resize',onScroll,{passive:true});
+        update();
+      }else{imgs.forEach(function(i){i.style.removeProperty('--py');});}
+    }
+    if(mq.addEventListener)mq.addEventListener('change',toggle);
+    toggle();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
