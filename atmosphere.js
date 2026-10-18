@@ -55,7 +55,7 @@
 })();
 
 /* Steps 5-7: nav scroll state, FAQ one-at-a-time, enquiry pills */
-(function(){
+(function(){function init(){
   var nav=document.querySelector('nav'),hero=document.getElementById('top');
   function onS(){if(nav)nav.classList.toggle('scrolled',window.scrollY>(hero?hero.offsetHeight-120:300));}
   window.addEventListener('scroll',onS,{passive:true});onS();
@@ -77,4 +77,6 @@
     set('General Enquiry');
     document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-enquiry]');if(a)set(a.getAttribute('data-enquiry'));});
   }
+}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
