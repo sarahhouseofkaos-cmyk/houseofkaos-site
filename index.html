@@ -717,8 +717,8 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 }
 </script>
 <style>@media(min-width:1000px){.nav-links{gap:1.7rem}.nav-links a{white-space:nowrap}}</style>
-<link rel="stylesheet" href="atmosphere.css?v=5">
-<script src="atmosphere.js?v=5"></script>
+<link rel="stylesheet" href="atmosphere.css?v=6">
+<script src="atmosphere.js?v=6"></script>
 </head>
 <body>
 
@@ -728,6 +728,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <div class="brand-name">House of Kaos</div>
 <div class="brand-sub">Nights &amp; Balls</div>
 </div>
+<a class="nav-reserve" href="#events">Reserve</a>
 <button class="nav-toggle" onclick="document.getElementById('navlinks').classList.toggle('open')">Menu</button>
 <ul class="nav-links" id="navlinks">
 <li><a href="#events">Events</a></li>
@@ -922,27 +923,30 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 <div class="ptype-grid">
 <div class="ptype">
+<div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 44V18l22-5v26"/><circle cx="21" cy="45" r="5"/><circle cx="43" cy="40" r="5"/></svg></div>
 <h4>Live Music</h4>
 <p>Bands, singers and solo acts who can hold a room dressed for the occasion.</p>
 </div>
 <div class="ptype">
+<div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6v18"/><circle cx="32" cy="38" r="14"/><path d="M24 54l8-6 8 6"/></svg></div>
 <h4>Circus &amp; Aerial</h4>
 <p>Aerialists, fire performers, dancers and other physical acts.</p>
 </div>
 <div class="ptype">
+<div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18c10-4 30-4 40 0 0 18-6 32-20 32S12 36 12 18z"/><path d="M20 26c3-2 7-2 9 1M44 26c-3-2-7-2-9 1"/><path d="M26 38c4 4 8 4 12 0"/></svg></div>
 <h4>Performers &amp; Actors</h4>
 <p>Characters, walkabout acts and theatrical moments woven through the evening.</p>
 </div>
 <div class="ptype">
+<div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="8" width="28" height="48" rx="3"/><path d="M32 22l3 7 8 .5-6 5 2 8-7-4.5-7 4.5 2-8-6-5 8-.5z"/></svg></div>
 <h4>Artisans &amp; Makers</h4>
 <p>Makeup artists, body painters, tarot readers and other table-side specialists.</p>
 </div>
 </div>
-<div class="performers-cta">
-<a class="btn btn-solid" href="#contact">Introduce Yourself</a>
-<p class="performers-note">Select "Artist / Performer" on the enquiry form below and tell us about your act.</p>
 </div>
-</div>
+<div class="perf-band"><h3>If your act belongs in the dark — introduce yourself</h3>
+<a class="btn btn-solid" href="#contact" data-enquiry="Artist / Performer">Introduce Yourself</a>
+<p class="performers-note">We’ll select “Artist / Performer” on the enquiry form for you.</p></div>
 </section>
 
 <!-- ======================= FAQ ======================= -->
@@ -952,39 +956,39 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <h2>Frequently Asked Questions</h2>
 <p class="section-lede">Everything you need to know before stepping into the House.</p>
 <div class="faq-list">
-<details class="faq-item">
-<summary>Is there an age restriction?</summary>
-<p class="faq-answer">Yes — House of Kaos events are strictly 21+. We may ask you to show valid photo ID on arrival, so please bring it with you.</p>
-</details>
-<details class="faq-item">
-<summary>Do I need to wear a costume?</summary>
-<p class="faq-answer">Costume is required at themed events, as stated on the event listing. Each event has its own theme, so check the details on the Events section above for what to wear — or see our full <a href="dress-code.html">Dress Code guide</a> for inspiration and guidelines.</p>
-</details>
-<details class="faq-item">
+<details class="faq-item faq-book" name="faq">
 <summary>How do I book tickets?</summary>
 <p class="faq-answer">Most tickets are sold through Eventbrite — just follow the "Tickets on Eventbrite" link on the event you're interested in. Some bookings are also made directly with House of Kaos; if you book directly, your booking is covered by our own terms rather than Eventbrite's. Payment plans are also available directly with House of Kaos for our balls and dinners — see our <a href="payment-plan.html">Payment Plan</a> page for details.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item faq-book" name="faq">
 <summary>Can I pay for my ticket in instalments?</summary>
 <p class="faq-answer">Yes — House of Kaos offers a <a href="payment-plan.html">payment plan</a> directly for our balls and dinners, over 8, 12 or 16 weeks. Your place is held from your first payment and confirmed once the plan is paid in full. See the <a href="payment-plan.html">Payment Plan</a> page for how it works and to request one.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item faq-book" name="faq">
 <summary>Can I get a refund or transfer my ticket?</summary>
 <p class="faq-answer">This depends on how you booked. Tickets bought through Eventbrite are covered by Eventbrite's own refund and transfer process. Tickets booked directly with House of Kaos are non-refundable but can be transferred to someone else — just email us in advance with the new attendee's details. Full details are in our <a href="terms.html">Terms &amp; Conditions</a>.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item" name="faq">
+<summary>Is there an age restriction?</summary>
+<p class="faq-answer">Yes — House of Kaos events are strictly 21+. We may ask you to show valid photo ID on arrival, so please bring it with you.</p>
+</details>
+<details class="faq-item" name="faq">
+<summary>Do I need to wear a costume?</summary>
+<p class="faq-answer">Costume is required at themed events, as stated on the event listing. Each event has its own theme, so check the details on the Events section above for what to wear — or see our full <a href="dress-code.html">Dress Code guide</a> for inspiration and guidelines.</p>
+</details>
+<details class="faq-item" name="faq">
 <summary>Where are events held?</summary>
 <p class="faq-answer">Our events are held at a range of striking venues across Newcastle and the North East, chosen to suit each night's theme. The venue for each event is always listed on that event's details above.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item" name="faq">
 <summary>Can I come on my own?</summary>
 <p class="faq-answer">Absolutely — many guests come solo. House of Kaos has grown a community of like-minded people, and you'll find a welcoming room whether you arrive with friends or by yourself.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item" name="faq">
 <summary>What if an event is sold out?</summary>
 <p class="faq-answer">Once a listing sells out, we're unable to add extra tickets. Follow us on social media (links below) to hear about new dates and future events as soon as they're announced.</p>
 </details>
-<details class="faq-item">
+<details class="faq-item" name="faq">
 <summary>I have a dietary requirement — what should I do?</summary>
 <p class="faq-answer">Let us know in advance at <a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a> with your booking details and we'll do what we can to accommodate you.</p>
 </details>
@@ -1028,6 +1032,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 
 <form class="enquiry-form" id="enquiry-form" action="https://formsubmit.co/hello@houseofkaos.co.uk" method="POST">
+<div class="join-band"><h3>Join the House</h3><p class="join-promise">We reply within two working days.</p></div>
 <p class="form-intro">Artist, performer or venue? Tell us a little about your enquiry and we'll be in touch.</p>
 
 <input type="hidden" name="_subject" value="New enquiry — House of Kaos website">
@@ -1089,12 +1094,15 @@ if(thanks){ thanks.style.display = 'block'; }
 </script>
 
 <footer>
+<div class="foot-crest" aria-hidden="true">✦</div>
 <div class="foot-mark">House of Kaos</div>
 <div class="foot-sub">Nights &amp; Balls</div>
 <p style="margin-bottom:.6rem;font-size:.85rem"><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a> &middot; <a href="https://www.instagram.com/houseofkaosevents/" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://x.com/House_of_Kaos" target="_blank" rel="noopener">X</a> &middot; <a href="https://www.linkedin.com/company/128553960/" target="_blank" rel="noopener">LinkedIn</a></p>
+<p class="foot-mail"><a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a></p>
 <p>&copy; 2026 House of Kaos Ltd · Newcastle upon Tyne · houseofkaos.co.uk</p>
 <p style="margin-top:.6rem;font-size:.85rem"><a href="payment-plan.html">Payment Plan</a> &middot; <a href="dress-code.html">Dress Code</a> &middot; <a href="terms.html">Terms &amp; Conditions</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="accessibility.html">Accessibility</a></p>
 </footer>
+<div class="candle-glow" aria-hidden="true"></div>
 
 </body>
 </html>
