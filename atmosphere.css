@@ -101,3 +101,6 @@ header.hero::after{background:radial-gradient(45% 35% at 75% 70%,rgba(201,163,92
 #events .ev-band a:hover{border-color:var(--gold)}
 @media (max-width:860px){#events .ev-grid{grid-template-columns:1fr}#events .ev-ball{grid-row:auto}#events .ev-art{height:200px}}
 @media (prefers-reduced-motion:reduce){#events .ev-card,#events .ev-art i,#events .ev-art svg{transition:none}#events .ev-card:hover{transform:none}#events .ev-ball:hover .ev-art i,#events .ev-ball:hover .ev-art svg{transform:none}}
+
+/* Evenings Past: four cards sit two by two on desktop */
+@media (min-width:861px){#legacy .legacy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
