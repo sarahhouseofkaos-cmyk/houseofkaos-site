@@ -103,4 +103,43 @@ header.hero::after{background:radial-gradient(45% 35% at 75% 70%,rgba(201,163,92
 @media (prefers-reduced-motion:reduce){#events .ev-card,#events .ev-art i,#events .ev-art svg{transition:none}#events .ev-card:hover{transform:none}#events .ev-ball:hover .ev-art i,#events .ev-ball:hover .ev-art svg{transform:none}}
 
 /* Evenings Past: four cards sit two by two on desktop */
-@media (min-width:861px){#legacy .legacy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* ===== Step 4: Evenings Past timeline ===== */
+#legacy .legacy-grid{display:flow-root;position:relative;max-width:1040px;margin:3.5rem auto 0;padding:0}
+#legacy .legacy-grid::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold) 5%,var(--gold) 95%,transparent);opacity:.55}
+#legacy .legacy-card{background:#271f31;border-color:rgba(201,163,92,.28)}
+#legacy .legacy-grid .legacy-card{width:calc(50% - 60px);margin:0 0 3rem}
+#legacy .legacy-grid .legacy-card:nth-child(odd){float:left;clear:left}
+#legacy .legacy-grid .legacy-card:nth-child(even){float:right;clear:right;margin-top:6rem}
+#legacy .legacy-grid .legacy-card.has-photo::before{display:block;content:"";position:absolute;top:105px;width:60px;height:1px;margin:0;background:var(--gold);opacity:.55}
+#legacy .legacy-grid .legacy-card:nth-child(odd).has-photo::before{right:-60px}
+#legacy .legacy-grid .legacy-card:nth-child(even).has-photo::before{left:-60px}
+#legacy .legacy-grid .legacy-card::after{content:"";position:absolute;top:101px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--ink),0 0 14px rgba(201,163,92,.6)}
+#legacy .legacy-grid .legacy-card:nth-child(odd)::after{right:-64.5px}
+#legacy .legacy-grid .legacy-card:nth-child(even)::after{left:-64.5px}
+#legacy .legacy-card .when{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+#legacy .legacy-card .legacy-body>p{color:var(--muted);font-size:1rem;line-height:1.7;margin:1rem 0 1.4rem}
+#legacy .tl-quote{margin:0 0 1.7rem;padding:1.3rem 0 0;border-top:1px solid var(--line)}
+#legacy .tl-quote span,#legacy .legacy-voice blockquote{display:block;font-style:italic;font-size:1.15rem;line-height:1.65;color:var(--gold-soft)}
+#legacy .tl-quote span::before,#legacy .legacy-voice blockquote::before{content:"\201C";font-size:2em;line-height:0;vertical-align:-.28em;margin-right:.08em;color:var(--gold);opacity:.85}
+#legacy .tl-quote span::after,#legacy .legacy-voice blockquote::after{content:"\201D";font-size:2em;line-height:0;vertical-align:-.28em;margin-left:.08em;color:var(--gold);opacity:.85}
+#legacy .tl-quote cite,#legacy .legacy-voice figcaption{display:block;font-style:normal;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:.8rem}
+#legacy .legacy-card .read-more{position:relative;display:inline-block;padding-bottom:5px}
+#legacy .legacy-card .read-more::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left center;transition:transform .45s cubic-bezier(.22,.8,.3,1)}
+#legacy .legacy-card:hover .read-more::after,#legacy .legacy-card:focus-visible .read-more::after{transform:scaleX(1)}
+#legacy .legacy-more{max-width:520px;margin:0 auto}
+#legacy .legacy-voice{max-width:680px;margin:4.5rem auto 0;text-align:center}
+#legacy .legacy-voice blockquote{font-size:1.35rem;margin:0}
+#legacy .legacy-next{text-align:center;margin:2.5rem 0 0;font-style:italic;font-size:1.2rem}
+#legacy .legacy-next a{position:relative;display:inline-block;color:var(--gold-soft);text-decoration:none;padding-bottom:6px}
+#legacy .legacy-next a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(.25);transform-origin:left center;transition:transform .45s cubic-bezier(.22,.8,.3,1)}
+#legacy .legacy-next a:hover::after{transform:scaleX(1)}
+@media (min-width:861px) and (prefers-reduced-motion:no-preference){#legacy .legacy-card .legacy-photo img{height:130%;translate:0 var(--py,0px)}}
+@media (max-width:860px){
+#legacy .legacy-grid::before{left:14px}
+#legacy .legacy-grid .legacy-card,#legacy .legacy-grid .legacy-card:nth-child(odd),#legacy .legacy-grid .legacy-card:nth-child(even){float:none;clear:none;width:calc(100% - 46px);margin:0 0 2.5rem auto}
+#legacy .legacy-grid .legacy-card.has-photo::before,#legacy .legacy-grid .legacy-card:nth-child(odd).has-photo::before,#legacy .legacy-grid .legacy-card:nth-child(even).has-photo::before{left:-32px;right:auto;width:32px}
+#legacy .legacy-grid .legacy-card::after,#legacy .legacy-grid .legacy-card:nth-child(odd)::after,#legacy .legacy-grid .legacy-card:nth-child(even)::after{left:-36.5px;right:auto}
+}
+@media (prefers-reduced-motion:reduce){#legacy .legacy-card .read-more::after,#legacy .legacy-next a::after{transition:none}}
