@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Siren's Abyss Ball | House of Kaos — 25 September 2027, Newcastle</title>
+<meta name="description" content="The Siren's Abyss Ball — House of Kaos's second grand ball. Saturday 25 September 2027 at The County Hotel, Newcastle. Three-course dinner, live performance from Volcarna, costume required. 150 places.">
+<link rel="canonical" href="https://houseofkaos.co.uk/sirens-abyss-ball.html">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="House of Kaos">
+<meta property="og:title" content="The Siren's Abyss Ball | House of Kaos">
+<meta property="og:description" content="An evening of sea-dark elegance — three-course dinner, live performance from Volcarna, costume required. 25 September 2027, The County Hotel, Newcastle. 150 places. No more.">
+<meta property="og:url" content="https://houseofkaos.co.uk/sirens-abyss-ball.html">
+<meta property="og:image" content="https://houseofkaos.co.uk/images/sirens-abyss-poster.jpg">
+<meta property="og:locale" content="en_GB">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0a0807;
+  --coal:#12100e;
+  --panel:#171412;
+  --line:rgba(201,169,106,.28);
+  --line-soft:rgba(201,169,106,.14);
+  --gold:#c9a96a;
+  --gold-bright:#e0c68c;
+  --cream:#ece4d4;
+  --cream-dim:#b9b0a0;
+  --sea:#2e6f6a;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.15rem;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(201,169,106,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(rgba(10,8,7,.92),rgba(10,8,7,.85));
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;
+}
+.brand:hover{color:var(--gold-bright)}
+.brand{
+  font-family:var(--serif-display);
+  color:var(--cream);
+  font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+}
+.back-link{
+  font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-dim);
+}
+.back-link:hover{color:var(--gold-bright)}
+
+/* ---------- hero with the abyss ---------- */
+.event-hero{
+  position:relative;
+  border-bottom:1px solid var(--line-soft);
+  padding:9rem 1.5rem 5.5rem;
+  text-align:center;
+  overflow:hidden;
+  background:linear-gradient(160deg,#0c1a20,var(--black) 70%);
+}
+.abyss-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.5;pointer-events:none;
+}
+.abyss-veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 45%, transparent 40%, rgba(10,8,7,.72) 100%),
+    linear-gradient(rgba(10,8,7,.55) 0%, rgba(10,8,7,.25) 40%, rgba(10,8,7,.85) 100%);
+}
+.event-hero-inner{position:relative;z-index:2}
+.page-kicker{
+  color:var(--gold);
+  font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;
+  margin-bottom:1.2rem;text-indent:.4em;
+}
+.event-hero h1{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--cream);
+  font-size:clamp(2.4rem,6.5vw,3.8rem);
+  letter-spacing:.05em;
+  margin-bottom:1rem;
+}
+.event-hero .sub{
+  color:var(--cream-dim);font-style:italic;font-size:1.2rem;
+  max-width:560px;margin:0 auto 1.8rem;
+}
+.hero-date{
+  display:inline-block;
+  border:1px solid var(--line);
+  background:rgba(10,8,7,.6);
+  padding:.7rem 1.6rem;
+  font-size:.85rem;letter-spacing:.35em;text-transform:uppercase;text-indent:.35em;
+  color:var(--gold-bright);
+  margin-bottom:2.4rem;
+}
+.hero-cta{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+
+.btn{
+  display:inline-block;
+  font-family:var(--serif-body);
+  font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;text-indent:.3em;
+  padding:.95rem 2.2rem;
+  border:1px solid var(--gold);
+  color:var(--gold-bright);
+  background:rgba(10,8,7,.55);
+  transition:background .4s,color .4s,box-shadow .4s;
+}
+.btn:hover{
+  background:var(--gold);color:var(--black);
+  box-shadow:0 0 40px rgba(201,169,106,.35);
+}
+.btn.btn-solid{background:var(--gold);color:var(--black)}
+.btn.btn-solid:hover{background:var(--gold-bright)}
+
+main{max-width:760px;margin:0 auto;padding:4rem 1.5rem 5rem}
+
+.meta-strip{
+  display:flex;flex-wrap:wrap;gap:.9rem 2rem;
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+  padding:1.4rem 0;margin-bottom:3rem;
+}
+.meta-strip div{font-size:.92rem;color:var(--cream-dim)}
+.meta-strip b{display:block;color:var(--gold);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.3rem;font-weight:600}
+
+h2{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--gold-bright);
+  font-size:1.5rem;letter-spacing:.04em;
+  margin:2.6rem 0 1rem;
+}
+p{color:var(--cream-dim);margin-bottom:1.2rem}
+p strong{color:var(--cream);font-weight:600}
+
+blockquote{
+  border-left:2px solid var(--gold);
+  padding:.2rem 0 .2rem 1.6rem;
+  margin:2.6rem 0;
+  font-style:italic;
+  color:var(--cream);
+  font-size:1.35rem;
+  font-family:var(--serif-display);
+  font-weight:500;
+}
+blockquote.places{border-left-color:var(--sea)}
+
+.detail-panel{
+  border:1px solid var(--line-soft);
+  background:var(--panel);
+  padding:2rem 2.2rem;
+  margin:2.6rem 0;
+}
+.detail-panel .kicker-sm{
+  color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  margin-bottom:1.2rem;
+}
+.detail-panel ul{list-style:none}
+.detail-panel li{
+  color:var(--cream-dim);font-size:1.02rem;
+  padding:.55rem 0;border-bottom:1px solid var(--line-soft);
+  display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;
+}
+.detail-panel li:last-child{border-bottom:none}
+.detail-panel li b{color:var(--cream);font-weight:600}
+
+.faq-mini details{
+  border-bottom:1px solid var(--line-soft);padding:1.2rem 0;
+}
+.faq-mini summary{
+  cursor:pointer;list-style:none;
+  color:var(--cream);
+  font-family:var(--serif-display);font-weight:500;font-size:1.1rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+}
+.faq-mini summary::-webkit-details-marker{display:none}
+.faq-mini summary::after{content:"+";color:var(--gold);font-size:1.4rem;flex-shrink:0}
+.faq-mini details[open] summary::after{content:"–"}
+.faq-mini .faq-answer{color:var(--cream-dim);margin-top:.9rem;max-width:68ch;font-size:1.02rem}
+
+.other-nights{
+  margin-top:4rem;
+  border:1px solid var(--line-soft);
+  background:var(--panel);
+  padding:1.8rem 2rem;
+}
+.other-nights .kicker-sm{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem}
+.other-nights ul{list-style:none}
+.other-nights li{margin-bottom:.6rem;font-size:1rem}
+
+.cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
+
+footer{
+  border-top:1px solid var(--line-soft);
+  padding:3rem 1.5rem;text-align:center;
+}
+footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
+
+@media (prefers-reduced-motion: reduce){
+  .abyss-video{display:none}
+}
+@media (max-width:640px){
+  .event-hero{padding:7rem 1.2rem 4rem}
+  .hero-cta .btn{width:100%;max-width:320px;text-align:center}
+  main{padding:3rem 1.2rem 4rem}
+}
+</style>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Event",
+"name": "The Siren's Abyss Ball",
+"description": "An ocean and sirens themed grand ball with a sit-down three-course dinner and a live performance from Volcarna. Costume required. 150 places.",
+"startDate": "2027-09-25",
+"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+"eventStatus": "https://schema.org/EventScheduled",
+"location": {
+"@type": "Place",
+"name": "The County Hotel",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "Newcastle upon Tyne",
+"addressCountry": "GB"
+}
+},
+"image": "https://houseofkaos.co.uk/images/sirens-abyss-poster.jpg",
+"organizer": {
+"@type": "Organization",
+"name": "House of Kaos",
+"url": "https://houseofkaos.co.uk/"
+},
+"offers": {
+"@type": "Offer",
+"url": "https://www.eventbrite.co.uk/e/sirens-abyss-ball-tickets-2001785985770",
+"price": "80",
+"priceCurrency": "GBP",
+"availability": "https://schema.org/InStock"
+}
+}
+</script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments)},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2721543');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html">House of Kaos</a>
+    <a class="back-link" href="index.html#events">&larr; Upcoming Events</a>
+  </div>
+</nav>
+
+<div class="event-hero">
+  <video class="abyss-video" autoplay muted loop playsinline preload="metadata" poster="images/sirens-abyss-poster.jpg" aria-hidden="true" tabindex="-1">
+    <source src="videos/sirens-abyss.mp4" type="video/mp4">
+  </video>
+  <div class="abyss-veil"></div>
+  <div class="event-hero-inner">
+    <div class="page-kicker">The Second Grand Ball</div>
+    <h1>The Siren's Abyss Ball</h1>
+    <p class="sub">Newcastle descends beneath the waves. An evening of sea-dark elegance — a sit-down three-course dinner and a live performance from Volcarna, in a room of sirens, leviathans and drowned royalty.</p>
+    <div class="hero-date">Saturday 25 September 2027 · The County Hotel</div>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="https://www.eventbrite.co.uk/e/sirens-abyss-ball-tickets-2001785985770" target="_blank" rel="noopener">Tickets on Eventbrite</a>
+      <a class="btn" href="dress-code.html">What to Wear</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="meta-strip">
+    <div><b>Date</b>Saturday 25 September 2027</div>
+    <div><b>Venue</b>The County Hotel, Newcastle upon Tyne</div>
+    <div><b>Format</b>Grand Ball &amp; Dinner</div>
+    <div><b>Theme</b>Ocean · Sirens · The Deep</div>
+    <div><b>Dress</b>Costume Required</div>
+    <div><b>Age</b>Strictly 21+</div>
+  </div>
+
+  <h2>The Evening</h2>
+  <p>On the last Saturday of September 2027, The County Hotel opens its doors onto the ocean floor. Our second grand ball takes the House's recipe — costume required, theatre everywhere, every detail placed with intent — and sinks it slowly into the deep. Guests take their seats for a <strong>sit-down three-course dinner</strong> as the room fills with the ocean's creatures, and the night unfolds from candlelit dining into dancing, with the whole evening scored live.</p>
+  <p>Our first ball, <a href="vampire-ball.html">The Vampire Ball</a>, was crimson and candlelit. The Siren's Abyss goes deeper.</p>
+
+  <blockquote>One hundred and fifty places. No more.</blockquote>
+
+  <h2>The Sound</h2>
+  <p>Returning after their live set at The Vampire Ball, <strong>Volcarna</strong> perform live through the evening. Expect the volume to rise as the night descends.</p>
+
+  <h2>The Dress</h2>
+  <p>Costume is required, and the theme is the ocean — but the ocean after dark. <strong>Sirens</strong> in seaweed silk and pearl. <strong>Leviathans</strong> in deep velvet. Drowned royalty still wearing their crowns, shipwrecked aristocracy, things with teeth. If it belongs at the bottom of the sea, it belongs on this dance floor. For guidance and inspiration, see our <a href="dress-code.html">Dress Code</a>.</p>
+
+  <div class="detail-panel">
+    <div class="kicker-sm">Tickets &amp; Particulars</div>
+    <ul>
+      <li><span>Ticket</span><b>&pound;80 — three-course dinner included</b></li>
+      <li><span>Places</span><b>150. No more.</b></li>
+      <li><span>Tickets sold via</span><b><a href="https://www.eventbrite.co.uk/e/sirens-abyss-ball-tickets-2001785985770" target="_blank" rel="noopener">Eventbrite</a></b></li>
+      <li><span>Payment plans</span><b>8, 12 or 16 weeks, direct — <a href="payment-plan.html">see how</a></b></li>
+      <li><span>Age</span><b>Strictly 21+ — please bring photo ID</b></li>
+      <li><span>Dietary requirements</span><b>Email <a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a> in advance</b></li>
+    </ul>
+  </div>
+
+  <h2>Before You Dive</h2>
+  <div class="faq-mini">
+    <details>
+      <summary>How do I buy tickets?</summary>
+      <p class="faq-answer">Tickets are sold through Eventbrite — the green button above, or the Tickets link in the site menu. Payment plans are available directly from the House over 8, 12 or 16 weeks; your place is held from the first payment and confirmed once the plan is paid in full. See the <a href="payment-plan.html">Payment Plan</a> page for details.</p>
+    </details>
+    <details>
+      <summary>What if it sells out?</summary>
+      <p class="faq-answer">Once the 150 places are gone, they're gone — but <a href="https://preview.mailerlite.io/forms/2721543/201636017711613035/share" target="_blank" rel="noopener">join the waitlist</a> and you'll be written to first if any returned tickets appear, and first to hear what the House does next.</p>
+    </details>
+    <details>
+      <summary>Can I get a refund or transfer my ticket?</summary>
+      <p class="faq-answer">Tickets are non-refundable but can be transferred to someone else — just email <a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a> in advance with the new attendee's details. Full details are in our <a href="terms.html">Terms &amp; Conditions</a>.</p>
+    </details>
+    <details>
+      <summary>Can I come alone?</summary>
+      <p class="faq-answer">Absolutely — many guests do. Costume is the great equaliser, and the House's community is a welcoming one. You'll leave with more acquaintances than you arrived with.</p>
+    </details>
+  </div>
+
+  <blockquote class="places">Be written to first — <a href="https://preview.mailerlite.io/forms/2721543/201636017711613035/share" target="_blank" rel="noopener">join the House's waitlist</a> and hear about returned tickets and future nights before anyone else.</blockquote>
+
+  <div class="other-nights">
+    <div class="kicker-sm">The Road So Far</div>
+    <ul>
+      <li><a href="vampire-ball.html">The Vampire Ball — our first grand ball &rarr;</a></li>
+      <li><a href="reanimation-dinner.html">The Reanimation Dinner &rarr;</a></li>
+      <li><a href="haunted-forest.html">The Haunted Forest &rarr;</a></li>
+      <li><a href="underland.html">Underland &rarr;</a></li>
+      <li><a href="nights-of-kaos.html">Nights of Kaos &rarr;</a></li>
+    </ul>
+  </div>
+
+  <div class="cta-row">
+    <a class="btn btn-solid" href="https://www.eventbrite.co.uk/e/sirens-abyss-ball-tickets-2001785985770" target="_blank" rel="noopener">Reserve Your Place</a>
+    <a class="btn" href="payment-plan.html">Payment Plan</a>
+    <a class="btn" href="index.html#events">Back to Events</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 House of Kaos Ltd &middot; Newcastle upon Tyne &middot; <a href="index.html">Back to House of Kaos</a></p>
+</footer>
+
+</body>
+</html>
