@@ -17,15 +17,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#0a0807;
-  --coal:#12100e;
-  --panel:#171412;
+  --black:#14101a;
+  --coal:#1c1622;
+  --panel:#211a2a;
   --line:rgba(201,163,92,.28);
   --line-soft:rgba(201,163,92,.14);
   --gold:#c9a35c;
   --gold-bright:#e3c98f;
-  --cream:#ece4d4;
-  --cream-dim:#b9b0a0;
+  --cream:#efe9e4;
+  --cream-dim:#a99fae;
   --serif-display:'Playfair Display',Georgia,serif;
   --serif-body:'Cormorant Garamond',Georgia,serif;
 }
@@ -45,7 +45,7 @@ a:hover{color:var(--gold-bright)}
 
 nav{
   position:sticky;top:0;left:0;right:0;z-index:100;
-  background:linear-gradient(rgba(10,8,7,.92),rgba(10,8,7,.85));
+  background:linear-gradient(rgba(20,16,26,.92),rgba(20,16,26,.85));
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line-soft);
 }
@@ -122,6 +122,8 @@ footer{
   padding:3rem 1.5rem;text-align:center;
 }
 footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
+.skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--gold);color:var(--black);padding:.7rem 1.1rem;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;transition:top .2s}
+.skip-link:focus{top:1rem;color:var(--black)}
 </style>
 <!-- MailerLite Universal -->
 <script>
@@ -134,6 +136,7 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
 <!-- End MailerLite Universal -->
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav>
   <div class="nav-inner">
@@ -142,7 +145,7 @@ footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
   </div>
 </nav>
 
-<main>
+<main id="main">
   <div class="page-kicker">Before You Arrive</div>
   <h1>Dress Code</h1>
   <p class="updated">A guide to costume at House of Kaos events</p>
