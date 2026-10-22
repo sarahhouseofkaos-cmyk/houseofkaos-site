@@ -203,3 +203,10 @@ footer{position:relative;border-top:1px solid rgba(201,163,92,.2)}
 #events .ev-ball .ev-art{background-color:transparent}
 #events .ev-ball .ev-art i{background:radial-gradient(70% 90% at 30% 20%,rgba(46,111,106,.35),rgba(0,0,0,0) 70%),radial-gradient(60% 80% at 80% 90%,rgba(142,47,60,.25),rgba(0,0,0,0) 70%)}
 @media (prefers-reduced-motion:reduce){.sirens-video{display:none}}
+
+
+/* ---- Accessibility: skip link + larger hit areas (WCAG 2.2 target size) ---- */
+.skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--gold);color:var(--ink);padding:.7rem 1.1rem;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:1rem}
+.nav-links a,#events .ev-band a,.contact-item a,footer p a{position:relative}
+.nav-links a::before,#events .ev-band a::before,.contact-item a::before,footer p a::before{content:"";position:absolute;inset:-.55rem -.4rem}
