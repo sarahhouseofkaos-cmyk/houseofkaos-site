@@ -36,10 +36,10 @@
 --black:#0a0807;
 --coal:#12100e;
 --panel:#171412;
---line:rgba(201,169,106,.28);
---line-soft:rgba(201,169,106,.14);
---gold:#c9a96a;
---gold-bright:#e0c68c;
+--line:rgba(201,163,92,.28);
+--line-soft:rgba(201,163,92,.14);
+--gold:#c9a35c;
+--gold-bright:#e3c98f;
 --cream:#ece4d4;
 --cream-dim:#b9b0a0;
 --serif-display:'Playfair Display',Georgia,serif;
@@ -55,7 +55,7 @@ font-size:1.15rem;
 line-height:1.75;
 -webkit-font-smoothing:antialiased;
 }
-::selection{background:rgba(201,169,106,.3);color:#fff}
+::selection{background:rgba(201,163,92,.3);color:#fff}
 img{max-width:100%;display:block}
 a{color:var(--gold);text-decoration:none}
 
@@ -121,7 +121,7 @@ overflow:hidden;
 .hero-bg{
 position:absolute;inset:0;
 background:
-radial-gradient(ellipse 60% 45% at 50% 42%, rgba(201,169,106,.07), transparent 70%),
+radial-gradient(ellipse 60% 45% at 50% 42%, rgba(201,163,92,.07), transparent 70%),
 linear-gradient(rgba(10,8,7,.5), rgba(10,8,7,.72)),
 url('images/hero/hero-candles.jpg') center 35%/cover no-repeat;
 }
@@ -173,7 +173,7 @@ letter-spacing:.14em;
 text-transform:uppercase;
 line-height:1.1;
 margin-bottom:1.6rem;
-text-shadow:0 0 60px rgba(201,169,106,.25);
+text-shadow:0 0 60px rgba(201,163,92,.25);
 }
 .hero-lockup{
 display:flex;align-items:center;justify-content:center;gap:1.6rem;
@@ -204,7 +204,7 @@ transition:background .4s,color .4s,box-shadow .4s;
 }
 .btn:hover{
 background:var(--gold);color:var(--black);
-box-shadow:0 0 40px rgba(201,169,106,.35);
+box-shadow:0 0 40px rgba(201,163,92,.35);
 }
 .btn.btn-solid{background:var(--gold);color:var(--black)}
 .btn.btn-solid:hover{background:var(--gold-bright)}
@@ -218,8 +218,8 @@ animation:drift 2.6s ease-in-out infinite;
 /* ---------- candlelight ambience ---------- */
 .ambient{
 background:
-radial-gradient(circle at 15% 20%, rgba(201,169,106,.05), transparent 34%),
-radial-gradient(circle at 85% 70%, rgba(201,169,106,.04), transparent 30%),
+radial-gradient(circle at 15% 20%, rgba(201,163,92,.05), transparent 34%),
+radial-gradient(circle at 85% 70%, rgba(201,163,92,.04), transparent 30%),
 var(--black);
 }
 
@@ -253,14 +253,14 @@ transition:border-color .4s,box-shadow .4s,transform .4s;
 }
 .event:hover{
 border-color:var(--gold);
-box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 50px rgba(201,169,106,.07);
+box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 50px rgba(201,163,92,.07);
 transform:translateY(-4px);
 }
 .event-when{
 border-right:1px solid var(--line-soft);
 display:flex;flex-direction:column;justify-content:center;align-items:center;
 text-align:center;padding:2.5rem 1.5rem;
-background:rgba(201,169,106,.04);
+background:rgba(201,163,92,.04);
 }
 .event-when .day{
 font-family:var(--serif-display);
@@ -512,7 +512,7 @@ transition:background .4s,color .4s,box-shadow .4s;
 }
 .enquiry-submit:hover{
 background:transparent;color:var(--gold-bright);
-box-shadow:0 0 40px rgba(201,169,106,.35);
+box-shadow:0 0 40px rgba(201,163,92,.35);
 }
 .form-thanks{
 display:none;text-align:center;padding:2rem 0;
