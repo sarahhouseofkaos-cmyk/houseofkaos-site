@@ -572,7 +572,8 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 "https://www.facebook.com/HouseofKaos74",
 "https://www.instagram.com/houseofkaosevents/",
 "https://x.com/House_of_Kaos",
-"https://www.linkedin.com/company/128553960/"
+"https://www.linkedin.com/company/128553960/",
+"https://discord.gg/h6u7Eej2a"
 ]
 },
 {
@@ -689,6 +690,19 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 }
 </script>
 <style>@media(min-width:1000px){.nav-links{gap:1.7rem}.nav-links a{white-space:nowrap}}</style>
+<style>
+#keeper{border-top:1px solid var(--line-soft,rgba(201,163,92,.14))}
+#keeper .keeper-wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:3.5rem;align-items:center;max-width:980px}
+#keeper .keeper-portrait img{width:100%;height:auto;display:block;border:1px solid rgba(201,163,92,.28);box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#keeper .keeper-copy{text-align:left}
+#keeper .keeper-copy h2{text-align:left}
+#keeper .keeper-copy .kicker{justify-content:flex-start;text-indent:0}
+#keeper .keeper-copy .kicker::before{display:none}
+#keeper .keeper-line{font-style:italic;font-size:1.35rem;line-height:1.65;color:var(--cream,#efe9e4);margin:1.2rem 0 1rem}
+#keeper .keeper-note{color:var(--cream-dim,#a99fae);margin-bottom:1.8rem}
+#keeper .keeper-cta{display:flex;flex-wrap:wrap;gap:1rem}
+@media(max-width:760px){#keeper .keeper-wrap{grid-template-columns:1fr;gap:2rem;text-align:center}#keeper .keeper-portrait{max-width:260px;margin:0 auto}#keeper .keeper-copy,#keeper .keeper-copy h2{text-align:center}#keeper .keeper-copy .kicker{justify-content:center}#keeper .keeper-copy .kicker::before{display:block}#keeper .keeper-cta{justify-content:center}}
+</style>
 <link rel="stylesheet" href="atmosphere.css?v=9">
 <script src="atmosphere.js?v=7"></script>
 <!-- MailerLite Universal -->
@@ -782,8 +796,22 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div></article>
 </div>
 
-<div class="ev-band"><p>Between the balls, the House never quite sleeps.</p><span><a href="https://www.instagram.com/houseofkaosevents/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a><a href="https://www.facebook.com/groups/houseofkaoscommunity/" target="_blank" rel="noopener">The Community</a></span></div>
+<div class="ev-band"><p>Between the balls, the House never quite sleeps.</p><span><a href="https://www.instagram.com/houseofkaosevents/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a><a href="https://www.facebook.com/groups/houseofkaoscommunity/" target="_blank" rel="noopener">The Community</a><a href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Discord</a></span></div>
 
+</div>
+</section>
+
+<!-- ======================= KEEPER ======================= -->
+<section id="keeper">
+<div class="container keeper-wrap">
+<a class="keeper-portrait" href="keeper.html"><img src="images/keeper/vespera-portrait.jpg" width="720" height="1073" alt="Vespera, Keeper of the House of Kaos, in a black velvet hooded cloak" loading="lazy"></a>
+<div class="keeper-copy">
+<div class="kicker">The Keeper of the House</div>
+<h2>Meet Vespera</h2>
+<p class="keeper-line">“I am Vespera, Keeper of the House. I light the candles at dusk, I mind the doors, and every night here opens a new one. I remember everyone who crosses the threshold.”</p>
+<p class="keeper-note">You’ll find her in our Discord, where she answers every question.</p>
+<div class="keeper-cta"><a class="btn btn-solid" href="keeper.html">Meet the Keeper</a><a class="btn" href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Join the House on Discord</a></div>
+</div>
 </div>
 </section>
 
@@ -863,7 +891,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <div class="about-text">
 <p>House of Kaos creates immersive gothic events in Newcastle upon Tyne — themed dinners and grand balls where costume is required, theatre is everywhere, and every detail has been placed with intent.</p>
 <p>Around the events has grown a community of the like-minded: gothic souls, performers, artists and anyone drawn to an evening less ordinary. Whether you come masked or simply curious, there is a seat at the table for you.</p>
-<p>That community lives on Facebook too — join the <a href="https://www.facebook.com/groups/houseofkaoscommunity/" target="_blank" rel="noopener">House of Kaos Community</a> to connect with fellow goth and alternative souls between events.</p>
+<p>That community lives on Facebook too — join the <a href="https://www.facebook.com/groups/houseofkaoscommunity/" target="_blank" rel="noopener">House of Kaos Community</a> to connect with fellow goth and alternative souls between events — and on our <a href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Discord</a>, where <a href="keeper.html">the Keeper</a> answers every question.</p>
 </div>
 <div class="directors">
 <div class="director">
@@ -1000,6 +1028,10 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <div class="label">Guest Group (Private)</div>
 <a href="https://www.facebook.com/groups/nightsofkaos/" target="_blank" rel="noopener">Nights &amp; Balls — request to join</a>
 </div>
+<div class="contact-item">
+<div class="label">Discord</div>
+<a href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Join the House — ask the Keeper</a>
+</div>
 </div>
 <div class="contact-item">
 <div class="label">Follow the House</div>
@@ -1079,7 +1111,7 @@ if(thanks){ thanks.style.display = 'block'; }
 <div class="foot-crest" aria-hidden="true">✦</div>
 <div class="foot-mark">House of Kaos</div>
 <div class="foot-sub">Nights &amp; Balls</div>
-<p style="margin-bottom:.6rem;font-size:.85rem"><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a> &middot; <a href="https://www.instagram.com/houseofkaosevents/" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://x.com/House_of_Kaos" target="_blank" rel="noopener">X</a> &middot; <a href="https://www.linkedin.com/company/128553960/" target="_blank" rel="noopener">LinkedIn</a></p>
+<p style="margin-bottom:.6rem;font-size:.85rem"><a href="https://www.facebook.com/HouseofKaos74" target="_blank" rel="noopener">Facebook</a> &middot; <a href="https://www.instagram.com/houseofkaosevents/" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://x.com/House_of_Kaos" target="_blank" rel="noopener">X</a> &middot; <a href="https://www.linkedin.com/company/128553960/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Discord</a></p>
 <p class="foot-mail"><a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a></p>
 <p>&copy; 2026 House of Kaos Ltd · Newcastle upon Tyne · houseofkaos.co.uk</p>
 <p style="margin-top:.6rem;font-size:.85rem"><a href="payment-plan.html">Payment Plan</a> &middot; <a href="dress-code.html">Dress Code</a> &middot; <a href="terms.html">Terms &amp; Conditions</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="accessibility.html">Accessibility</a></p>

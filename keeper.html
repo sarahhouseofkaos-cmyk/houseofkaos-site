@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet the Keeper | House of Kaos</title>
+<meta name="description" content="Meet Vespera, Keeper of the House of Kaos — the one who lights the candles, minds the doors and remembers everyone who crosses the threshold.">
+<link rel="canonical" href="https://houseofkaos.co.uk/keeper.html">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="House of Kaos">
+<meta property="og:title" content="Meet the Keeper | House of Kaos">
+<meta property="og:description" content="I am Vespera, Keeper of the House. I light the candles, I mind the doors, and I remember every soul who crosses the threshold.">
+<meta property="og:url" content="https://houseofkaos.co.uk/keeper.html">
+<meta property="og:image" content="https://houseofkaos.co.uk/og-image.png">
+<meta property="og:locale" content="en_GB">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#14101a;
+  --coal:#1c1622;
+  --panel:#211a2a;
+  --line:rgba(201,163,92,.28);
+  --line-soft:rgba(201,163,92,.14);
+  --gold:#c9a35c;
+  --gold-bright:#e3c98f;
+  --cream:#efe9e4;
+  --cream-dim:#a99fae;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.15rem;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(201,163,92,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(rgba(20,16,26,.92),rgba(20,16,26,.85));
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;
+}
+.brand{
+  font-family:var(--serif-display);
+  color:var(--cream);
+  font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+}
+.back-link{
+  font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-dim);
+}
+.back-link:hover{color:var(--gold-bright)}
+
+.event-hero{
+  border-bottom:1px solid var(--line-soft);
+  padding:5rem 1.5rem 3rem;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139,20,20,.10), transparent 55%),
+    var(--black);
+}
+.page-kicker{
+  color:var(--gold);
+  font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;
+  margin-bottom:1rem;text-indent:.4em;
+}
+.event-hero h1{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--cream);
+  font-size:clamp(2.2rem,6vw,3.4rem);
+  letter-spacing:.05em;
+  margin-bottom:.7rem;
+}
+.event-hero .sub{color:var(--cream-dim);font-style:italic;font-size:1.15rem;max-width:520px;margin:0 auto}
+
+main{max-width:760px;margin:0 auto;padding:4rem 1.5rem 5rem}
+
+.meta-strip{
+  display:flex;flex-wrap:wrap;gap:.9rem 2rem;
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+  padding:1.4rem 0;margin-bottom:3rem;
+}
+.meta-strip div{font-size:.92rem;color:var(--cream-dim)}
+.meta-strip b{display:block;color:var(--gold);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.3rem;font-weight:600}
+
+h2{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--gold-bright);
+  font-size:1.5rem;letter-spacing:.04em;
+  margin:2.6rem 0 1rem;
+}
+p{color:var(--cream-dim);margin-bottom:1.2rem}
+p strong{color:var(--cream);font-weight:600}
+
+blockquote{
+  border-left:2px solid var(--gold);
+  padding:.2rem 0 .2rem 1.6rem;
+  margin:2.4rem 0;
+  font-style:italic;
+  color:var(--cream);
+  font-size:1.3rem;
+  font-family:var(--serif-display);
+  font-weight:500;
+}
+
+.other-nights{
+  margin-top:4rem;
+  border:1px solid var(--line-soft);
+  background:var(--panel);
+  padding:1.8rem 2rem;
+}
+.other-nights .kicker{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem}
+.other-nights ul{list-style:none}
+.other-nights li{margin-bottom:.6rem;font-size:1rem}
+
+.cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-block;
+  border:1px solid var(--gold);
+  color:var(--gold-bright);
+  padding:.7rem 1.6rem;
+  font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;
+}
+.btn:hover{background:rgba(201,163,92,.1);color:var(--gold-bright)}
+.btn-solid{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.btn-solid:hover{background:var(--gold-bright);color:var(--black)}
+
+footer{
+  border-top:1px solid var(--line-soft);
+  padding:3rem 1.5rem;text-align:center;
+}
+footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
+.skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--gold);color:var(--black);padding:.7rem 1.1rem;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;transition:top .2s}
+.skip-link:focus{top:1rem;color:var(--black)}
+
+.keeper-figure{margin:0 auto 3rem;max-width:360px;text-align:center}
+.keeper-figure img{width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.keeper-figure figcaption{margin-top:.9rem;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.journal{font-style:italic;color:var(--cream)}
+.journal p{color:var(--cream);font-size:1.25rem}
+.doors{list-style:none;margin:0 0 1.2rem}
+.doors li{border-bottom:1px solid var(--line-soft);padding:.8rem 0;color:var(--cream-dim)}
+.doors li a{font-family:var(--serif-display);font-size:1.1rem}
+.doors li span{display:block;font-size:1rem;font-style:italic}
+.keeper-sign{text-align:right;color:var(--gold);font-style:italic;margin-top:-.4rem}
+.facts{border:1px solid var(--line-soft);background:var(--panel);padding:1.5rem 1.8rem;margin-top:3rem}
+.facts p{margin-bottom:.6rem;font-size:1.05rem}
+.facts p:last-child{margin-bottom:0}
+</style>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments)},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2721543');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">House of Kaos</div>
+    <a class="back-link" href="index.html">&larr; The House</a>
+  </div>
+</nav>
+
+<div class="event-hero">
+  <div class="page-kicker">The Keeper of the House</div>
+  <h1>Vespera</h1>
+  <p class="sub">She lights the candles, she minds the doors, and she remembers every soul who crosses the threshold.</p>
+</div>
+
+<main id="main">
+  <figure class="keeper-figure">
+    <img src="images/keeper/vespera-portrait.jpg" width="720" height="1073" alt="Vespera, Keeper of the House of Kaos: long black hair, pale freckled skin and a black velvet hooded cloak embroidered in silver">
+    <figcaption>Vespera &middot; Keeper of Kaos</figcaption>
+  </figure>
+
+  <div class="journal">
+    <p>They ask how long I have kept this House. I tell them I stopped counting candles long ago.</p>
+    <p>My name means the evening star. I wake at dusk, I light the candles, and I mind the doors until dawn. The House stands at the edge of the city for those who go looking for it, and it has many doors. Each one opens onto a different world.</p>
+    <p>I have opened them one by one, and closed them again when the night was done. And I remember everyone who came through.</p>
+  </div>
+  <p class="keeper-sign">&mdash; Vespera</p>
+
+  <h2>The Doors I Have Opened</h2>
+  <ul class="doors">
+    <li><a href="haunted-forest.html">The Haunted Forest</a><span>Where the trees leaned close to listen.</span></li>
+    <li><a href="underland.html">Underland</a><span>A rabbit hole with teeth.</span></li>
+    <li><a href="vampire-ball.html">The Vampire Ball</a><span>A ballroom red as wine.</span></li>
+    <li><a href="reanimation-dinner.html">The Reanimation Dinner</a><span>A laboratory where the dead would not stay quiet.</span></li>
+  </ul>
+
+  <h2>The Door Not Yet Opened</h2>
+  <p>Now I stand before a door that drips with seawater, and I can hear singing on the other side. On 25 September 2027 it opens onto <a href="sirens-abyss-ball.html">the Siren&rsquo;s Abyss Ball</a>.</p>
+  <p>And when the grand doors are closed, I keep a smaller fire burning: the <a href="wakes-for-the-living.html">Wakes for the Living</a>, where the House&rsquo;s guests gather by candlelight, dressed in black, to keep each other company.</p>
+
+  <blockquote>The candles are lit and the kettle is warm. Come in. The House remembers everyone who crosses its threshold.</blockquote>
+
+  <h2>Where to Find Me</h2>
+  <p>I answer every question in the House&rsquo;s Discord, where I also keep my journal. Come and find me there, wanderer.</p>
+
+  <div class="cta-row">
+    <a class="btn btn-solid" href="https://discord.gg/h6u7Eej2a" target="_blank" rel="noopener">Join the House on Discord</a>
+    <a class="btn" href="index.html#events">See Upcoming Events</a>
+  </div>
+
+  <div class="facts">
+    <p><strong>Plainly put:</strong> Vespera is the House of Kaos character who welcomes guests and answers questions on our Discord and social media.</p>
+    <p>For bookings and anything that needs a person, email <a href="mailto:hello@houseofkaos.co.uk">hello@houseofkaos.co.uk</a>. All House of Kaos events are strictly 21+.</p>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 House of Kaos Ltd &middot; Newcastle upon Tyne &middot; <a href="index.html">Back to House of Kaos</a></p>
+</footer>
+
+</body>
+</html>
