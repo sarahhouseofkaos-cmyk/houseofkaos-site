@@ -56,7 +56,7 @@ line-height:1.75;
 -webkit-font-smoothing:antialiased;
 }
 ::selection{background:rgba(201,163,92,.3);color:#fff}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:var(--gold);text-decoration:none}
 
 /* ---------- small caps kicker with flanking rules ---------- */
@@ -123,7 +123,7 @@ position:absolute;inset:0;
 background:
 radial-gradient(ellipse 60% 45% at 50% 42%, rgba(201,163,92,.07), transparent 70%),
 linear-gradient(rgba(10,8,7,.5), rgba(10,8,7,.72)),
-url('images/hero/hero-candles.jpg') center 35%/cover no-repeat;
+url('images/hero/hero-candles.webp') center 35%/cover no-repeat;
 }
 /* candlelight bokeh, drawn in CSS */
 .candles,.candles::before,.candles::after{position:absolute;inset:0;pointer-events:none}
@@ -379,7 +379,7 @@ text-align:center;padding:2.2rem 3rem;
 border-top:1px solid var(--line);
 border-bottom:1px solid var(--line);
 }
-.director h4{
+.director h3{
 font-family:var(--serif-display);font-weight:500;
 font-size:1.4rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);
 }
@@ -399,7 +399,7 @@ padding:1.4rem 1rem;text-align:center;
 transition:border-color .4s;
 }
 .ptype:hover{border-color:var(--gold)}
-.ptype h4{
+.ptype h3{
 font-family:var(--serif-display);font-weight:500;
 font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream);
 margin-bottom:.5rem;
@@ -741,7 +741,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <main id="main">
 <header class="hero" id="top">
 <div class="hero-bg"></div>
-  <video class="hok-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+  <video class="hok-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.webp" aria-hidden="true" tabindex="-1">
     <source src="/videos/hero-ambient-1080.mp4" type="video/mp4">
   </video>
 <div class="candles"></div>
@@ -767,7 +767,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 
 <div class="ev-grid">
 <article class="ev-card ev-ball">
-<video class="sirens-video" autoplay muted loop playsinline preload="metadata" poster="images/sirens-abyss-poster.jpg" aria-hidden="true" tabindex="-1"><source src="videos/sirens-abyss.mp4" type="video/mp4"></video>
+<video class="sirens-video" autoplay muted loop playsinline preload="metadata" poster="images/sirens-abyss-poster.webp" aria-hidden="true" tabindex="-1"><source src="videos/sirens-abyss.mp4" type="video/mp4"></video>
 <div class="ev-art"><i></i>
 <svg viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="#c9a35c" stroke-width="1"><path d="M0 150c60-30 120 30 180 0s120-30 180 0 120 30 180 0 60-15 60-15"/><path d="M0 180c60-30 120 30 180 0s120-30 180 0 120 30 180 0 60-15 60-15" opacity=".6"/><path d="M0 210c60-30 120 30 180 0s120-30 180 0 120 30 180 0 60-15 60-15" opacity=".35"/></g></svg>
 <div class="ev-date"><b>25</b><span>September 2027</span></div></div>
@@ -804,7 +804,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <!-- ======================= KEEPER ======================= -->
 <section id="keeper">
 <div class="container keeper-wrap">
-<a class="keeper-portrait" href="keeper.html"><img src="images/keeper/vespera-portrait.jpg" width="720" height="1073" alt="Vespera, Keeper of the House of Kaos, in a black velvet hooded cloak" loading="lazy"></a>
+<a class="keeper-portrait" href="keeper.html"><img src="images/keeper/vespera-portrait.webp" width="720" height="1073" alt="Vespera, Keeper of the House of Kaos, in a black velvet hooded cloak" loading="lazy"></a>
 <div class="keeper-copy">
 <div class="kicker">The Keeper of the House</div>
 <h2>Meet Vespera</h2>
@@ -823,7 +823,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <p class="section-lede">Nights that linger long after the last candle is out.</p>
 <div class="legacy-grid">
 <a class="legacy-card has-photo" href="reanimation-dinner.html">
-<div class="legacy-photo"><img src="images/reanimation-dinner/reanimation-thumb.jpg" width="800" height="600" alt="The Doctor in goggles and a blood-stained apron studying a syringe and a glowing green flask at the Reanimation Dinner" loading="lazy" style="object-position:center 40%"></div>
+<div class="legacy-photo"><img src="images/reanimation-dinner/reanimation-thumb.webp" width="800" height="600" alt="The Doctor in goggles and a blood-stained apron studying a syringe and a glowing green flask at the Reanimation Dinner" loading="lazy" style="object-position:center 40%"></div>
 <div class="legacy-body">
 <h3>The Reanimation Dinner</h3>
 <div class="when">10 October 2026</div>
@@ -834,7 +834,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 </a>
 <a class="legacy-card has-photo" href="vampire-ball.html">
-<div class="legacy-photo"><img src="images/vampire-ball/ball-2-thumb.jpg" width="525" height="700" alt="A guest in top hat and purple velvet holding court on an ornate gilded throne at the Vampire Ball" loading="lazy" style="object-position:center 50%"></div>
+<div class="legacy-photo"><img src="images/vampire-ball/ball-2-thumb.webp" width="525" height="700" alt="A guest in top hat and purple velvet holding court on an ornate gilded throne at the Vampire Ball" loading="lazy" style="object-position:center 50%"></div>
 <div class="legacy-body">
 <h3>The Vampire Ball</h3>
 <div class="when">30 May 2026</div>
@@ -845,7 +845,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 </a>
 <a class="legacy-card has-photo" href="haunted-forest.html">
-<div class="legacy-photo"><img src="images/haunted-forest/table-2-thumb.jpg" width="700" height="689" alt="A candlelit dinner table in the Haunted Forest, dressed with black roses and dark foliage" loading="lazy"></div>
+<div class="legacy-photo"><img src="images/haunted-forest/table-2-thumb.webp" width="700" height="689" alt="A candlelit dinner table in the Haunted Forest, dressed with black roses and dark foliage" loading="lazy"></div>
 <div class="legacy-body">
 <h3>The Haunted Forest</h3>
 <div class="when">29 March 2025</div>
@@ -855,7 +855,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 </a>
 <a class="legacy-card has-photo" href="underland.html">
-<div class="legacy-photo"><img src="images/underland/thrones-thumb.jpg" width="900" height="675" alt="A Cheshire Cat and a Mad Hatter seated on ornate gilded thrones amid roses and fairy lights at Underland" loading="lazy"></div>
+<div class="legacy-photo"><img src="images/underland/thrones-thumb.webp" width="900" height="675" alt="A Cheshire Cat and a Mad Hatter seated on ornate gilded thrones amid roses and fairy lights at Underland" loading="lazy"></div>
 <div class="legacy-body">
 <h3>Underland</h3>
 <div class="when">1 November 2025</div>
@@ -885,7 +885,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <h2>About House of Kaos</h2>
 <p class="section-lede">Architects of atmosphere. Curators of the dark and the beautiful.</p>
 <div class="about-portrait">
-<img style="height:auto" src="images/about/about-duo.jpg" width="1400" height="783" alt="A stylised gothic Victorian portrait evoking the House of Kaos aesthetic" loading="lazy">
+<img style="height:auto" src="images/about/about-duo.webp" width="1400" height="783" alt="A stylised gothic Victorian portrait evoking the House of Kaos aesthetic" loading="lazy">
 </div>
 <p class="about-quote"><span class="q-mark">“</span>Every event is a world built from scratch — atmosphere, narrative and company conspiring toward one unforgettable night.<span class="q-mark">”</span></p>
 <div class="about-text">
@@ -895,11 +895,11 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 </div>
 <div class="directors">
 <div class="director">
-<h4>Sarah</h4>
+<h3>Sarah</h3>
 <span>Co-Director</span>
 </div>
 <div class="director">
-<h4>Alex</h4>
+<h3>Alex</h3>
 <span>Co-Director</span>
 </div>
 </div>
@@ -932,22 +932,22 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <div class="ptype-grid">
 <div class="ptype">
 <div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 44V18l22-5v26"/><circle cx="21" cy="45" r="5"/><circle cx="43" cy="40" r="5"/></svg></div>
-<h4>Live Music</h4>
+<h3>Live Music</h3>
 <p>Bands, singers and solo acts who can hold a room dressed for the occasion.</p>
 </div>
 <div class="ptype">
 <div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6v18"/><circle cx="32" cy="38" r="14"/><path d="M24 54l8-6 8 6"/></svg></div>
-<h4>Circus &amp; Aerial</h4>
+<h3>Circus &amp; Aerial</h3>
 <p>Aerialists, fire performers, dancers and other physical acts.</p>
 </div>
 <div class="ptype">
 <div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18c10-4 30-4 40 0 0 18-6 32-20 32S12 36 12 18z"/><path d="M20 26c3-2 7-2 9 1M44 26c-3-2-7-2-9 1"/><path d="M26 38c4 4 8 4 12 0"/></svg></div>
-<h4>Performers &amp; Actors</h4>
+<h3>Performers &amp; Actors</h3>
 <p>Characters, walkabout acts and theatrical moments woven through the evening.</p>
 </div>
 <div class="ptype">
 <div class="ptype-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="8" width="28" height="48" rx="3"/><path d="M32 22l3 7 8 .5-6 5 2 8-7-4.5-7 4.5 2-8-6-5 8-.5z"/></svg></div>
-<h4>Artisans &amp; Makers</h4>
+<h3>Artisans &amp; Makers</h3>
 <p>Makeup artists, body painters, tarot readers and other table-side specialists.</p>
 </div>
 </div>
@@ -1050,7 +1050,7 @@ border-right:none;border-bottom:1px solid var(--line-soft);
 <input type="hidden" name="_subject" value="New enquiry — House of Kaos website">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://houseofkaos.co.uk/?sent=true#contact">
-<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
 <div class="form-row">
 <label for="enquiry-type">Enquiry Type</label>
