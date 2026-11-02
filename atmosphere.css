@@ -65,7 +65,7 @@ header.hero::after{background:radial-gradient(45% 35% at 75% 70%,rgba(201,163,92
 
 /* video replaces the old hero photo; photo returns for reduced-motion */
 .hero-bg{background:radial-gradient(60% 45% at 50% 42%,rgba(201,169,106,.07),transparent 70%),linear-gradient(rgba(10,8,7,.5),rgba(10,8,7,.72))}
-@media (prefers-reduced-motion:reduce){.hero-bg{background:radial-gradient(60% 45% at 50% 42%,rgba(201,169,106,.07),transparent 70%),linear-gradient(rgba(10,8,7,.5),rgba(10,8,7,.72)),url("images/hero/hero-candles.jpg") center 35% / cover no-repeat}}
+@media (prefers-reduced-motion:reduce){.hero-bg{background:radial-gradient(60% 45% at 50% 42%,rgba(201,169,106,.07),transparent 70%),linear-gradient(rgba(10,8,7,.5),rgba(10,8,7,.72)),url("images/hero/hero-candles.webp") center 35% / cover no-repeat}}
 
 
 /* ===== Step 3: Upcoming Events ===== */
@@ -158,8 +158,8 @@ nav.scrolled::before{opacity:1}
 .ptype-art{height:112px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;color:var(--gold);background:radial-gradient(circle at 50% 130%,rgba(142,47,60,.5),transparent 70%),linear-gradient(180deg,#2c2238,#1c1622);overflow:hidden}
 .ptype-art svg{width:54px;height:54px;transition:transform .8s cubic-bezier(.22,.8,.3,1)}
 .ptype:hover .ptype-art svg{transform:scale(1.2)}
-.ptype h4,.ptype p{padding-left:1rem;padding-right:1rem;transition:transform .4s cubic-bezier(.22,.8,.3,1)}
-.ptype:hover h4,.ptype:hover p{transform:translateY(-5px)}
+.ptype h3,.ptype p{padding-left:1rem;padding-right:1rem;transition:transform .4s cubic-bezier(.22,.8,.3,1)}
+.ptype:hover h3,.ptype:hover p{transform:translateY(-5px)}
 .ptype::before,.ptype::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .5s cubic-bezier(.22,.8,.3,1)}
 .ptype::before{top:0;transform-origin:left center}
 .ptype::after{bottom:0;transform-origin:right center}
@@ -194,7 +194,7 @@ footer{position:relative;border-top:1px solid rgba(201,163,92,.2)}
 .foot-mail{margin:.6rem 0;font-size:.95rem}
 .candle-glow{position:fixed;left:0;right:0;bottom:0;height:150px;pointer-events:none;z-index:1;background:radial-gradient(60% 100% at 50% 100%,rgba(255,170,80,.18),rgba(255,140,60,.05) 55%,transparent 75%);animation:candle 5s ease-in-out infinite alternate}
 @keyframes candle{0%{opacity:.55}50%{opacity:.9}100%{opacity:.65}}
-@media (prefers-reduced-motion:reduce){nav::before,.ptype-art svg,.ptype h4,.ptype p,.ptype::before,.ptype::after,.faq-item summary::after,.faq-item::details-content{transition:none}.candle-glow{animation:none;opacity:.6}}
+@media (prefers-reduced-motion:reduce){nav::before,.ptype-art svg,.ptype h3,.ptype p,.ptype::before,.ptype::after,.faq-item summary::after,.faq-item::details-content{transition:none}.candle-glow{animation:none;opacity:.6}}
 
 /* Siren's Abyss ambient video behind the ball card */
 #events .ev-ball{position:relative;overflow:hidden;isolation:isolate}
