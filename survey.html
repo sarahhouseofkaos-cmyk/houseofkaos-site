@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Shape Kaos Kollective | House of Kaos</title>
+<meta name="description" content="A short, anonymous survey to help House of Kaos set up Kaos Kollective — free and low-cost gatherings, upcycling sessions and creative opportunities for the North East's gothic and alternative community.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://houseofkaos.co.uk/survey.html">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="House of Kaos">
+<meta property="og:title" content="Help Shape Kaos Kollective | House of Kaos">
+<meta property="og:description" content="Two minutes, completely anonymous. Help us show why spaces like Wakes for the Living matter.">
+<meta property="og:url" content="https://houseofkaos.co.uk/survey.html">
+<meta property="og:image" content="https://houseofkaos.co.uk/og-image.png">
+<meta property="og:locale" content="en_GB">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#14101a;
+  --coal:#1c1622;
+  --panel:#211a2a;
+  --line:rgba(201,163,92,.28);
+  --line-soft:rgba(201,163,92,.14);
+  --gold:#c9a35c;
+  --gold-bright:#e3c98f;
+  --cream:#efe9e4;
+  --cream-dim:#a99fae;
+  --serif-display:'Playfair Display',Georgia,serif;
+  --serif-body:'Cormorant Garamond',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--serif-body);
+  font-size:1.15rem;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(201,163,92,.3);color:#fff}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-bright)}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(rgba(20,16,26,.92),rgba(20,16,26,.85));
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;
+}
+.brand{
+  font-family:var(--serif-display);
+  color:var(--cream);
+  font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+}
+.back-link{
+  font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-dim);
+}
+.back-link:hover{color:var(--gold-bright)}
+
+.event-hero{
+  border-bottom:1px solid var(--line-soft);
+  padding:5rem 1.5rem 3rem;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139,20,20,.10), transparent 55%),
+    var(--black);
+}
+.page-kicker{
+  color:var(--gold);
+  font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;
+  margin-bottom:1rem;text-indent:.4em;
+}
+.event-hero h1{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--cream);
+  font-size:clamp(2.2rem,6vw,3.4rem);
+  letter-spacing:.05em;
+  margin-bottom:.7rem;
+}
+.event-hero .sub{color:var(--cream-dim);font-style:italic;font-size:1.15rem;max-width:520px;margin:0 auto}
+
+main{max-width:760px;margin:0 auto;padding:4rem 1.5rem 5rem}
+
+.meta-strip{
+  display:flex;flex-wrap:wrap;gap:.9rem 2rem;
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+  padding:1.4rem 0;margin-bottom:3rem;
+}
+.meta-strip div{font-size:.92rem;color:var(--cream-dim)}
+.meta-strip b{display:block;color:var(--gold);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.3rem;font-weight:600}
+
+h2{
+  font-family:var(--serif-display);
+  font-weight:500;
+  color:var(--gold-bright);
+  font-size:1.5rem;letter-spacing:.04em;
+  margin:2.6rem 0 1rem;
+}
+p{color:var(--cream-dim);margin-bottom:1.2rem}
+p strong{color:var(--cream);font-weight:600}
+
+.plans{list-style:none;margin:0 0 1.6rem}
+.plans li{
+  color:var(--cream-dim);
+  padding:.9rem 0 .9rem 1.6rem;
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+}
+.plans li:first-child{border-top:1px solid var(--line-soft)}
+.plans li::before{content:"\2726";position:absolute;left:0;top:.9rem;color:var(--gold);font-size:.85rem}
+.plans li strong{color:var(--cream);font-weight:600}
+
+.survey-frame{
+  margin:2rem 0 1rem;
+  border:1px solid var(--line-soft);
+  background:var(--cream);
+}
+.survey-frame iframe{display:block;width:100%;height:1400px;border:0}
+.survey-fallback{font-size:1rem;font-style:italic}
+
+.privacy-note{
+  margin-top:3rem;
+  border:1px solid var(--line-soft);
+  background:var(--panel);
+  padding:1.6rem 2rem;
+}
+.privacy-note .kicker{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.8rem}
+.privacy-note p{font-size:1rem;margin-bottom:.6rem}
+.privacy-note p:last-child{margin-bottom:0}
+
+.cta-row{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-block;
+  border:1px solid var(--gold);
+  color:var(--gold-bright);
+  padding:.7rem 1.6rem;
+  font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;
+}
+.btn:hover{background:rgba(201,163,92,.1);color:var(--gold-bright)}
+.btn-solid{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.btn-solid:hover{background:var(--gold-bright);color:var(--black)}
+
+footer{
+  border-top:1px solid var(--line-soft);
+  padding:3rem 1.5rem;text-align:center;
+}
+footer p{color:var(--cream-dim);font-size:.95rem;margin:0}
+.skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--gold);color:var(--black);padding:.7rem 1.1rem;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;transition:top .2s}
+.skip-link:focus{top:1rem;color:var(--black)}
+.keeper-voice{margin:0 0 2.6rem;padding:1.3rem 1.6rem;border:1px solid var(--line-soft);background:var(--panel);font-style:italic;color:var(--cream);font-size:1.2rem}
+.keeper-voice cite{display:block;margin-top:.5rem;font-style:normal;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.keeper-voice cite a{color:var(--gold)}
+@media (max-width:640px){.survey-frame iframe{height:1700px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">House of Kaos</div>
+    <a class="back-link" href="index.html">&larr; The House</a>
+  </div>
+</nav>
+
+<div class="event-hero">
+  <div class="page-kicker">Kaos Kollective</div>
+  <h1>Help Shape What Comes Next</h1>
+  <p class="sub">Two minutes, completely anonymous &mdash; and every answer helps us build more space for our community.</p>
+</div>
+
+<main id="main">
+  <p class="keeper-voice">&ldquo;The House has always been built by the people who walk through its doors. Now I&rsquo;m asking you to help me open a few more.&rdquo;<cite>&mdash; <a href="keeper.html">Vespera, Keeper of the House</a></cite></p>
+
+  <div class="meta-strip">
+    <div><b>Time</b>About 2 Minutes</div>
+    <div><b>Names</b>None Collected</div>
+    <div><b>Who</b>Anyone in Our Community</div>
+    <div><b>Why</b>Funding Application</div>
+  </div>
+
+  <h2>What We&rsquo;re Planning</h2>
+  <p>We&rsquo;re setting up <strong>Kaos Kollective</strong>, a not-for-profit side of House of Kaos, and applying to <strong>UnLtd</strong>, a charity that supports social entrepreneurs, to help us get it started. Our balls and dinners will carry on as always. Kaos Kollective is for the community that&rsquo;s built in between.</p>
+  <p>If we&rsquo;re successful, the funding would help us:</p>
+  <ul class="plans">
+    <li><strong>Run <a href="wakes-for-the-living.html">Wakes for the Living</a></strong> &mdash; free or pay-what-you-can monthly gatherings for adults 18 and over, with a welcoming face at the door so nobody has to walk in alone.</li>
+    <li><strong>Host volunteer prop-making and upcycling sessions</strong> &mdash; giving rescued furniture, cardboard and old Halloween props a second life, and learning new skills along the way.</li>
+    <li><strong>Create opportunities for local makers</strong> &mdash; for students, artists and creatives across the North East.</li>
+  </ul>
+
+  <h2>Why We&rsquo;re Asking You</h2>
+  <p>To apply, we need to show why spaces like these matter to people in our community. Your honest answers &mdash; about feeling connected, what stops you going out, and what you&rsquo;d like to see &mdash; are the strongest evidence we can give. Every question is optional, so skip anything you&rsquo;d rather not answer.</p>
+
+  <h2>The Survey</h2>
+  <div class="survey-frame">
+    <!-- Paste the form's embed address into src below.
+         Google Forms: Send > <> (embed) > copy the src="..." address.
+         Microsoft Forms: Collect responses > Embed > copy the src="..." address. -->
+    <iframe src="SURVEY_EMBED_URL" title="Kaos Kollective community survey" loading="lazy">Loading&hellip;</iframe>
+  </div>
+  <p class="survey-fallback">Survey not loading? <a href="SURVEY_LINK" target="_blank" rel="noopener">Open it in a new tab &rarr;</a></p>
+
+  <div class="privacy-note">
+    <div class="kicker">Your Privacy</div>
+    <p>The survey doesn&rsquo;t ask for your name or email address, and we can&rsquo;t see who answered what. We&rsquo;ll only use the results, grouped together, to support our funding application and plan Kaos Kollective&rsquo;s activities.</p>
+    <p>If you choose to share a quote about what the House means to you, we&rsquo;ll only use it if you say we can, and never with your name. See our <a href="privacy.html">privacy policy</a> for more.</p>
+  </div>
+
+  <div class="cta-row">
+    <a class="btn btn-solid" href="wakes-for-the-living.html">About Wakes for the Living</a>
+    <a class="btn" href="index.html#events">See Upcoming Events</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 House of Kaos Ltd &middot; Newcastle upon Tyne &middot; <a href="index.html">Back to House of Kaos</a></p>
+</footer>
+
+</body>
+</html>
